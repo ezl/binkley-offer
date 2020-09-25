@@ -1,0 +1,121 @@
+<template>
+  <div>
+    <H1>Search for a Redfin Property</H1>
+    <b-progress-bar :value="1" :max="5"  :label="'Progress: 1/5'" show-progress animated></b-progress-bar>
+    <b-container>
+      <b-row align-v="baseline">
+        <b-col sm="6">
+          <label>
+            <b-input v-model="queryUrl" placeholder="Get URL by address"></b-input>
+          </label>
+        </b-col>
+        <b-col sm="6">
+          <b-list-group v-for="(property, index) in propertiesList" :key="property.id">
+            <b-list-group-item v-bind:class="{ 'active' : isSelected(index)}" @click="saveUrl(index)">
+              {{ property.name }} {{ property.subName }} {{ index }}
+            </b-list-group-item>
+          </b-list-group>
+        </b-col>
+      </b-row>
+
+      <b-row align-v="baseline">
+        <b-col sm="6">
+          <label>
+            <b-input v-model="pdfBody.url" placeholder="URL Redfin"></b-input>
+          </label>
+        </b-col>
+        <b-col sm="6">
+          <b-button v-if="pdfBody.url" @click="nextPage"> Next Page </b-button>
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
+</template>
+
+<script>
+import * as axios from 'axios'
+import PdfBody from '../models/PdfBody.js'
+import TextInput from './TextInput'
+import CheckboxInput from './CheckboxInput'
+
+export default {
+  name: 'HelloWorld',
+  components: {CheckboxInput, TextInput},
+  metaInfo: {
+    meta: [
+      {charset: 'utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'}
+    ]
+  },
+  data () {
+    return {
+      selected: null,
+      pdfBody: new PdfBody(),
+      redfinUrl: '',
+      pdfName: '',
+      queryUrl: null,
+      fruits: ['apple', 'banana', 'orange'],
+      propertiesList: []
+    }
+  },
+  mounted () {
+    this.searchRedfinUrl()
+    localStorage.pdfBody = new PdfBody()
+  },
+  watch: {
+    queryUrl: function () {
+      this.searchRedfinUrl()
+    }
+  },
+  methods: {
+    isSelected (i) {
+      return i === this.selected
+    },
+    searchRedfinUrl () {
+      this.propertiesList = []
+      if (this.queryUrl) {
+        axios({
+          url: 'http://localhost:5000/api/search',
+          method: 'POST',
+          data: {url: 'https://www.redfin.com/stingray/do/location-autocomplete?location=' + this.queryUrl + '&count=10&v=2'},
+          headers: {'Access-Control-Allow-Origin': '*'}
+        }).then(response => {
+          if (response.data) {
+            response.data.properties.forEach(property => this.propertiesList.push(property))
+            console.log(this.propertiesList)
+          }
+        })
+      }
+    },
+    saveUrl (index) {
+      this.pdfBody.url = 'https://www.redfin.com' + this.propertiesList[index].url
+      this.selected = index
+    },
+    nextPage () {
+      localStorage.pdfBody = JSON.stringify(this.pdfBody)
+      this.$router.push({name: 'FixturesAndPersonalProperty'})
+    }
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h1, h2 {
+  font-weight: normal;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+a {
+  color: #42b983;
+}
+</style>
