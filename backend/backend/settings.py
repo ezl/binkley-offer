@@ -79,9 +79,9 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('BLINKLEY_DB_NAME'),
-        'USER': os.getenv('BLINKLEY_DB_USERNAME'),
-        'PASSWORD': os.getenv('BLINKLEY_DB_PASSWORD'),
+        'NAME': os.getenv('BINKLEY_DB_NAME'),
+        'USER': os.getenv('BINKLEY_DB_USERNAME'),
+        'PASSWORD': os.getenv('BINKLEY_DB_PASSWORD'),
         'HOST': 'localhost',
         'PORT': '5432'
     }
