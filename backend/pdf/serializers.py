@@ -5,6 +5,9 @@ from rest_framework import serializers
 from .models import Pdf
 from .services import pdf_service
 
+class SearchSerializer(serializers.Serializer):
+    url = serializers.CharField()
+
 class GetPdfSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pdf

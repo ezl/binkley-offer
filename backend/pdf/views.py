@@ -4,15 +4,21 @@ from types import SimpleNamespace
 
 from django.http import FileResponse
 
+from rest_framework.views import APIView
 from rest_framework.viewsets import ViewSet
 from rest_framework.exceptions import ParseError, NotFound
 from rest_framework.response import Response
 
-from .serializers import CreatePdfSerializer, GetPdfSerializer
+from .serializers import CreatePdfSerializer, GetPdfSerializer, SearchSerializer
 from .models import Pdf
+
+from .services.search_service import search_redfin_autocomplete_api
 
 class PdfViewSet(ViewSet):
     serializer_class = CreatePdfSerializer
+
+    def send_file(self, pdf_src):
+        return FileResponse(open(pdf_src, 'rb'))
 
     def create(self, request):
         serializer = CreatePdfSerializer(data=request.data)
@@ -26,8 +32,7 @@ class PdfViewSet(ViewSet):
         if not os.path.exists(pdf_src):
             raise NotFound(detaul="PDF not found")
 
-        return FileResponse(open(pdf_src, 'rb'))
-
+        return self.send_file(pdf_src)
 
     def list(self, request):
         url = request.GET.get('url')
@@ -53,3 +58,20 @@ class PdfViewSet(ViewSet):
         serializer = GetPdfSerializer(pdf)
 
         return Response(serializer.data)
+
+class SearchView(APIView):
+    serializer_class = SearchSerializer
+
+    def post(self, request):
+        serializer = SearchSerializer(data=request.data)
+        
+        if not serializer.is_valid():
+            raise ParseError(detail=serializer.errors)
+
+        url = serializer.validated_data['url']
+
+        search = search_redfin_autocomplete_api(url)
+        
+        if search:
+            return Response(search)
+        return Response({"properties": []})
