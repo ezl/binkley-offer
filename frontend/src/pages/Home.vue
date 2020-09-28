@@ -1,16 +1,15 @@
 <template>
   <div>
     <H1>Search for a Redfin Property</H1>
-    <b-progress-bar :value="1" :max="5"  :label="'Progress: 1/5'" show-progress animated></b-progress-bar>
+    <b-progress-bar :value="1" :max="5" :label="'Progress: 1/5'" show-progress animated></b-progress-bar>
     <b-container>
       <b-row align-v="baseline">
         <b-col sm="6">
-          <label>
-            <b-input v-model="queryUrl" placeholder="Get URL by address"></b-input>
-          </label>
+          <TextInput v-model="queryUrl" text-label="Get URL by address"></TextInput>
         </b-col>
         <b-col sm="6">
-          <b-list-group v-for="(property, index) in propertiesList" :key="property.id">
+          <b-list-group class="py-sm-1 cursor-selectable" v-for="(property, index) in propertiesList"
+                        :key="property.id">
             <b-list-group-item v-bind:class="{ 'active' : isSelected(index)}" @click="saveUrl(index)">
               {{ property.name }} {{ property.subName }} {{ index }}
             </b-list-group-item>
@@ -20,12 +19,10 @@
 
       <b-row align-v="baseline">
         <b-col sm="6">
-          <label>
-            <b-input v-model="pdfBody.url" placeholder="URL Redfin"></b-input>
-          </label>
+          <TextInput v-model="pdfBody.url" text-label="Url Redfin"></TextInput>
         </b-col>
         <b-col sm="6">
-          <b-button v-if="pdfBody.url" @click="nextPage"> Next Page </b-button>
+          <b-button v-if="pdfBody.url" @click="nextPage"> Next Page</b-button>
         </b-col>
       </b-row>
     </b-container>
@@ -35,11 +32,11 @@
 <script>
 import * as axios from 'axios'
 import PdfBody from '../models/PdfBody.js'
-import TextInput from './TextInput'
-import CheckboxInput from './CheckboxInput'
+import TextInput from '../components/TextInput'
+import CheckboxInput from '../components/CheckboxInput'
 
 export default {
-  name: 'HelloWorld',
+  name: 'Home',
   components: {CheckboxInput, TextInput},
   metaInfo: {
     meta: [
@@ -101,6 +98,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.cursor-selectable {
+  cursor: pointer;
+}
+
 h1, h2 {
   font-weight: normal;
 }

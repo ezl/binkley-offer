@@ -1,19 +1,18 @@
 <template>
-  <label>
-    <b-form-group>
+    <b-form-group
+      label-cols-sm="3"
+      :label="textLabelAsData"
+      label-align-sm="right"
+    >
       <b-form-input
-        type="text"
         v-model="valueAsData"
-        @input="handleInput"
-        :placeholder="textLabelAsData"
-      />
+        @input="handleInput"></b-form-input>
     </b-form-group>
-  </label>
 </template>
 
 <script>
 export default {
-  name: 'TextInput',
+  name: 'FormGroupInput',
   props: {
     value: String,
     textLabel: String

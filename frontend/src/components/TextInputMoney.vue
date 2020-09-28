@@ -1,19 +1,17 @@
 <template>
   <label>
-    <b-form-group>
+    <b-input-group prepend="$" size="md">
       <b-form-input
-        type="text"
         v-model="valueAsData"
         @input="handleInput"
-        :placeholder="textLabelAsData"
-      />
-    </b-form-group>
+        :placeholder="textLabelAsData"></b-form-input>
+    </b-input-group>
   </label>
 </template>
 
 <script>
 export default {
-  name: 'TextInput',
+  name: 'TextInputMoney',
   props: {
     value: String,
     textLabel: String

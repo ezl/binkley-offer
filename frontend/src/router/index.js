@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '../components/Home'
-import FixturesAndPersonalProperty from '../components/FixturesAndPersonalProperty'
-import OfferDetails from '../components/OfferDetails'
-import LegalMumboJumbo from '../components/LegalMumboJumbo'
-import ContactInfo from '../components/ContactInfo'
+import Home from '../pages/Home'
+import FixturesAndPersonalProperty from '../pages/FixturesAndPersonalProperty'
+import OfferDetails from '../pages/OfferDetails'
+import LegalMumboJumbo from '../pages/LegalMumboJumbo'
+import ContactInfo from '../pages/ContactInfo'
 
 Vue.use(Router)
 

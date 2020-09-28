@@ -1,0 +1,140 @@
+<template>
+  <div>
+    <H1>Legal Mumbo Jumbo</H1>
+    <b-progress-bar :value="4" :max="5" :label="'Progress: 4/5'" show-progress animated></b-progress-bar>
+    <b-row align-v="baseline">
+      <b-col md="2"/>
+      <b-col cols="12" sm="6" md="4" class="px-md-2 px-sm-2">
+        <RadioInputTwoOptions :item="disclosuresARadioItem"
+                              item-one-label="Disclosures A Yes "
+                              item-two-label="Disclosures A No "></RadioInputTwoOptions>
+      </b-col>
+      <b-col cols="12" sm="6" md="4" class="px-md-2 px-sm-2">
+        <RadioInputTwoOptions :item="disclosuresBRadioItem"
+                              item-one-label="Disclosures B Yes "
+                              item-two-label="Disclosures B No "></RadioInputTwoOptions>
+      </b-col>
+      <b-col md="2"/>
+    </b-row>
+
+    <b-row align-v="baseline">
+      <b-col md="2"/>
+      <b-col cols="12" sm="6" md="4" class="px-md-2 px-sm-2">
+        <RadioInputTwoOptions :item="disclosuresCRadioItem"
+                              item-one-label="Disclosures C Yes "
+                              item-two-label="Disclosures C No "></RadioInputTwoOptions>
+      </b-col>
+      <b-col cols="12" sm="6" md="4" class="px-md-2 px-sm-2">
+        <RadioInputTwoOptions :item="disclosuresDRadioItem"
+                              item-one-label="Disclosures D Yes "
+                              item-two-label="Disclosures D No "></RadioInputTwoOptions>
+      </b-col>
+      <b-col md="2"/>
+    </b-row>
+
+    <b-row align-v="baseline">
+      <b-col cols="12" sm="12" md="6" lg="3" class="px-md-5 px-sm-5">
+        <div>
+          <TextInput v-model="pdfBody.dual_agent_broker_name" text-label="Dual Agent Broker Name"></TextInput>
+        </div>
+      </b-col>
+      <b-col cols="12" sm="12" md="6" lg="3" class="px-md-5 px-sm-5">
+        <div>
+          <TextInput v-model="pdfBody.length_of_attorney_review" text-label="Length of Attorney Review"></TextInput>
+        </div>
+      </b-col>
+      <b-col cols="12" sm="12" md="6" lg="3" class="px-md-5 px-sm-5">
+        <div>
+          <TextInput v-model="pdfBody.length_of_inspection_period" text-label="Length of Inspection Period"></TextInput>
+        </div>
+      </b-col>
+      <b-col cols="12" sm="12" md="6" lg="3" class="px-md-5 px-sm-5">
+        <div>
+          <TextInputDate v-model="pdfBody.offer_date" text-label="Offer Date"></TextInputDate>
+        </div>
+      </b-col>
+    </b-row>
+    <div>
+      <b-button variant="primary" @click="nextPage"> Next Page</b-button>
+    </div>
+  </div>
+</template>
+
+<script>
+import PdfBody from '../models/PdfBody'
+import CheckboxInput from '../components/CheckboxInput'
+import TextInputDate from '../components/TextInputDate'
+import TextInput from '../components/TextInput'
+import RadioInputTwoOptions from '../components/RadioInputTwoOptions'
+
+export default {
+  name: 'LegalMumboJumbo',
+  components: {RadioInputTwoOptions, CheckboxInput, TextInput, TextInputDate},
+  data () {
+    return {
+      pdfBody: new PdfBody(),
+      disclosuresARadioItem: {
+        first: false,
+        second: false
+      },
+      disclosuresBRadioItem: {
+        first: false,
+        second: false
+      },
+      disclosuresCRadioItem: {
+        first: false,
+        second: false
+      },
+      disclosuresDRadioItem: {
+        first: false,
+        second: false
+      }
+    }
+  },
+  watch: {
+    disclosuresARadioItem: {
+      deep: true,
+      handler () {
+        this.pdfBody.disclosures_a_yes = Boolean(this.disclosuresARadioItem.first)
+        this.pdfBody.disclosures_a_no = Boolean(this.disclosuresARadioItem.second)
+      }
+    },
+    disclosuresBRadioItem: {
+      deep: true,
+      handler () {
+        this.pdfBody.disclosures_b_yes = Boolean(this.disclosuresBRadioItem.first)
+        this.pdfBody.disclosures_b_no = Boolean(this.disclosuresBRadioItem.second)
+      }
+    },
+    disclosuresCRadioItem: {
+      deep: true,
+      handler () {
+        this.pdfBody.disclosures_c_yes = Boolean(this.disclosuresCRadioItem.first)
+        this.pdfBody.disclosures_c_no = Boolean(this.disclosuresCRadioItem.second)
+      }
+    },
+    disclosuresDRadioItem: {
+      deep: true,
+      handler () {
+        this.pdfBody.disclosures_d_yes = Boolean(this.disclosuresDRadioItem.first)
+        this.pdfBody.disclosures_d_no = Boolean(this.disclosuresDRadioItem.second)
+      }
+    }
+  },
+  mounted () {
+    if (localStorage.pdfBody) {
+      this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
+    }
+  },
+  methods: {
+    nextPage () {
+      localStorage.pdfBody = JSON.stringify(this.pdfBody)
+      this.$router.push({name: 'ContactInfo'})
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

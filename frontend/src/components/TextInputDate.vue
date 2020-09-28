@@ -1,19 +1,19 @@
 <template>
   <label>
-    <b-form-group>
-      <b-form-input
-        type="text"
+    <b-input-group>
+      <b-form-datepicker
         v-model="valueAsData"
         @input="handleInput"
-        :placeholder="textLabelAsData"
-      />
-    </b-form-group>
+        locale="en-US"
+        :date-format-options="{ year: 'numeric', month: 'short', day: '2-digit', weekday: 'short' }"
+        :placeholder="textLabelAsData"></b-form-datepicker>
+    </b-input-group>
   </label>
 </template>
 
 <script>
 export default {
-  name: 'TextInput',
+  name: 'TextInputDate',
   props: {
     value: String,
     textLabel: String

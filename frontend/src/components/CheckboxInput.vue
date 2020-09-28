@@ -1,10 +1,13 @@
 <template>
   <label>
-    <b-form-checkbox
-      type="checkbox"
-      v-model="valueAsData"
-      @input="handleInput"
-    />
+    <b-form-group>
+      <template slot="label">{{textLabelAsData}}</template>
+      <b-form-checkbox
+        type="checkbox"
+        v-model="valueAsData"
+        @input="handleInput"
+      />
+    </b-form-group>
   </label>
 </template>
 
@@ -13,11 +16,13 @@
 export default {
   name: 'CheckboxInput',
   props: {
-    value: Boolean
+    value: Boolean,
+    textLabel: String
   },
   data () {
     return {
-      valueAsData: this.value
+      valueAsData: this.value,
+      textLabelAsData: this.textLabel
     }
   },
   methods: {
