@@ -17,9 +17,6 @@ from .services.search_service import search_redfin_autocomplete_api
 class PdfViewSet(ViewSet):
     serializer_class = CreatePdfSerializer
 
-    def send_file(self, pdf_src):
-        return FileResponse(open(pdf_src, 'rb'))
-
     def create(self, request):
         serializer = CreatePdfSerializer(data=request.data)
         
@@ -30,9 +27,9 @@ class PdfViewSet(ViewSet):
         pdf_src = pdf.pdf_src
 
         if not os.path.exists(pdf_src):
-            raise NotFound(detaul="PDF not found")
+            raise NotFound(detail='PDF not found')
 
-        return self.send_file(pdf_src)
+        return FileResponse(open(pdf_src, 'rb'))
 
     def list(self, request):
         url = request.GET.get('url')
@@ -45,9 +42,8 @@ class PdfViewSet(ViewSet):
 
         return Response(serializer.data)
 
-    def destroy(self, request):
-        url = request.GET.get('url')
-        pdf = Pdf.objects.filter(redfin_src=url, deleted=False).first()
+    def destroy(self, request, pk=None):
+        pdf = Pdf.objects.filter(pk=pk, deleted=False).first()
 
         if not pdf:
             raise NotFound(detail='PDF not found')
@@ -74,4 +70,4 @@ class SearchView(APIView):
         
         if search:
             return Response(search)
-        return Response({"properties": []})
+        return Response({'properties': []})
