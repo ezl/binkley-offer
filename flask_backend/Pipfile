@@ -1,18 +1,18 @@
 [[source]]
-name = "pypi"
+name = "redfin_scrapper_api"
 url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
 
 [packages]
+flask = "*"
+flask-mongoengine = "*"
+flask-restful = "*"
 requests = "*"
 beautifulsoup4 = "*"
 regex = "*"
 pdfrw = "*"
-django = "*"
-django-rest-framework = "*"
-psycopg2 = "*"
 
 [requires]
 python_version = "3.6"
