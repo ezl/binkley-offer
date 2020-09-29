@@ -2,13 +2,13 @@
   <b-form-group>
     <b-row>
       <b-col>
-        {{itemOneLabelAsData}}
         <b-form-radio v-model="itemAsData.first" value=true @change="handleInputOne">
+          {{ itemOneLabelAsData }}
         </b-form-radio>
       </b-col>
       <b-col>
-        {{itemTwoLabelAsData}}
         <b-form-radio v-model="itemAsData.second" value=true @change="handleInputTwo">
+          {{ itemTwoLabelAsData }}
         </b-form-radio>
       </b-col>
     </b-row>

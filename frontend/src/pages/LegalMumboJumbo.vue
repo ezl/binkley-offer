@@ -2,58 +2,61 @@
   <div>
     <H1>Legal Mumbo Jumbo</H1>
     <b-progress-bar :value="4" :max="5" :label="'Progress: 4/5'" show-progress animated></b-progress-bar>
-    <b-row align-v="baseline">
-      <b-col md="2"/>
-      <b-col cols="12" sm="6" md="4" class="px-md-2 px-sm-2">
-        <RadioInputTwoOptions :item="disclosuresARadioItem"
-                              item-one-label="Disclosures A Yes "
-                              item-two-label="Disclosures A No "></RadioInputTwoOptions>
-      </b-col>
-      <b-col cols="12" sm="6" md="4" class="px-md-2 px-sm-2">
-        <RadioInputTwoOptions :item="disclosuresBRadioItem"
-                              item-one-label="Disclosures B Yes "
-                              item-two-label="Disclosures B No "></RadioInputTwoOptions>
-      </b-col>
-      <b-col md="2"/>
-    </b-row>
+    <b-container :fluid="true">
+      <b-row align-v="baseline">
+        <b-col md="2"/>
+        <b-col cols="12" sm="6" md="4">
+          <RadioInputTwoOptions :item="disclosuresARadioItem"
+                                item-one-label="Disclosures A Yes "
+                                item-two-label="Disclosures A No "></RadioInputTwoOptions>
+        </b-col>
+        <b-col cols="12" sm="6" md="4">
+          <RadioInputTwoOptions :item="disclosuresBRadioItem"
+                                item-one-label="Disclosures B Yes "
+                                item-two-label="Disclosures B No "></RadioInputTwoOptions>
+        </b-col>
+        <b-col md="2"/>
+      </b-row>
 
-    <b-row align-v="baseline">
-      <b-col md="2"/>
-      <b-col cols="12" sm="6" md="4" class="px-md-2 px-sm-2">
-        <RadioInputTwoOptions :item="disclosuresCRadioItem"
-                              item-one-label="Disclosures C Yes "
-                              item-two-label="Disclosures C No "></RadioInputTwoOptions>
-      </b-col>
-      <b-col cols="12" sm="6" md="4" class="px-md-2 px-sm-2">
-        <RadioInputTwoOptions :item="disclosuresDRadioItem"
-                              item-one-label="Disclosures D Yes "
-                              item-two-label="Disclosures D No "></RadioInputTwoOptions>
-      </b-col>
-      <b-col md="2"/>
-    </b-row>
+      <b-row align-v="baseline">
+        <b-col md="2"/>
+        <b-col cols="12" sm="6" md="4">
+          <RadioInputTwoOptions :item="disclosuresCRadioItem"
+                                item-one-label="Disclosures C Yes "
+                                item-two-label="Disclosures C No "></RadioInputTwoOptions>
+        </b-col>
+        <b-col cols="12" sm="6" md="4">
+          <RadioInputTwoOptions :item="disclosuresDRadioItem"
+                                item-one-label="Disclosures D Yes "
+                                item-two-label="Disclosures D No "></RadioInputTwoOptions>
+        </b-col>
+        <b-col md="2"/>
+      </b-row>
 
-    <b-row align-v="baseline">
-      <b-col cols="12" sm="12" md="6" lg="3" class="px-md-5 px-sm-5">
-        <div>
-          <TextInput v-model="pdfBody.dual_agent_broker_name" text-label="Dual Agent Broker Name"></TextInput>
-        </div>
-      </b-col>
-      <b-col cols="12" sm="12" md="6" lg="3" class="px-md-5 px-sm-5">
-        <div>
-          <TextInput v-model="pdfBody.length_of_attorney_review" text-label="Length of Attorney Review"></TextInput>
-        </div>
-      </b-col>
-      <b-col cols="12" sm="12" md="6" lg="3" class="px-md-5 px-sm-5">
-        <div>
-          <TextInput v-model="pdfBody.length_of_inspection_period" text-label="Length of Inspection Period"></TextInput>
-        </div>
-      </b-col>
-      <b-col cols="12" sm="12" md="6" lg="3" class="px-md-5 px-sm-5">
-        <div>
-          <TextInputDate v-model="pdfBody.offer_date" text-label="Offer Date"></TextInputDate>
-        </div>
-      </b-col>
-    </b-row>
+      <b-row align-v="baseline">
+        <b-col cols="12" sm="12" md="6" lg="3">
+          <div>
+            <TextInput v-model="pdfBody.dual_agent_broker_name" text-label="Dual Agent Broker Name"></TextInput>
+          </div>
+        </b-col>
+        <b-col cols="12" sm="12" md="6" lg="3">
+          <div>
+            <TextInput v-model="pdfBody.length_of_attorney_review" text-label="Length of Attorney Review"></TextInput>
+          </div>
+        </b-col>
+        <b-col cols="12" sm="12" md="6" lg="3">
+          <div>
+            <TextInput v-model="pdfBody.length_of_inspection_period"
+                       text-label="Length of Inspection Period"></TextInput>
+          </div>
+        </b-col>
+        <b-col cols="12" sm="12" md="6" lg="3">
+          <div>
+            <TextInputDate v-model="pdfBody.offer_date" text-label="Offer Date"></TextInputDate>
+          </div>
+        </b-col>
+      </b-row>
+    </b-container>
     <div>
       <b-button variant="primary" @click="nextPage"> Next Page</b-button>
     </div>

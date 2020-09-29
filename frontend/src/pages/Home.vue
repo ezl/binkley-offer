@@ -2,7 +2,7 @@
   <div>
     <H1>Search for a Redfin Property</H1>
     <b-progress-bar :value="1" :max="5" :label="'Progress: 1/5'" show-progress animated></b-progress-bar>
-    <b-container>
+    <b-container :fluid="true">
       <b-row align-v="baseline">
         <b-col sm="6">
           <TextInput v-model="queryUrl" text-label="Get URL by address"></TextInput>
@@ -72,7 +72,7 @@ export default {
       this.propertiesList = []
       if (this.queryUrl) {
         axios({
-          url: 'http://localhost:5000/api/search',
+          url: 'http://localhost:8000/api/search/',
           method: 'POST',
           data: {url: 'https://www.redfin.com/stingray/do/location-autocomplete?location=' + this.queryUrl + '&count=10&v=2'},
           headers: {'Access-Control-Allow-Origin': '*'}

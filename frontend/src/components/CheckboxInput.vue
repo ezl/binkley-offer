@@ -1,12 +1,13 @@
 <template>
   <label>
     <b-form-group>
-      <template slot="label">{{textLabelAsData}}</template>
       <b-form-checkbox
         type="checkbox"
         v-model="valueAsData"
         @input="handleInput"
-      />
+      >
+      {{textLabelAsData}}
+      </b-form-checkbox>
     </b-form-group>
   </label>
 </template>
