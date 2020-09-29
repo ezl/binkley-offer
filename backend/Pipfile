@@ -13,6 +13,7 @@ pdfrw = "*"
 django = "*"
 django-rest-framework = "*"
 psycopg2 = "*"
+django-cors-headers = "*"
 
 [requires]
 python_version = "3.6"

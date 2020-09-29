@@ -5,8 +5,10 @@ from rest_framework import serializers
 from .models import Pdf
 from .services import pdf_service
 
+
 class SearchSerializer(serializers.Serializer):
     url = serializers.CharField()
+
 
 class GetPdfSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,6 +19,7 @@ class GetPdfSerializer(serializers.ModelSerializer):
             'pdf_src',
             'deleted'
         ]
+
 
 class CreatePdfSerializer(serializers.Serializer):
     url = serializers.URLField()
@@ -153,7 +156,7 @@ class CreatePdfSerializer(serializers.Serializer):
 
         if pdf_from_database:
             return pdf_from_database
- 
+
         pdf_src = pdf_service.convert_to_pdf(validated_data)
 
         return Pdf.objects.create(redfin_src=validated_data.url, pdf_src=pdf_src)

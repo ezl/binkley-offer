@@ -1,3 +1,3 @@
-set -Ux BINKLEY_DB_NAME "binkley"
-set -Ux BINKLEY_DB_USERNAME "onrcube"
-set -Ux BINKLEY_DB_PASSWORD "onrcube"
+set -Ux BINKLEY_DB_NAME "dexter"
+set -Ux BINKLEY_DB_USERNAME "dexter"
+set -Ux BINKLEY_DB_PASSWORD "dexter"

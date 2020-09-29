@@ -14,12 +14,13 @@ from .models import Pdf
 
 from .services.search_service import search_redfin_autocomplete_api
 
+
 class PdfViewSet(ViewSet):
     serializer_class = CreatePdfSerializer
 
     def create(self, request):
         serializer = CreatePdfSerializer(data=request.data)
-        
+
         if not serializer.is_valid():
             raise ParseError(detail=serializer.errors)
 
@@ -55,19 +56,20 @@ class PdfViewSet(ViewSet):
 
         return Response(serializer.data)
 
+
 class SearchView(APIView):
     serializer_class = SearchSerializer
 
     def post(self, request):
         serializer = SearchSerializer(data=request.data)
-        
+
         if not serializer.is_valid():
             raise ParseError(detail=serializer.errors)
 
         url = serializer.validated_data['url']
 
         search = search_redfin_autocomplete_api(url)
-        
+
         if search:
             return Response(search)
         return Response({'properties': []})
