@@ -1,7 +1,7 @@
 <template>
   <div>
     <H1>Search for a Redfin Property</H1>
-    <b-progress-bar :value="1" :max="5" :label="'Progress: 1/5'" show-progress animated></b-progress-bar>
+    <b-progress-bar :value="1" :max="6" :label="'Progress: 1/6'" show-progress animated></b-progress-bar>
     <b-container :fluid="true">
       <b-row align-v="baseline">
         <b-col sm="6">
@@ -74,12 +74,10 @@ export default {
         axios({
           url: 'http://localhost:8000/api/search/',
           method: 'POST',
-          data: {url: 'https://www.redfin.com/stingray/do/location-autocomplete?location=' + this.queryUrl + '&count=10&v=2'},
-          headers: {'Access-Control-Allow-Origin': '*'}
+          data: {url: 'https://www.redfin.com/stingray/do/location-autocomplete?location=' + this.queryUrl + '&count=10&v=2'}
         }).then(response => {
           if (response.data) {
             response.data.properties.forEach(property => this.propertiesList.push(property))
-            console.log(this.propertiesList)
           }
         })
       }
@@ -90,7 +88,7 @@ export default {
     },
     nextPage () {
       localStorage.pdfBody = JSON.stringify(this.pdfBody)
-      this.$router.push({name: 'FixturesAndPersonalProperty'})
+      this.$router.push({name: 'ConfirmPropertyDetails'})
     }
   }
 }

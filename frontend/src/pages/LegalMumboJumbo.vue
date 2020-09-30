@@ -1,7 +1,7 @@
 <template>
   <div>
     <H1>Legal Mumbo Jumbo</H1>
-    <b-progress-bar :value="4" :max="5" :label="'Progress: 4/5'" show-progress animated></b-progress-bar>
+    <b-progress-bar :value="5" :max="6" :label="'Progress: 5/6'" show-progress animated></b-progress-bar>
     <b-container :fluid="true">
       <b-row align-v="baseline">
         <b-col md="2"/>

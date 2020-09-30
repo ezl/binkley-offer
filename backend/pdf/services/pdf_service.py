@@ -148,7 +148,6 @@ HEADERS = {
 
 url_to_scrape = None
 page = None
-details_dict = dict()
 data_dict = dict()
 
 
@@ -195,6 +194,7 @@ def parse_bs4():
                 if 'Parcel Identification Number' in span.get_text():
                     parcel_identification_number = span
 
+    details_dict = dict()
     details_dict.update(
         {'property_street_address': street_address_span.get_text().strip(),
          'property_locality': city_state_zip_span_locality.get_text().strip(),
@@ -207,24 +207,23 @@ def parse_bs4():
          'tax_year': tax_year.get_text().split(sep=':')[1].split(sep='20')[1].strip(),
          'tax_exemptions': tax_exemptions.get_text().strip() if tax_exemptions != None else None,
          'parcel_identification_number': parcel_identification_number.get_text().split(sep=':')[1].strip(),
-
          })
+    return details_dict
 
 
 def create_data_for_pdf(body_request):
     data_dict.update({
-        'property_details': details_dict.get('property_street_address') + ' ' + details_dict.get(
-            'property_locality') + ' ' + details_dict.get('property_region') + ' ' + details_dict.get(
-            'property_postal_code'),
-        'parcel_identification_number': details_dict.get('parcel_identification_number'),
-        'agent_details_name': details_dict.get('agent_details_name'),
-        'agent_details_company_page_1': details_dict.get('agent_details_company'),
-        'agent_details_company_page_3': details_dict.get('agent_details_company'),
-        'hoa_dues': details_dict.get('hoa_dues'),
-        'tax': details_dict.get('tax'),
-        'tax_year': details_dict.get('tax_year'),
-        'tax_exemptions_yes': True if details_dict.get('tax_exemptions') is not None else False,
-        'tax_exemptions_no': True if details_dict.get('tax_exemptions') is None else False,
+        'property_details': body_request.property_street_address + ' ' + body_request.property_locality
+                            + ' ' + body_request.property_region + ' ' + body_request.property_postal_code,
+        'parcel_identification_number': body_request.parcel_identification_number,
+        'agent_details_name': body_request.agent_details_name,
+        'agent_details_company_page_1': body_request.agent_details_company,
+        'agent_details_company_page_3': body_request.agent_details_company,
+        'hoa_dues': body_request.hoa_dues,
+        'tax': body_request.tax,
+        'tax_year': body_request.tax_year,
+        'tax_exemptions_yes': True if body_request.tax_exemptions is not None else False,
+        'tax_exemptions_no': True if body_request.tax_exemptions is None else False,
         'refrigerator_yes': body_request.refrigerator,
         'refrigerator_details': body_request.refrigerator_details,
         'oven_or_range_yes': body_request.oven_or_range,
@@ -395,8 +394,13 @@ def fill_pdf():
 
 
 def convert_to_pdf(body_request):
-    get_request(body_request.url)
-    parse_bs4()
+    global url_to_scrape
+    url_to_scrape = body_request.url
     create_data_for_pdf(body_request)
     fill_pdf()
     return 'files/Contract_' + url_to_scrape.split(sep='/')[-1] + '.pdf'
+
+
+def scraper_redfin(url):
+    get_request(url)
+    return parse_bs4()

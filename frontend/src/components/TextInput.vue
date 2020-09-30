@@ -1,6 +1,7 @@
 <template>
   <label>
     <b-form-group>
+      <span v-if="titleAsData"> {{ titleAsData }}</span>
       <b-form-input
         type="text"
         v-model="valueAsData"
@@ -16,11 +17,13 @@ export default {
   name: 'TextInput',
   props: {
     value: String,
-    textLabel: String
+    textLabel: String,
+    title: String
   },
   data () {
     return {
       valueAsData: this.value,
+      titleAsData: this.title,
       textLabelAsData: this.textLabel || 'Details'
     }
   },

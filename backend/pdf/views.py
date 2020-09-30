@@ -9,16 +9,18 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.exceptions import ParseError, NotFound
 from rest_framework.response import Response
 
-from .serializers import CreatePdfSerializer, GetPdfSerializer, SearchSerializer
+from .exceptions.custom_exceptions import RedfinScrapper
+from .serializers import CreatePdfSerializer, GetPdfSerializer, SearchSerializer, RedfinScrapperSerializer
 from .models import Pdf
 
 from .services.search_service import search_redfin_autocomplete_api
-
+from .services.pdf_service import scraper_redfin
 
 class PdfViewSet(ViewSet):
     serializer_class = CreatePdfSerializer
 
     def create(self, request):
+
         serializer = CreatePdfSerializer(data=request.data)
 
         if not serializer.is_valid():
@@ -73,3 +75,21 @@ class SearchView(APIView):
         if search:
             return Response(search)
         return Response({'properties': []})
+
+
+class RedfinView(APIView):
+    serializer_class = RedfinScrapperSerializer
+
+    def post(self, request):
+        serializer = RedfinScrapperSerializer(data=request.data)
+
+        if not serializer.is_valid():
+            raise ParseError(detail=serializer.errors)
+
+        try:
+            url = serializer.validated_data['url']
+            scrapper_redfin_details = scraper_redfin(url)
+            if scrapper_redfin_details:
+                return Response(scrapper_redfin_details)
+        except Exception:
+            raise RedfinScrapper()

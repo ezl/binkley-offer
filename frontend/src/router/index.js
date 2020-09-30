@@ -5,6 +5,7 @@ import FixturesAndPersonalProperty from '../pages/FixturesAndPersonalProperty'
 import OfferDetails from '../pages/OfferDetails'
 import LegalMumboJumbo from '../pages/LegalMumboJumbo'
 import ContactInfo from '../pages/ContactInfo'
+import ConfirmPropertyDetails from '../pages/ConfirmPropertyDetails'
 
 Vue.use(Router)
 
@@ -14,6 +15,11 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/confirm-details',
+      name: 'ConfirmPropertyDetails',
+      component: ConfirmPropertyDetails
     },
     {
       path: '/first-step',

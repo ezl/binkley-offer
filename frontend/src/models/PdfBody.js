@@ -1,6 +1,17 @@
 /* eslint-disable camelcase */
 export default class PdfBody {
   url = null
+  property_street_address = null
+  property_locality = null
+  property_region = null
+  property_postal_code = null
+  agent_details_name = null
+  agent_details_company = null
+  hoa_dues = null
+  tax = null
+  tax_year = null
+  tax_exemptions = null
+  parcel_identification_number = null
   refrigerator = false
   refrigerator_details = null
   oven_or_range = false

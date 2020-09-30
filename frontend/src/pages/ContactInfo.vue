@@ -1,7 +1,7 @@
 <template>
   <div>
     <H1>Contact Info</H1>
-    <b-progress-bar :value="5" :max="5" :label="'Progress: 5/5'" show-progress animated></b-progress-bar>
+    <b-progress-bar :value="6" :max="6" :label="'Progress: 6/6'" show-progress animated></b-progress-bar>
     <b-card bg-variant="light">
       <b-form-group
         label-cols-lg="3"
@@ -91,12 +91,9 @@ export default {
       if (this.redfinUrl !== null) {
         this.loading = true
         axios({
-          url: 'http://localhost:8000/api/pdf',
+          url: 'http://localhost:8000/api/pdf/',
           method: 'POST',
-          data: JSON.stringify(this.pdfBody),
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-          },
+          data: this.pdfBody,
           responseType: 'blob'
         }).then(response => {
           axios({

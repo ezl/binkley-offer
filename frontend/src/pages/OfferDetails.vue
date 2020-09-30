@@ -1,7 +1,7 @@
 <template>
   <div>
     <H1>Offer Details</H1>
-    <b-progress-bar :value="3" :max="5" :label="'Progress: 3/5'" show-progress animated></b-progress-bar>
+    <b-progress-bar :value="4" :max="6" :label="'Progress: 4/6'" show-progress animated></b-progress-bar>
     <b-container :fluid="true">
       <b-row align-v="baseline">
         <b-col sm="4"/>
