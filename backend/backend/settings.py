@@ -24,7 +24,7 @@ SECRET_KEY = '*&#xap##wqdd6f6ts4cm$xcml(@-#m+_%000lem_%4q=f3$q00'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOW_METHODS = [
@@ -105,7 +105,7 @@ DATABASES = {
         'NAME': os.getenv('BINKLEY_DB_NAME'),
         'USER': os.getenv('BINKLEY_DB_USERNAME'),
         'PASSWORD': os.getenv('BINKLEY_DB_PASSWORD'),
-        'HOST': 'localhost',
+        'HOST': 'postgres',
         'PORT': '5432'
     }
 }

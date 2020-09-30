@@ -1,0 +1,23 @@
+version: '3'
+services:
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=dexter
+      - POSTGRES_PASSWORD=dexter
+      - POSTGRES_DB=dexter
+    ports:
+      - "5432:5432"
+  web:
+    build: .
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    environment:
+        BINKLEY_DB_NAME: dexter
+        BINKLEY_DB_USERNAME: dexter
+        BINKLEY_DB_PASSWORD: dexter
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
