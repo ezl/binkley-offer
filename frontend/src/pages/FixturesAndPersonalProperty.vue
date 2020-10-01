@@ -2,7 +2,7 @@
   <div>
     <H1>Fixtures And Personal Property</H1>
     <b-progress-bar :value="3" :max="6" :label="'Progress: 3/7'" show-progress animated></b-progress-bar>
-    <b-container :fluid="true">
+    <b-container v-if="isLoaded" :fluid="true">
       <b-row align-v="baseline">
         <b-col md="2"/>
         <b-col cols="6" sm="3" md="2">
@@ -302,17 +302,21 @@ import PdfBody from '../models/PdfBody'
 import CheckboxInput from '../components/CheckboxInput'
 import TextInput from '../components/TextInput'
 import RadioInputTwoOptions from '../components/RadioInputTwoOptions'
+import PersistentChoices from '../models/PersistentChoices'
+import PersistentChoicesFixtures from '../models/PersistentChoicesFixtures'
 
 export default {
   name: 'FixturesAndPersonalProperty',
   components: {RadioInputTwoOptions, CheckboxInput, TextInput},
   data () {
     return {
+      isLoaded: false,
       pdfBody: new PdfBody(),
       securitySystemRadioItem: {
         first: false,
         second: false
-      }
+      },
+      persistentChoices: new PersistentChoices()
     }
   },
   watch: {
@@ -327,12 +331,27 @@ export default {
   mounted () {
     if (localStorage.pdfBody) {
       this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
+      if (localStorage.persistentChoices) {
+        this.persistentChoices = Object.assign(new PersistentChoices(), JSON.parse(localStorage.persistentChoices))
+        this.fillPersistentData(this.pdfBody, this.persistentChoices)
+      } else {
+        this.isLoaded = true
+      }
     }
   },
   methods: {
     nextPage () {
       localStorage.pdfBody = JSON.stringify(this.pdfBody)
       this.$router.push({name: 'OfferDetails'})
+    },
+    fillPersistentData (pdfBody, persistentChoices) {
+      Object.keys(new PersistentChoices()).forEach(key => {
+        if (key in new PdfBody() && key in new PersistentChoicesFixtures()) {
+          pdfBody[key] = persistentChoices[key]
+        }
+      }
+      )
+      this.isLoaded = true
     }
   }
 }

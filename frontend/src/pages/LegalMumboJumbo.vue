@@ -2,7 +2,7 @@
   <div>
     <H1>Legal Mumbo Jumbo</H1>
     <b-progress-bar :value="5" :max="6" :label="'Progress: 5/6'" show-progress animated></b-progress-bar>
-    <b-container :fluid="true">
+    <b-container v-if="isLoaded" :fluid="true">
       <b-row align-v="baseline">
         <b-col md="2"/>
         <b-col cols="12" sm="6" md="4">
@@ -69,13 +69,17 @@ import CheckboxInput from '../components/CheckboxInput'
 import TextInputDate from '../components/TextInputDate'
 import TextInput from '../components/TextInput'
 import RadioInputTwoOptions from '../components/RadioInputTwoOptions'
+import PersistentChoices from '../models/PersistentChoices'
+import PersistentChoicesMumboJumbo from '../models/PersistentChoicesMumboJumbo'
 
 export default {
   name: 'LegalMumboJumbo',
   components: {RadioInputTwoOptions, CheckboxInput, TextInput, TextInputDate},
   data () {
     return {
+      isLoaded: false,
       pdfBody: new PdfBody(),
+      persistentChoices: new PersistentChoices(),
       disclosuresARadioItem: {
         first: false,
         second: false
@@ -127,12 +131,38 @@ export default {
   mounted () {
     if (localStorage.pdfBody) {
       this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
+      if (localStorage.persistentChoices) {
+        this.persistentChoices = Object.assign(new PersistentChoices(), JSON.parse(localStorage.persistentChoices))
+        this.fillPersistentData(this.pdfBody, this.persistentChoices)
+      } else {
+        this.isLoaded = true
+      }
     }
   },
   methods: {
     nextPage () {
       localStorage.pdfBody = JSON.stringify(this.pdfBody)
       this.$router.push({name: 'ContactInfo'})
+    },
+    fillPersistentData (pdfBody, persistentChoices) {
+      Object.keys(new PersistentChoices()).forEach(key => {
+        if (key in new PdfBody() && key in new PersistentChoicesMumboJumbo()) {
+          pdfBody[key] = persistentChoices[key]
+        }
+      }
+      )
+      this.changeRadioButtons()
+      this.isLoaded = true
+    },
+    changeRadioButtons () {
+      this.disclosuresARadioItem.first = this.pdfBody.disclosures_a_yes
+      this.disclosuresARadioItem.second = this.pdfBody.disclosures_a_no
+      this.disclosuresBRadioItem.first = this.pdfBody.disclosures_b_yes
+      this.disclosuresBRadioItem.second = this.pdfBody.disclosures_b_no
+      this.disclosuresCRadioItem.first = this.pdfBody.disclosures_c_yes
+      this.disclosuresCRadioItem.second = this.pdfBody.disclosures_c_no
+      this.disclosuresDRadioItem.first = this.pdfBody.disclosures_c_yes
+      this.disclosuresDRadioItem.second = this.pdfBody.disclosures_c_no
     }
   }
 }
