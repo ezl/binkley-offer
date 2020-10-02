@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-container :fluid="true">
-      <b-row>
+      <b-row align-v="baseline">
         <b-col>
           <H1>Search for a Redfin Property</H1>
           <b-progress class="my-2">
@@ -10,10 +10,13 @@
         </b-col>
       </b-row>
 
-      <b-row align-v="baseline">
-        <b-col>
+      <b-row align-v="start">
+        <b-col sm="6">
           <TextInput class="mb-0 pb-0" v-model="queryUrl" text-label="Type property address..."></TextInput>
           <p class="mt-0 pt-0 text-muted font-weight-lighter font-weight-italic redfinURL">{{ pdfBody.url }}</p>
+        </b-col>
+        <b-col sm="6">
+          <b-button block variant="outline-success" :disabled="!pdfBody.url" @click="nextPage">Next Page <arrow-right-circle /></b-button>
         </b-col>
       </b-row>
 
@@ -28,11 +31,6 @@
         </b-col>
       </b-row>
 
-      <b-row align-v="baseline">
-        <b-col sm="6">
-          <b-button block variant="outline-success" :disabled="!pdfBody.url" @click="nextPage">Next Page <arrow-right-circle /></b-button>
-        </b-col>
-      </b-row>
     </b-container>
   </div>
 </template>
