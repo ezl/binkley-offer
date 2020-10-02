@@ -1,15 +1,13 @@
 <template>
-  <label>
-    <b-form-group>
-      <span v-if="titleAsData"> {{ titleAsData }}</span>
-      <b-form-input
-        type="text"
-        v-model="valueAsData"
-        @input="handleInput"
-        :placeholder="textLabelAsData"
-      />
-    </b-form-group>
-  </label>
+  <b-form-group>
+    <span v-if="titleAsData"> {{ titleAsData }}</span>
+    <b-form-input
+      type="text"
+      v-model="valueAsData"
+      @input="handleInput"
+      :placeholder="textLabelAsData"
+    />
+  </b-form-group>
 </template>
 
 <script>
