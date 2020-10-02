@@ -9,9 +9,11 @@
           </b-progress>
         </b-col>
       </b-row>
+
       <b-row align-v="baseline">
         <b-col sm="6">
-          <TextInput v-model="queryUrl" text-label="Get URL by address"></TextInput>
+          <TextInput class="mb-0 pb-0" v-model="queryUrl" text-label="Get URL by address"></TextInput>
+          <p class="mt-0 pt-0 text-muted font-weight-lighter font-weight-italic redfinURL">{{ pdfBody.url }}</p>
         </b-col>
         <b-col sm="6">
           <b-list-group class="py-sm-1 cursor-selectable" v-for="(property, index) in propertiesList"
@@ -24,9 +26,6 @@
       </b-row>
 
       <b-row align-v="baseline">
-        <b-col sm="6">
-          <TextInput v-model="pdfBody.url" text-label="Url Redfin"></TextInput>
-        </b-col>
         <b-col sm="6">
           <b-button v-if="pdfBody.url" @click="nextPage">Next Page</b-button>
         </b-col>
@@ -122,5 +121,8 @@ li {
 
 a {
   color: #42b983;
+}
+.redfinURL {
+  font-size: 0.7em;
 }
 </style>
