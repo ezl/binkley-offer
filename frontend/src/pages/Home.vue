@@ -12,7 +12,7 @@
 
       <b-row align-v="baseline">
         <b-col sm="6">
-          <TextInput class="mb-0 pb-0" v-model="queryUrl" text-label="Get URL by address"></TextInput>
+          <TextInput class="mb-0 pb-0" v-model="queryUrl" text-label="Type property adress..."></TextInput>
           <p class="mt-0 pt-0 text-muted font-weight-lighter font-weight-italic redfinURL">{{ pdfBody.url }}</p>
         </b-col>
         <b-col sm="6">
