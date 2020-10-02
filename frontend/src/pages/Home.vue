@@ -1,8 +1,8 @@
 <template>
   <div>
-    <H1>Search for a Redfin Property</H1>
-    <b-progress-bar :value="1" :max="6" :label="'Progress: 1/6'" show-progress animated></b-progress-bar>
     <b-container :fluid="true">
+      <H1>Search for a Redfin Property</H1>
+      <b-progress-bar :value="1" :max="6" :label="'Progress: 1/6'" show-progress animated></b-progress-bar>
       <b-row align-v="baseline">
         <b-col sm="6">
           <TextInput v-model="queryUrl" text-label="Get URL by address"></TextInput>

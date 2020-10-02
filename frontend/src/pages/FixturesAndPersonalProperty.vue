@@ -1,8 +1,8 @@
 <template>
   <div>
-    <H1>Fixtures And Personal Property</H1>
-    <b-progress-bar :value="3" :max="6" :label="'Progress: 3/7'" show-progress animated></b-progress-bar>
     <b-container v-if="isLoaded" :fluid="true">
+      <H1>Fixtures And Personal Property</H1>
+      <b-progress-bar :value="3" :max="6" :label="'Progress: 3/7'" show-progress animated></b-progress-bar>
       <b-row align-v="baseline">
         <b-col md="2"/>
         <b-col cols="6" sm="3" md="2">

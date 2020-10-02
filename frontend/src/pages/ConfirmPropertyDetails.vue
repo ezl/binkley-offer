@@ -1,9 +1,9 @@
 <template>
   <div>
-    <H1>Confirm Property Details</H1>
-    <b-progress-bar :value="2" :max="6" :label="'Progress: 2/6'" show-progress animated></b-progress-bar>
-    <div v-if="showError">{{ showError }}</div>
     <b-container v-if="isLoaded && !showError" :fluid="true">
+      <H1>Confirm Property Details</H1>
+      <b-progress-bar :value="2" :max="6" :label="'Progress: 2/6'" show-progress animated></b-progress-bar>
+      <div v-if="showError">{{ showError }}</div>
       <b-row align-v="baseline">
         <b-col md="2"/>
         <b-col cols="6" sm="3" md="2">
