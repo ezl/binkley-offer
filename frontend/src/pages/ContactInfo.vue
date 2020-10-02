@@ -4,7 +4,9 @@
       <b-row>
         <b-col>
           <H1>Contact Info</H1>
-          <b-progress-bar :value="6" :max="6" :label="'Progress: 6/6'" show-progress animated></b-progress-bar>
+          <b-progress class="my-2">
+            <b-progress-bar :value="6" :max="6" :label="'Progress: 6/6'" show-progress animated></b-progress-bar>
+          </b-progress>
         </b-col>
       </b-row>
       <div v-if="isLoaded">

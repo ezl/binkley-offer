@@ -4,7 +4,9 @@
       <b-row>
         <b-col>
           <H1>Search for a Redfin Property</H1>
-          <b-progress-bar :value="1" :max="6" :label="'Progress: 1/6'" show-progress animated></b-progress-bar>
+          <b-progress class="my-2">
+            <b-progress-bar :value="1" :max="6" :label="'Progress: 1/6'" show-progress animated></b-progress-bar>
+          </b-progress>
         </b-col>
       </b-row>
       <b-row align-v="baseline">
