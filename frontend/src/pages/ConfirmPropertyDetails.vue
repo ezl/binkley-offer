@@ -105,7 +105,7 @@ export default {
   methods: {
     loadScrappedData: function () {
       axios({
-        url: 'http://localhost:8000/api/scrapper/',
+        url: 'http://50.116.19.93:8000/api/scrapper/',
         method: 'POST',
         data: {url: this.pdfBody.url}
       }).then(response => {

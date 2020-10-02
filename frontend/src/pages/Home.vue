@@ -72,7 +72,7 @@ export default {
       this.propertiesList = []
       if (this.queryUrl) {
         axios({
-          url: 'http://localhost:8000/api/search/',
+          url: 'http://50.116.19.93:8000/api/search/',
           method: 'POST',
           data: {url: 'https://www.redfin.com/stingray/do/location-autocomplete?location=' + this.queryUrl + '&count=10&v=2'}
         }).then(response => {

@@ -103,13 +103,13 @@ export default {
       if (this.redfinUrl !== null) {
         this.loading = true
         axios({
-          url: 'http://localhost:8000/api/pdf/',
+          url: 'http://50.116.19.93:8000/api/pdf/',
           method: 'POST',
           data: this.pdfBody,
           responseType: 'blob'
         }).then(response => {
           axios({
-            url: 'http://localhost:8000/api/pdf?url=' + this.pdfBody.url,
+            url: 'http://50.116.19.93:8000/api/pdf?url=' + this.pdfBody.url,
             method: 'GET'
           })
             .then(responseGet => {
