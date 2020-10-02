@@ -11,10 +11,13 @@
       </b-row>
 
       <b-row align-v="baseline">
-        <b-col sm="6">
-          <TextInput class="mb-0 pb-0" v-model="queryUrl" text-label="Type property adress..."></TextInput>
+        <b-col>
+          <TextInput class="mb-0 pb-0" v-model="queryUrl" text-label="Type property address..."></TextInput>
           <p class="mt-0 pt-0 text-muted font-weight-lighter font-weight-italic redfinURL">{{ pdfBody.url }}</p>
         </b-col>
+      </b-row>
+
+      <b-row align-v="baseline">
         <b-col sm="6">
           <b-list-group class="py-sm-1 cursor-selectable" v-for="(property, index) in propertiesList"
                         :key="property.id">
