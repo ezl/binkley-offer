@@ -30,7 +30,7 @@
 
       <b-row align-v="baseline">
         <b-col sm="6">
-          <b-button v-if="pdfBody.url" @click="nextPage">Next Page</b-button>
+          <b-button block variant="outline-success" :disabled="!pdfBody.url" @click="nextPage">Next Page <arrow-right-circle /></b-button>
         </b-col>
       </b-row>
     </b-container>
@@ -42,10 +42,15 @@ import * as axios from 'axios'
 import PdfBody from '../models/PdfBody.js'
 import TextInput from '../components/TextInput'
 import CheckboxInput from '../components/CheckboxInput'
+import ArrowRightCircle from '../components/icons/ArrowRightCircle'
 
 export default {
   name: 'Home',
-  components: {CheckboxInput, TextInput},
+  components: {
+    CheckboxInput,
+    TextInput,
+    ArrowRightCircle
+  },
   metaInfo: {
     meta: [
       {charset: 'utf-8'},
