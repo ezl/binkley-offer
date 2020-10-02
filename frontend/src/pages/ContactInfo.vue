@@ -1,9 +1,12 @@
 <template>
   <div>
     <b-container :fluid="true">
-
-      <H1>Contact Info</H1>
-      <b-progress-bar :value="6" :max="6" :label="'Progress: 6/6'" show-progress animated></b-progress-bar>
+      <b-row>
+        <b-col>
+          <H1>Contact Info</H1>
+          <b-progress-bar :value="6" :max="6" :label="'Progress: 6/6'" show-progress animated></b-progress-bar>
+        </b-col>
+      </b-row>
       <div v-if="isLoaded">
         <b-card bg-variant="light">
           <b-form-group

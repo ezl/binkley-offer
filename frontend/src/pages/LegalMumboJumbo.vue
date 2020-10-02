@@ -1,8 +1,12 @@
 <template>
   <div>
     <b-container v-if="isLoaded" :fluid="true">
-      <H1>Legal Mumbo Jumbo</H1>
-      <b-progress-bar :value="5" :max="6" :label="'Progress: 5/6'" show-progress animated></b-progress-bar>
+      <b-row>
+        <b-col>
+          <H1>Legal Mumbo Jumbo</H1>
+          <b-progress-bar :value="5" :max="6" :label="'Progress: 5/6'" show-progress animated></b-progress-bar>
+        </b-col>
+      </b-row>
       <b-row align-v="baseline">
         <b-col md="2"/>
         <b-col cols="12" sm="6" md="4">
