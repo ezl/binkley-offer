@@ -114,10 +114,12 @@
           </div>
         </b-col>
       </b-row>
+      <b-row>
+        <b-col>
+          <b-button variant="primary" @click="nextPage">Next Page</b-button>
+        </b-col>
+      </b-row>
     </b-container>
-    <div>
-      <b-button variant="primary" @click="nextPage"> Next Page</b-button>
-    </div>
   </div>
 </template>
 

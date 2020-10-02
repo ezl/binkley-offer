@@ -26,7 +26,7 @@
           <TextInput v-model="pdfBody.url" text-label="Url Redfin"></TextInput>
         </b-col>
         <b-col sm="6">
-          <b-button v-if="pdfBody.url" @click="nextPage"> Next Page</b-button>
+          <b-button v-if="pdfBody.url" @click="nextPage">Next Page</b-button>
         </b-col>
       </b-row>
     </b-container>

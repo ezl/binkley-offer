@@ -78,11 +78,15 @@
         <b-col md="2"/>
         <b-col md="2"/>
       </b-row>
+      <div v-if="isLoaded">
+        <b-row>
+          <b-col>
+            <b-button v-if="!showError" variant="primary" @click="nextPage"> Next Page</b-button>
+            <b-button v-else variant="danger" @click="backPage">Back To Menu</b-button>
+          </b-col>
+        </b-row>
+      </div>
     </b-container>
-    <div v-if="isLoaded">
-      <b-button v-if="!showError" variant="primary" @click="nextPage"> Next Page</b-button>
-      <b-button v-else variant="danger" @click="backPage">Back To Menu</b-button>
-    </div>
   </div>
 </template>
 
