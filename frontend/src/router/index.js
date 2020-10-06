@@ -6,6 +6,7 @@ import OfferDetails from '../pages/OfferDetails'
 import LegalMumboJumbo from '../pages/LegalMumboJumbo'
 import ContactInfo from '../pages/ContactInfo'
 import ConfirmPropertyDetails from '../pages/ConfirmPropertyDetails'
+import Settings from '../pages/Settings'
 
 Vue.use(Router)
 
@@ -20,6 +21,11 @@ export default new Router({
       path: '/confirm-details',
       name: 'ConfirmPropertyDetails',
       component: ConfirmPropertyDetails
+    },
+    {
+      path: '/settings',
+      name: 'Settings',
+      component: Settings
     },
     {
       path: '/first-step',

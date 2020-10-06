@@ -315,6 +315,12 @@ import PersistentChoicesFixtures from '../models/PersistentChoicesFixtures'
 
 export default {
   name: 'FixturesAndPersonalProperty',
+  metaInfo: {
+    meta: [
+      {charset: 'utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'}
+    ]
+  },
   components: {RadioInputTwoOptions, CheckboxInput, TextInput},
   data () {
     return {

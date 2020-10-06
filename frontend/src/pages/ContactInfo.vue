@@ -86,6 +86,12 @@ import PersistentChoicesContact from '../models/PersistentChoicesContact'
 
 export default {
   name: 'ContactInfo',
+  metaInfo: {
+    meta: [
+      {charset: 'utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'}
+    ]
+  },
   components: {FormGroupInput, CheckboxInput, TextInput},
   data () {
     return {
