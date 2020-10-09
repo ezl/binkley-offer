@@ -9,8 +9,9 @@
           </b-progress>
         </b-col>
       </b-row>
+      <HeaderSiteMap :site-map="siteMap"></HeaderSiteMap>
       <div v-if="isLoaded">
-        <b-card bg-variant="light">
+        <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
           <b-form-group
             label-cols-lg="3"
             label="Buyer's Broker's Information:"
@@ -18,19 +19,20 @@
             label-class="font-weight-bold pt-0"
             class="mb-0"
           >
-            <FormGroupInput v-model="pdfBody.designated_agent" text-label="Designated Agent"></FormGroupInput>
-            <FormGroupInput v-model="pdfBody.agent_mls" text-label="Agent Mls"></FormGroupInput>
-            <FormGroupInput v-model="pdfBody.agent_license" text-label="Agent License"></FormGroupInput>
-            <FormGroupInput v-model="pdfBody.brokerage" text-label="Brokerage"></FormGroupInput>
-            <FormGroupInput v-model="pdfBody.brokerage_mls" text-label="Brokerage Mls"></FormGroupInput>
-            <FormGroupInput v-model="pdfBody.brokerage_license" text-label="Brokerage License"></FormGroupInput>
-            <FormGroupInput v-model="pdfBody.broker_address" text-label="Broker Address"></FormGroupInput>
-            <FormGroupInput v-model="pdfBody.agent_phone" text-label="Agent Phone"></FormGroupInput>
-            <FormGroupInput v-model="pdfBody.agent_fax" text-label="Agent Fax"></FormGroupInput>
-            <FormGroupInput v-model="pdfBody.broker_email" text-label="Broker Email"></FormGroupInput>
+            <TextInput :special-field="true" v-model="pdfBody.designated_agent" title="Designated Agent" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.agent_mls" title="Agent Mls" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.agent_license" title="Agent License" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.brokerage" title="Brokerage" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.brokerage_mls" title="Brokerage Mls" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.brokerage_license" title="Brokerage License" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.broker_address" title="Broker Address" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.agent_phone" title="Agent Phone" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.agent_fax" title="Agent Fax" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.broker_email" title="Broker Email" text-label=" "></TextInput>
+            <CheckboxInput :special-field="true" text-label="Save for future use"></CheckboxInput>
           </b-form-group>
         </b-card>
-        <b-card bg-variant="light">
+        <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
           <b-form-group
             label-cols-lg="3"
             label="Buyer's Attorney's Information:"
@@ -38,14 +40,14 @@
             label-class="font-weight-bold pt-0"
             class="mb-0"
           >
-            <FormGroupInput v-model="pdfBody.attorney_name" text-label="Attorney Name"></FormGroupInput>
-            <FormGroupInput v-model="pdfBody.attorney_address" text-label="Attorney Address"></FormGroupInput>
-            <FormGroupInput v-model="pdfBody.attorney_phone" text-label="Attorney Phone"></FormGroupInput>
-            <FormGroupInput v-model="pdfBody.attorney_fax" text-label="Attorney Fax"></FormGroupInput>
-            <FormGroupInput v-model="pdfBody.attorney_email" text-label="Attorney Email"></FormGroupInput>
+            <TextInput :special-field="true" v-model="pdfBody.attorney_name" title="Attorney Name" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.attorney_address" title="Attorney Address" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.attorney_phone" title="Attorney Phone" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.attorney_fax" title="Attorney Fax" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.attorney_email" title="Attorney Email" text-label=" "></TextInput>
           </b-form-group>
         </b-card>
-        <b-card bg-variant="light">
+        <b-card bg-variant="white" class="border-0">
           <b-form-group
             label-cols-lg="3"
             label="Buyer's Lender's Information:"
@@ -53,21 +55,18 @@
             label-class="font-weight-bold pt-0"
             class="mb-0"
           >
-            <FormGroupInput v-model="pdfBody.lender_name" text-label="Lender Name"></FormGroupInput>
-            <FormGroupInput v-model="pdfBody.lender_company" text-label="Lender Company"></FormGroupInput>
-            <FormGroupInput v-model="pdfBody.lender_address" text-label="Lender Address"></FormGroupInput>
-            <FormGroupInput v-model="pdfBody.lender_phone" text-label="Lender Phone"></FormGroupInput>
-            <FormGroupInput v-model="pdfBody.lender_fax" text-label="Lender Fax"></FormGroupInput>
-            <FormGroupInput v-model="pdfBody.lender_email" text-label="Lender Email"></FormGroupInput>
+            <TextInput :special-field="true" v-model="pdfBody.lender_name" title="Lender Name" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.lender_company" title="Lender Company" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.lender_address" title="Lender Address" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.lender_phone" title="Lender Phone" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.lender_fax" title="Lender Fax" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.lender_email" title="Lender Email" text-label=" "></TextInput>
           </b-form-group>
           <b-row>
-            <b-col sm="5"/>
-
-            <b-col sm="2">
-              <b-button variant="primary" @click="convertPdf"> Generate PDF</b-button>
-              <b-spinner v-if="loading" variant="primary" label="Spinning"></b-spinner>
+            <b-col>
+              <b-button variant="primary" class="btn float-right" @click="convertPdf"> Generate PDF</b-button>
+              <b-spinner v-if="loading" class="float-right" variant="primary" label="Spinning"></b-spinner>
             </b-col>
-            <b-col sm="5"/>
           </b-row>
         </b-card>
       </div>
@@ -83,6 +82,7 @@ import * as axios from 'axios'
 import FormGroupInput from '../components/FormGroupInput'
 import PersistentChoices from '../models/PersistentChoices'
 import PersistentChoicesContact from '../models/PersistentChoicesContact'
+import HeaderSiteMap from '../components/HeaderSiteMap'
 
 export default {
   name: 'ContactInfo',
@@ -92,13 +92,45 @@ export default {
       {name: 'viewport', content: 'width=device-width, initial-scale=1'}
     ]
   },
-  components: {FormGroupInput, CheckboxInput, TextInput},
+  components: {HeaderSiteMap, FormGroupInput, CheckboxInput, TextInput},
   data () {
     return {
       isLoaded: false,
       loading: false,
       pdfBody: new PdfBody(),
-      persistentChoices: new PersistentChoices()
+      persistentChoices: new PersistentChoices(),
+      siteMap: [
+        {
+          displayName: 'Address/',
+          pageUrl: 'Home',
+          isDisabled: false,
+          color: 'dodgerblue'
+        },
+        {
+          displayName: 'Property Details/',
+          pageUrl: 'ConfirmPropertyDetails',
+          isDisabled: false,
+          color: 'dodgerblue'
+        },
+        {
+          displayName: 'Fixtures And Personal Property/',
+          pageUrl: 'FixturesAndPersonalProperty',
+          isDisabled: false,
+          color: 'dodgerblue'
+        },
+        {
+          displayName: 'Offer Details/',
+          pageUrl: 'OfferDetails',
+          isDisabled: false,
+          color: 'dodgerblue'
+        },
+        {
+          displayName: 'Contact Info',
+          pageUrl: 'ContactInfo',
+          isDisabled: true,
+          color: 'gray'
+        }
+      ]
     }
   },
   mounted () {

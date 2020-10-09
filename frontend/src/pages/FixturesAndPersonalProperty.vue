@@ -9,8 +9,9 @@
           </b-progress>
         </b-col>
       </b-row>
+      <HeaderSiteMap :site-map="siteMap"></HeaderSiteMap>
       <b-row align-v="baseline">
-        <b-col md="2"/>
+        <b-col md="3"/>
         <b-col cols="6" sm="3" md="2">
           <div>
             <CheckboxInput v-model="pdfBody.refrigerator" text-label='Refrigerator'></CheckboxInput>
@@ -29,17 +30,17 @@
             <TextInput v-if="pdfBody.microware" v-model="pdfBody.microwave_details"></TextInput>
           </div>
         </b-col>
+        <b-col md="3"/>
+      </b-row>
+
+      <b-row align-v="baseline">
+        <b-col md="3"/>
         <b-col cols="6" sm="3" md="2">
           <div>
             <CheckboxInput v-model="pdfBody.dishwasher" text-label="Dishwasher"></CheckboxInput>
             <TextInput v-if="pdfBody.dishwasher" v-model="pdfBody.dishwasher_details"></TextInput>
           </div>
         </b-col>
-        <b-col md="2"/>
-      </b-row>
-
-      <b-row align-v="baseline">
-        <b-col md="2"/>
         <b-col cols="6" sm="3" md="2">
           <div>
             <CheckboxInput v-model="pdfBody.garbage_disposal" text-label="Garbage Disposal"></CheckboxInput>
@@ -52,6 +53,11 @@
             <TextInput v-if="pdfBody.trash_compactor" v-model="pdfBody.trash_compactor_details"></TextInput>
           </div>
         </b-col>
+        <b-col md="3"/>
+      </b-row>
+
+      <b-row align-v="baseline">
+        <b-col md="3"/>
         <b-col cols="6" sm="3" md="2">
           <div>
             <CheckboxInput v-model="pdfBody.washer" text-label="Washer"></CheckboxInput>
@@ -64,17 +70,16 @@
             <TextInput v-if="pdfBody.dryer" v-model="pdfBody.dryer_details"></TextInput>
           </div>
         </b-col>
-        <b-col md="2"/>
-      </b-row>
-
-      <b-row align-v="baseline">
-        <b-col md="2"/>
         <b-col cols="6" sm="3" md="2">
           <div>
             <CheckboxInput v-model="pdfBody.water_softener" text-label="Water Softener"></CheckboxInput>
             <TextInput v-if="pdfBody.water_softener" v-model="pdfBody.water_softner_details"></TextInput>
           </div>
         </b-col>
+        <b-col md="3"/>
+      </b-row>
+      <b-row align-v="baseline">
+        <b-col md="3"/>
         <b-col cols="6" sm="3" md="2">
           <div>
             <CheckboxInput v-model="pdfBody.sump_pump" text-label="Sump Pump"></CheckboxInput>
@@ -95,11 +100,11 @@
             <TextInput v-if="pdfBody.intercom_system" v-model="pdfBody.intercom_system_details"></TextInput>
           </div>
         </b-col>
-        <b-col md="2"/>
+        <b-col md="3"/>
       </b-row>
 
       <b-row align-v="baseline">
-        <b-col md="2"/>
+        <b-col md="3"/>
         <b-col cols="6" sm="3" md="2">
           <div>
             <CheckboxInput v-model="pdfBody.security_system" text-label="Security System"></CheckboxInput>
@@ -124,17 +129,17 @@
             <TextInput v-if="pdfBody.attached_tv" v-model="pdfBody.attached_tv_details"></TextInput>
           </div>
         </b-col>
+        <b-col md="3"/>
+      </b-row>
+
+      <b-row align-v="baseline">
+        <b-col md="3"/>
         <b-col cols="6" sm="3" md="2">
           <div>
             <CheckboxInput v-model="pdfBody.tv_antenna" text-label="Tv Antenna"></CheckboxInput>
             <TextInput v-if="pdfBody.tv_antenna" v-model="pdfBody.tv_antenna_details"></TextInput>
           </div>
         </b-col>
-        <b-col md="2"/>
-      </b-row>
-
-      <b-row align-v="baseline">
-        <b-col md="2"/>
         <b-col cols="6" sm="3" md="2">
           <div>
             <CheckboxInput v-model="pdfBody.multimedia_equipment" text-label="Multimedia Equipment"></CheckboxInput>
@@ -149,6 +154,11 @@
                        v-model="pdfBody.central_air_conditioner_details"></TextInput>
           </div>
         </b-col>
+        <b-col md="3"/>
+      </b-row>
+
+      <b-row align-v="baseline">
+        <b-col md="3"/>
         <b-col cols="6" sm="3" md="2">
           <div>
             <CheckboxInput v-model="pdfBody.window_air_conditioner" text-label="Window Air Conditioner"></CheckboxInput>
@@ -162,17 +172,17 @@
             <TextInput v-if="pdfBody.electronic_air_filter" v-model="pdfBody.electronic_air_filter_details"></TextInput>
           </div>
         </b-col>
-        <b-col md="2"/>
-      </b-row>
-
-      <b-row align-v="baseline">
-        <b-col md="2"/>
         <b-col cols="6" sm="3" md="2">
           <div>
             <CheckboxInput v-model="pdfBody.central_humidifier" text-label="Central Humidifier"></CheckboxInput>
             <TextInput v-if="pdfBody.central_humidifier" v-model="pdfBody.central_humidifier_details"></TextInput>
           </div>
         </b-col>
+        <b-col md="3"/>
+      </b-row>
+
+      <b-row align-v="baseline">
+        <b-col md="3"/>
         <b-col cols="6" sm="3" md="2">
           <div>
             <CheckboxInput v-model="pdfBody.lighting_fixtures" text-label="Lighting Fixtures"></CheckboxInput>
@@ -191,11 +201,11 @@
             <CheckboxInput v-model="pdfBody.tacked_down_carpeting" text-label="Tacked Down Carpeting"></CheckboxInput>
           </div>
         </b-col>
-        <b-col md="2"/>
+        <b-col md="3"/>
       </b-row>
 
       <b-row align-v="baseline">
-        <b-col md="2"/>
+        <b-col md="3"/>
         <b-col cols="6" sm="3" md="2">
           <div>
             <CheckboxInput v-model="pdfBody.fireplace_screen_and_equipment"
@@ -216,18 +226,17 @@
             <TextInput v-if="pdfBody.firewood" v-model="pdfBody.firewood_details"></TextInput>
           </div>
         </b-col>
+        <b-col md="3"/>
+      </b-row>
+
+      <b-row align-v="baseline">
+        <b-col md="3"/>
         <b-col cols="6" sm="3" md="2">
           <div>
-            <!--          <p>Attached Gas Grill</p>-->
             <CheckboxInput v-model="pdfBody.attached_gas_grill" text-label="Attached Gas Grill"></CheckboxInput>
             <TextInput v-if="pdfBody.attached_gas_grill" v-model="pdfBody.attached_gas_grill_details"></TextInput>
           </div>
         </b-col>
-        <b-col md="2"/>
-      </b-row>
-
-      <b-row align-v="baseline">
-        <b-col md="2"/>
         <b-col cols="6" sm="3" md="2">
           <div>
             <CheckboxInput v-model="pdfBody.existing_storms_and_screens"
@@ -242,6 +251,11 @@
             <TextInput v-if="pdfBody.window_treatments" v-model="pdfBody.window_treatments_details"></TextInput>
           </div>
         </b-col>
+        <b-col md="3"/>
+      </b-row>
+
+      <b-row align-v="baseline">
+        <b-col md="3"/>
         <b-col cols="6" sm="3" md="2">
           <div>
             <CheckboxInput v-model="pdfBody.other_equipment" text-label="Other Equipment"></CheckboxInput>
@@ -256,18 +270,17 @@
                        v-model="pdfBody.built_int_or_attached_shelves_or_cabinets_details"></TextInput>
           </div>
         </b-col>
-        <b-col md="2"/>
-      </b-row>
-
-      <b-row align-v="baseline">
-        <b-col md="2"/>
         <b-col cols="6" sm="3" md="2">
           <div>
-            <!--          <p>Ceiling Fan</p>-->
             <CheckboxInput v-model="pdfBody.ceiling_fan" text-label="Ceiling Fan"></CheckboxInput>
             <TextInput v-if="pdfBody.ceiling_fan" v-model="pdfBody.ceiling_fan_details"></TextInput>
           </div>
         </b-col>
+        <b-col md="3"/>
+      </b-row>
+
+      <b-row align-v="baseline">
+        <b-col md="3"/>
         <b-col cols="6" sm="3" md="2">
           <div>
             <CheckboxInput v-model="pdfBody.radiator_covers" text-label="Radiator Covers"></CheckboxInput>
@@ -285,10 +298,11 @@
                            text-label="Outdoor Play Set or Swings"></CheckboxInput>
           </div>
         </b-col>
-        <b-col md="2"/>
+        <b-col md="3"/>
       </b-row>
+
       <b-row align-v="baseline">
-        <b-col md="2"/>
+        <b-col md="3"/>
         <b-col cols="6" sm="3" md="2">
           <div>
             <CheckboxInput v-model="pdfBody.outdoor_shed" text-label="Outdoor Shed"></CheckboxInput>
@@ -297,7 +311,7 @@
       </b-row>
       <b-row>
         <b-col>
-          <b-button variant="primary" @click="nextPage">Next Page</b-button>
+          <b-button class="btn float-right mr-auto" variant="primary" @click="nextPage">Next Page</b-button>
         </b-col>
       </b-row>
     </b-container>
@@ -312,6 +326,7 @@ import TextInput from '../components/TextInput'
 import RadioInputTwoOptions from '../components/RadioInputTwoOptions'
 import PersistentChoices from '../models/PersistentChoices'
 import PersistentChoicesFixtures from '../models/PersistentChoicesFixtures'
+import HeaderSiteMap from '../components/HeaderSiteMap'
 
 export default {
   name: 'FixturesAndPersonalProperty',
@@ -321,7 +336,7 @@ export default {
       {name: 'viewport', content: 'width=device-width, initial-scale=1'}
     ]
   },
-  components: {RadioInputTwoOptions, CheckboxInput, TextInput},
+  components: {HeaderSiteMap, RadioInputTwoOptions, CheckboxInput, TextInput},
   data () {
     return {
       isLoaded: false,
@@ -330,7 +345,27 @@ export default {
         first: false,
         second: false
       },
-      persistentChoices: new PersistentChoices()
+      persistentChoices: new PersistentChoices(),
+      siteMap: [
+        {
+          displayName: 'Address /',
+          pageUrl: 'Home',
+          isDisabled: false,
+          color: 'dodgerblue'
+        },
+        {
+          displayName: 'Property Details /',
+          pageUrl: 'ConfirmPropertyDetails',
+          isDisabled: false,
+          color: 'dodgerblue'
+        },
+        {
+          displayName: 'Fixtures And Personal Property',
+          pageUrl: 'FixturesAndPersonalProperty',
+          isDisabled: true,
+          color: 'gray'
+        }
+      ]
     }
   },
   watch: {
@@ -360,10 +395,10 @@ export default {
     },
     fillPersistentData (pdfBody, persistentChoices) {
       Object.keys(new PersistentChoices()).forEach(key => {
-        if (key in new PdfBody() && key in new PersistentChoicesFixtures()) {
-          pdfBody[key] = persistentChoices[key]
+          if (key in new PdfBody() && key in new PersistentChoicesFixtures()) {
+            pdfBody[key] = persistentChoices[key]
+          }
         }
-      }
       )
       this.isLoaded = true
     }

@@ -24,7 +24,7 @@
         <b-col sm="6">
           <b-list-group class="py-sm-1 cursor-selectable" v-for="(property, index) in propertiesList"
                         :key="property.id">
-            <b-list-group-item v-bind:class="{ 'active' : isSelected(index)}" @click="saveUrl(index)">
+            <b-list-group-item class="mt-1" v-bind:class="{ 'active' : isSelected(index)}" @click="saveUrl(index)">
               {{ property.name }} {{ property.subName }} {{ index }}
             </b-list-group-item>
           </b-list-group>

@@ -11,6 +11,10 @@ export default {
 </script>
 
 <style>
+.btn-blue {
+  color: dodgerblue;
+}
+
 #app {
 }
 </style>

@@ -9,62 +9,81 @@
           </b-progress>
         </b-col>
       </b-row>
-      <b-row align-v="baseline">
-        <b-col md="2"/>
-        <b-col cols="12" sm="6" md="4">
-          <RadioInputTwoOptions :item="disclosuresARadioItem"
-                                item-one-label="Disclosures A Yes "
-                                item-two-label="Disclosures A No "></RadioInputTwoOptions>
-        </b-col>
-        <b-col cols="12" sm="6" md="4">
-          <RadioInputTwoOptions :item="disclosuresBRadioItem"
-                                item-one-label="Disclosures B Yes "
-                                item-two-label="Disclosures B No "></RadioInputTwoOptions>
-        </b-col>
-        <b-col md="2"/>
-      </b-row>
+      <HeaderSiteMap :site-map="siteMap"></HeaderSiteMap>
+      <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
+        <b-form-group
+          label-cols-lg="3"
+          label="Disclosures A : "
+          label-size="lg"
+          label-class="font-weight-bold pt-0"
+          class="mb-0"
+        >
+          <RadioInputTwoOptions :special-field="true" :item="disclosuresARadioItem"
+                                item-one-label="Yes"
+                                item-two-label="No"></RadioInputTwoOptions>
+        </b-form-group>
+      </b-card>
+      <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
+        <b-form-group
+          label-cols-lg="3"
+          label="Disclosures B : "
+          label-size="lg"
+          label-class="font-weight-bold pt-0"
+          class="mb-0"
+        >
+          <RadioInputTwoOptions :special-field="true" :item="disclosuresBRadioItem"
+                                item-one-label="Yes "
+                                item-two-label="No "></RadioInputTwoOptions>
+        </b-form-group>
+      </b-card>
+      <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
+        <b-form-group
+          label-cols-lg="3"
+          label="Disclosures C : "
+          label-size="lg"
+          label-class="font-weight-bold pt-0"
+          class="mb-0"
+        >
+          <RadioInputTwoOptions :special-field="true" :item="disclosuresCRadioItem"
+                                item-one-label="Yes "
+                                item-two-label="No "></RadioInputTwoOptions>
+        </b-form-group>
+      </b-card>
+      <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
+        <b-form-group
+          label-cols-lg="3"
+          label="Disclosures D : "
+          label-size="lg"
+          label-class="font-weight-bold pt-0"
+          class="mb-0"
+        >
+          <RadioInputTwoOptions :special-field="true" :item="disclosuresDRadioItem"
+                                item-one-label="Yes "
+                                item-two-label="No "></RadioInputTwoOptions>
+        </b-form-group>
+      </b-card>
 
-      <b-row align-v="baseline">
-        <b-col md="2"/>
-        <b-col cols="12" sm="6" md="4">
-          <RadioInputTwoOptions :item="disclosuresCRadioItem"
-                                item-one-label="Disclosures C Yes "
-                                item-two-label="Disclosures C No "></RadioInputTwoOptions>
-        </b-col>
-        <b-col cols="12" sm="6" md="4">
-          <RadioInputTwoOptions :item="disclosuresDRadioItem"
-                                item-one-label="Disclosures D Yes "
-                                item-two-label="Disclosures D No "></RadioInputTwoOptions>
-        </b-col>
-        <b-col md="2"/>
-      </b-row>
+      <b-card bg-variant="white" class="border-0">
+        <b-form-group
+          label-cols-lg="3"
+          label="Additional Info : "
+          label-size="lg"
+          label-class="font-weight-bold pt-0"
+          class="mb-0"
+        >
+          <TextInput :special-field="true" v-model="pdfBody.dual_agent_broker_name"
+                     title="Dual Agent Broker Name" text-label=" "></TextInput>
+          <TextInput :special-field="true" v-model="pdfBody.length_of_attorney_review"
+                     title="Length of Attorney Review" text-label=" "></TextInput>
+          <TextInput :special-field="true" v-model="pdfBody.length_of_inspection_period"
+                     title="Length of Inspection Period" text-label=" "></TextInput>
+          <TextInputDate v-model="pdfBody.offer_date" title="Date" text-label=" "></TextInputDate>
 
-      <b-row align-v="baseline">
-        <b-col cols="12" sm="12" md="6" lg="3">
-          <div>
-            <TextInput v-model="pdfBody.dual_agent_broker_name" text-label="Dual Agent Broker Name"></TextInput>
-          </div>
-        </b-col>
-        <b-col cols="12" sm="12" md="6" lg="3">
-          <div>
-            <TextInput v-model="pdfBody.length_of_attorney_review" text-label="Length of Attorney Review"></TextInput>
-          </div>
-        </b-col>
-        <b-col cols="12" sm="12" md="6" lg="3">
-          <div>
-            <TextInput v-model="pdfBody.length_of_inspection_period"
-                       text-label="Length of Inspection Period"></TextInput>
-          </div>
-        </b-col>
-        <b-col cols="12" sm="12" md="6" lg="3">
-          <div>
-            <TextInputDate v-model="pdfBody.offer_date" text-label="Offer Date"></TextInputDate>
-          </div>
-        </b-col>
-      </b-row>
+        </b-form-group>
+      </b-card>
       <b-row>
         <b-col>
-          <b-button variant="primary" @click="nextPage">Next Page</b-button>
+          <b-button class="btn float-right mr-auto" variant="primary" @click="nextPage">Next Page</b-button>
         </b-col>
       </b-row>
 
@@ -80,10 +99,11 @@ import TextInput from '../components/TextInput'
 import RadioInputTwoOptions from '../components/RadioInputTwoOptions'
 import PersistentChoices from '../models/PersistentChoices'
 import PersistentChoicesMumboJumbo from '../models/PersistentChoicesMumboJumbo'
+import HeaderSiteMap from '../components/HeaderSiteMap'
 
 export default {
   name: 'LegalMumboJumbo',
-  components: {RadioInputTwoOptions, CheckboxInput, TextInput, TextInputDate},
+  components: {HeaderSiteMap, RadioInputTwoOptions, CheckboxInput, TextInput, TextInputDate},
   data () {
     return {
       isLoaded: false,
@@ -104,7 +124,39 @@ export default {
       disclosuresDRadioItem: {
         first: false,
         second: false
-      }
+      },
+      siteMap: [
+        {
+          displayName: 'Address/',
+          pageUrl: 'Home',
+          isDisabled: false,
+          color: 'dodgerblue'
+        },
+        {
+          displayName: 'Property Details/',
+          pageUrl: 'ConfirmPropertyDetails',
+          isDisabled: false,
+          color: 'dodgerblue'
+        },
+        {
+          displayName: 'Fixtures And Personal Property/',
+          pageUrl: 'FixturesAndPersonalProperty',
+          isDisabled: false,
+          color: 'dodgerblue'
+        },
+        {
+          displayName: 'Offer Details/',
+          pageUrl: 'OfferDetails',
+          isDisabled: false,
+          color: 'dodgerblue'
+        },
+        {
+          displayName: 'Legal Mumbo Jumbo/',
+          pageUrl: 'LegalMumboJumbo',
+          isDisabled: true,
+          color: 'gray'
+        }
+      ]
     }
   },
   watch: {
@@ -155,10 +207,10 @@ export default {
     },
     fillPersistentData (pdfBody, persistentChoices) {
       Object.keys(new PersistentChoices()).forEach(key => {
-        if (key in new PdfBody() && key in new PersistentChoicesMumboJumbo()) {
-          pdfBody[key] = persistentChoices[key]
+          if (key in new PdfBody() && key in new PersistentChoicesMumboJumbo()) {
+            pdfBody[key] = persistentChoices[key]
+          }
         }
-      }
       )
       this.changeRadioButtons()
       this.isLoaded = true
