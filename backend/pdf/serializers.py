@@ -13,6 +13,9 @@ class SearchSerializer(serializers.Serializer):
 class RedfinScrapperSerializer(serializers.Serializer):
     url = serializers.URLField()
 
+class GoogleAuthSerializer(serializers.Serializer):
+    code = serializers.CharField()
+    redirect_uri = serializers.CharField()
 
 class GetPdfSerializer(serializers.ModelSerializer):
     class Meta:

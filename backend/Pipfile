@@ -15,6 +15,9 @@ django-rest-framework = "*"
 psycopg2 = "*"
 django-cors-headers = "*"
 gunicorn = "*"
+oauth2client = "*"
+google-api-python-client = "*"
+google-auth-oauthlib = "*"
 
 [requires]
 python_version = "3.6"

@@ -38,8 +38,9 @@ export default {
   },
   methods: {
     getAuth: async function () {
-      const authCode = localStorage.authCode ? localStorage.authCode : await this.$gAuth.getAuthCode()
-      localStorage.authCode = authCode
+      const authCode = await this.$gAuth.getAuthCode()
+      console.log(authCode)
+      // localStorage.authCode = authCode
       this.authCodeFromLocalStorage = authCode
       axios({
         url: 'http://50.116.19.93:8000/api/auth-google/',
