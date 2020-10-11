@@ -8,4 +8,4 @@ ENV BINKLEY_DB_PASSWORD dexter
 RUN mkdir /code
 WORKDIR /code
 ADD . /code/
-RUN pip install -r requirments.txt
+RUN pip install -r requirements.txt
