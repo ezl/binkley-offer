@@ -19,7 +19,7 @@ export default {
     value: String,
     textLabel: String,
     prepend: String,
-    title: String,
+    title: String
   },
   data () {
     return {

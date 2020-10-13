@@ -3,7 +3,7 @@
     <b-container :fluid="true">
       <b-row align-v="baseline">
         <b-col>
-          <H1>Search for a Redfin Property</H1>
+          <H1 class="title">Search for a Redfin Property</H1>
           <b-progress class="my-2">
             <b-progress-bar :value="1" :max="6" :label="'Progress: 1/6'" show-progress animated></b-progress-bar>
           </b-progress>
@@ -25,7 +25,7 @@
           <b-list-group class="py-sm-1 cursor-selectable" v-for="(property, index) in propertiesList"
                         :key="property.id">
             <b-list-group-item class="mt-1" v-bind:class="{ 'active' : isSelected(index)}" @click="saveUrl(index)">
-              {{ property.name }} {{ property.subName }} {{ index }}
+              {{ property.name }} {{ property.subName }}
             </b-list-group-item>
           </b-list-group>
         </b-col>

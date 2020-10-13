@@ -11,8 +11,11 @@ export default {
 </script>
 
 <style>
-.btn-blue {
-  color: dodgerblue;
+
+.title{
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 1rem;
 }
 
 #app {

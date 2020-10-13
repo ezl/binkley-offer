@@ -3,7 +3,7 @@
     <b-container :fluid="true">
       <b-row>
         <b-col>
-          <H1>Contact Info</H1>
+          <H1 class="title">Contact Info</H1>
           <b-progress class="my-2">
             <b-progress-bar :value="6" :max="6" :label="'Progress: 6/6'" show-progress animated></b-progress-bar>
           </b-progress>

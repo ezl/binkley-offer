@@ -3,7 +3,7 @@
     <b-container v-if="isLoaded" :fluid="true">
       <b-row>
         <b-col>
-          <H1>Legal Mumbo Jumbo</H1>
+          <H1 class="title">Legal Mumbo Jumbo</H1>
           <b-progress class="my-2">
             <b-progress-bar :value="5" :max="6" :label="'Progress: 5/6'" show-progress animated></b-progress-bar>
           </b-progress>
@@ -207,10 +207,10 @@ export default {
     },
     fillPersistentData (pdfBody, persistentChoices) {
       Object.keys(new PersistentChoices()).forEach(key => {
-          if (key in new PdfBody() && key in new PersistentChoicesMumboJumbo()) {
-            pdfBody[key] = persistentChoices[key]
-          }
+        if (key in new PdfBody() && key in new PersistentChoicesMumboJumbo()) {
+          pdfBody[key] = persistentChoices[key]
         }
+      }
       )
       this.changeRadioButtons()
       this.isLoaded = true
