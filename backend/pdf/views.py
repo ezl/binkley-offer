@@ -1,8 +1,10 @@
 import os
 
 from types import SimpleNamespace
-
+import json
 from django.http import FileResponse
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from rest_framework.views import APIView
 from rest_framework.viewsets import ViewSet
@@ -12,17 +14,19 @@ from rest_framework.response import Response
 from oauth2client import client
 from googleapiclient.discovery import build
 
-from .exceptions.custom_exceptions import RedfinScrapper
+from .exceptions.custom_exceptions import RedfinScrapperException, UnhandledException
 from .serializers import CreatePdfSerializer, GetPdfSerializer, SearchSerializer, RedfinScrapperSerializer, \
-    GoogleAuthSerializer
+    GoogleAuthSerializer, CreateUserSerializer, ResponseUserSerializer, LoginUserSerializer
 from .models import Pdf
 
 from .services.search_service import search_redfin_autocomplete_api
 from .services.pdf_service import scraper_redfin
+from .services.auth_service import *
 
 
 class PdfViewSet(ViewSet):
     serializer_class = CreatePdfSerializer
+    permission_classes = (AllowAny,)
 
     def create(self, request):
 
@@ -66,6 +70,7 @@ class PdfViewSet(ViewSet):
 
 class SearchView(APIView):
     serializer_class = SearchSerializer
+    permission_classes = (AllowAny,)
 
     def post(self, request):
         serializer = SearchSerializer(data=request.data)
@@ -84,6 +89,7 @@ class SearchView(APIView):
 
 class RedfinView(APIView):
     serializer_class = RedfinScrapperSerializer
+    permission_classes = (AllowAny,)
 
     def post(self, request):
         serializer = RedfinScrapperSerializer(data=request.data)
@@ -97,7 +103,7 @@ class RedfinView(APIView):
             if scrapper_redfin_details:
                 return Response(scrapper_redfin_details)
         except Exception:
-            raise RedfinScrapper()
+            raise RedfinScrapperException()
 
 
 class GoogleAuthViewSet(ViewSet):
@@ -114,10 +120,76 @@ class GoogleAuthViewSet(ViewSet):
             raise ParseError(detail=serializer.errors)
 
         credentials = client.credentials_from_code(self.CLIENT_ID, self.CLIENT_SECRET,
-                                                   scope=['https://www.googleapis.com/auth/gmail.labels', 'https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.modify'],
+                                                   scope=['https://www.googleapis.com/auth/gmail.labels',
+                                                          'https://www.googleapis.com/auth/gmail.readonly',
+                                                          'https://www.googleapis.com/auth/gmail.modify'],
                                                    code=serializer.validated_data['code'],
                                                    redirect_uri=serializer.validated_data['redirect_uri'])
 
         service = build('gmail', 'v1', credentials=credentials)
         print(service.users().labels().list(userId='me').execute())
         return Response("a mers")
+
+
+class UserAuth(ViewSet):
+    serializer_class = CreateUserSerializer
+    permission_classes = (AllowAny,)
+
+    def create(self, request):
+        serializer = CreateUserSerializer(data=request.data)
+
+        if not serializer.is_valid():
+            raise ParseError(detail=serializer.errors)
+
+        try:
+            serializer_response = ResponseUserSerializer(data=create_user(serializer.validated_data))
+            if not serializer_response.is_valid():
+                raise ParseError(detail=serializer_response.errors)
+
+            return Response(serializer_response.data)
+        except RedfinScrapperException as duplicate_error:
+            raise duplicate_error
+        except UnhandledException:
+            raise UnhandledException(detail="Unhandled Exception", code=500)
+
+    def list(self, request):
+        user_uid = request.GET.get('user_uid')
+        user = UserProfile.objects.filter(user_uid=user_uid).first()
+
+        if not user:
+            raise NotFound(detail='User not found')
+
+        serializer = ResponseUserSerializer(user)
+
+        return Response(serializer.data)
+
+
+class UserLogin(ViewSet):
+    serializer_class = LoginUserSerializer
+    permission_classes = (AllowAny,)
+
+    def create(self, request):
+        serializer = LoginUserSerializer(data=request.data)
+
+        if not serializer.is_valid():
+            raise ParseError(detail=serializer.errors)
+        try:
+            serializer_response = ResponseUserSerializer(data=login_user(serializer.validated_data))
+            if not serializer_response.is_valid():
+                raise ParseError(detail=serializer_response.errors)
+
+            return Response(serializer_response.data)
+        except NotFound as not_found:
+            raise not_found
+        except UnhandledException:
+            raise UnhandledException(detail="Unhandled Exception", code=500)
+
+
+class Test(APIView):
+    authentication_classes = (TokenAuthentication,)
+
+    def get(self, request):
+        user = User.objects.get(id=Token.objects.get(key=request.auth.key).user_id)
+        print(user.password)
+        content = {'message': 'Hello, GeeksforGeeks'}
+        return Response(content)

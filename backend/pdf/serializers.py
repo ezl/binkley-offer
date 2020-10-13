@@ -2,7 +2,7 @@ from types import SimpleNamespace
 
 from rest_framework import serializers
 
-from .models import Pdf
+from .models import Pdf, UserProfile
 from .services import pdf_service
 
 
@@ -13,9 +13,11 @@ class SearchSerializer(serializers.Serializer):
 class RedfinScrapperSerializer(serializers.Serializer):
     url = serializers.URLField()
 
+
 class GoogleAuthSerializer(serializers.Serializer):
     code = serializers.CharField()
     redirect_uri = serializers.CharField()
+
 
 class GetPdfSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,6 +27,52 @@ class GetPdfSerializer(serializers.ModelSerializer):
             'redfin_src',
             'pdf_src',
             'deleted'
+        ]
+
+
+class CreateUserSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(required=True)
+    password = serializers.CharField(required=True)
+    email = serializers.EmailField(required=True)
+
+    class Meta:
+        model = UserProfile
+        fields = [
+            'username',
+            'password',
+            'email'
+        ]
+
+
+class ResponseUserSerializer(serializers.ModelSerializer):
+    user_uid = serializers.CharField(required=True)
+    username = serializers.CharField(required=True)
+    email = serializers.EmailField(required=True)
+    data_joined = serializers.DateTimeField(required=True)
+    is_confirmed = serializers.BooleanField(required=True)
+    token = serializers.CharField(required=False)
+
+    class Meta:
+        model = UserProfile
+        fields = [
+            'user_uid',
+            'username',
+            'email',
+            'data_joined',
+            'is_confirmed',
+            'token'
+        ]
+
+
+class LoginUserSerializer(serializers.ModelSerializer):
+    email = serializers.CharField(required=True)
+    password = serializers.CharField(required=True)
+
+    class Meta:
+        model = UserProfile
+        fields = [
+            'email',
+            'password'
         ]
 
 

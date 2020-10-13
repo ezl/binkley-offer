@@ -60,7 +60,18 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'pdf',
     'corsheaders',
+    'rest_framework_simplejwt'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -105,7 +116,7 @@ DATABASES = {
         'NAME': os.getenv('BINKLEY_DB_NAME'),
         'USER': os.getenv('BINKLEY_DB_USERNAME'),
         'PASSWORD': os.getenv('BINKLEY_DB_PASSWORD'),
-        'HOST': 'postgres',
+        'HOST': 'localhost',
         'PORT': '5432'
     }
 }
