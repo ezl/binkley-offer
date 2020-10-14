@@ -3,8 +3,7 @@
     <b-container v-if="isLoaded" :fluid="true">
       <b-row>
         <b-col>
-          <H1 class="title" v-if="!showError">Confirm Property Details</H1>
-          <H1 class="title" v-else>Confirm Property Details - {{ showError }}</H1>
+          <H1 class="title">Confirm Property Details</H1>
           <b-progress class="my-2">
             <b-progress-bar :value="2" :max="6" :label="'Progress: 2/6'" show-progress animated></b-progress-bar>
           </b-progress>
@@ -65,9 +64,16 @@
       <div v-if="isLoaded">
         <b-row>
           <b-col>
+            <b-button @click="backPage">Back to Property Search</b-button>
             <b-button v-if="!showError" class="btn float-right mr-auto" variant="primary" @click="nextPage"> Next Page
             </b-button>
-            <b-button v-else variant="danger" @click="backPage">Back To Menu</b-button>
+            <b-alert v-else :show="true" dismissible variant="danger">
+              Subject: Error: We couldn't get the data for that property
+              <br>
+              Detail: Either we were unable to retrieve the data for that property address or that property address data
+              from Redfin does not match the PDF template fields we were expecting. You can either manually enter the
+              information in the field below or press this back button to search again.
+            </b-alert>
           </b-col>
         </b-row>
       </div>
@@ -111,6 +117,21 @@ export default {
     this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
     this.loadScrappedData()
   },
+  watch: {
+    pdfBody: {
+      deep: true,
+      handler () {
+        if (this.pdfBody.property_street_address || this.pdfBody.property_locality || this.pdfBody.property_region
+          || this.pdfBody.property_region || this.pdfBody.property_postal_code
+          || this.pdfBody.parcel_identification_number || this.pdfBody.agent_details_name
+          || this.pdfBody.agent_details_company || this.pdfBody.agent_details_company || this.pdfBody.hoa_dues
+          || this.pdfBody.tax || this.pdfBody.tax_year || this.pdfBody.tax_exemptions) {
+          console.log("here")
+          this.showError = ''
+        }
+      }
+    }
+  },
   methods: {
     loadScrappedData: function () {
       axios({
@@ -132,7 +153,7 @@ export default {
           this.pdfBody.parcel_identification_number = response.data.parcel_identification_number
           this.isLoaded = true
         }
-      }
+        }
       ).catch(e => {
         if (e.response.status === 409) {
           this.showError = e.response.data.detail
