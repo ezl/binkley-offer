@@ -11,8 +11,8 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.exceptions import ParseError, NotFound
 from rest_framework.response import Response
 
-from oauth2client import client
-from googleapiclient.discovery import build
+# from oauth2client import client
+# from googleapiclient.discovery import build
 
 from .exceptions.custom_exceptions import RedfinScrapperException, UnhandledException
 from .serializers import CreatePdfSerializer, GetPdfSerializer, SearchSerializer, RedfinScrapperSerializer, \
@@ -26,6 +26,7 @@ from .services.auth_service import *
 
 class PdfViewSet(ViewSet):
     serializer_class = CreatePdfSerializer
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (AllowAny,)
 
     def create(self, request):
@@ -40,6 +41,11 @@ class PdfViewSet(ViewSet):
 
         if not os.path.exists(pdf_src):
             raise NotFound(detail='PDF not found')
+
+        if request.auth:
+            user = User.objects.get(id=Token.objects.get(key=request.auth.key).user_id)
+            pdf.user_email = user.username
+            pdf.save()
 
         return FileResponse(open(pdf_src, 'rb'))
 
@@ -106,29 +112,29 @@ class RedfinView(APIView):
             raise RedfinScrapperException()
 
 
-class GoogleAuthViewSet(ViewSet):
-    serializer_class = GoogleAuthSerializer
-
-    CLIENT_ID = '783671048395-hblgld7toqqnrciqi477gje5snggtjka.apps.googleusercontent.com'
-
-    CLIENT_SECRET = 'Aq0Lk6xzzKes__d_WLDUuT2z'
-
-    def create(self, request):
-        serializer = GoogleAuthSerializer(data=request.data)
-
-        if not serializer.is_valid():
-            raise ParseError(detail=serializer.errors)
-
-        credentials = client.credentials_from_code(self.CLIENT_ID, self.CLIENT_SECRET,
-                                                   scope=['https://www.googleapis.com/auth/gmail.labels',
-                                                          'https://www.googleapis.com/auth/gmail.readonly',
-                                                          'https://www.googleapis.com/auth/gmail.modify'],
-                                                   code=serializer.validated_data['code'],
-                                                   redirect_uri=serializer.validated_data['redirect_uri'])
-
-        service = build('gmail', 'v1', credentials=credentials)
-        print(service.users().labels().list(userId='me').execute())
-        return Response("a mers")
+# class GoogleAuthViewSet(ViewSet):
+#     serializer_class = GoogleAuthSerializer
+#
+#     CLIENT_ID = '783671048395-hblgld7toqqnrciqi477gje5snggtjka.apps.googleusercontent.com'
+#
+#     CLIENT_SECRET = 'Aq0Lk6xzzKes__d_WLDUuT2z'
+#
+#     def create(self, request):
+#         serializer = GoogleAuthSerializer(data=request.data)
+#
+#         if not serializer.is_valid():
+#             raise ParseError(detail=serializer.errors)
+#
+#         credentials = client.credentials_from_code(self.CLIENT_ID, self.CLIENT_SECRET,
+#                                                    scope=['https://www.googleapis.com/auth/gmail.labels',
+#                                                           'https://www.googleapis.com/auth/gmail.readonly',
+#                                                           'https://www.googleapis.com/auth/gmail.modify'],
+#                                                    code=serializer.validated_data['code'],
+#                                                    redirect_uri=serializer.validated_data['redirect_uri'])
+#
+#         service = build('gmail', 'v1', credentials=credentials)
+#         print(service.users().labels().list(userId='me').execute())
+#         return Response("a mers")
 
 
 class UserAuth(ViewSet):
@@ -184,12 +190,11 @@ class UserLogin(ViewSet):
         except UnhandledException:
             raise UnhandledException(detail="Unhandled Exception", code=500)
 
-
-class Test(APIView):
+class UserPdfs(APIView):
     authentication_classes = (TokenAuthentication,)
 
     def get(self, request):
         user = User.objects.get(id=Token.objects.get(key=request.auth.key).user_id)
-        print(user.password)
-        content = {'message': 'Hello, GeeksforGeeks'}
-        return Response(content)
+        pdfs = Pdf.objects.filter(user_email=user.username)
+        serializer_response = GetPdfSerializer(pdfs, many=True)
+        return Response({'pdfs': serializer_response.data})
