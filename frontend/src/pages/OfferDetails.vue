@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container :fluid="true">
+    <b-container>
       <b-row>
         <b-col>
           <H1 class="title">Offer Details</H1>

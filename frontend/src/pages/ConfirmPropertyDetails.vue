@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container v-if="isLoaded" :fluid="true">
+    <b-container v-if="isLoaded">
       <b-row>
         <b-col>
           <H1 class="title">Confirm Property Details</H1>
@@ -121,12 +121,11 @@ export default {
     pdfBody: {
       deep: true,
       handler () {
-        if (this.pdfBody.property_street_address || this.pdfBody.property_locality || this.pdfBody.property_region
-          || this.pdfBody.property_region || this.pdfBody.property_postal_code
-          || this.pdfBody.parcel_identification_number || this.pdfBody.agent_details_name
-          || this.pdfBody.agent_details_company || this.pdfBody.agent_details_company || this.pdfBody.hoa_dues
-          || this.pdfBody.tax || this.pdfBody.tax_year || this.pdfBody.tax_exemptions) {
-          console.log("here")
+        if (this.pdfBody.property_street_address || this.pdfBody.property_locality || this.pdfBody.property_region ||
+          this.pdfBody.property_region || this.pdfBody.property_postal_code ||
+          this.pdfBody.parcel_identification_number || this.pdfBody.agent_details_name ||
+          this.pdfBody.agent_details_company || this.pdfBody.agent_details_company || this.pdfBody.hoa_dues ||
+          this.pdfBody.tax || this.pdfBody.tax_year || this.pdfBody.tax_exemptions) {
           this.showError = ''
         }
       }
@@ -153,7 +152,7 @@ export default {
           this.pdfBody.parcel_identification_number = response.data.parcel_identification_number
           this.isLoaded = true
         }
-        }
+      }
       ).catch(e => {
         if (e.response.status === 409) {
           this.showError = e.response.data.detail

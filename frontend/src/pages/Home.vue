@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container :fluid="true">
+    <b-container>
       <b-row align-v="baseline">
         <b-col>
           <H1 class="title">Binkley Offer: Write an offer letter from your phone</H1>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container v-if="isLoaded" :fluid="true">
+    <b-container v-if="isLoaded">
       <b-row>
         <b-col>
           <H1 class="title">Legal Mumbo Jumbo</H1>
