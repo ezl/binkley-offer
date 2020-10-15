@@ -52,7 +52,7 @@
                      text-label=" "></TextInput>
           <TextInput :special-field="true" v-model="pdfBody.agent_details_company"
                      title="Agent Details Company" text-label=" "></TextInput>
-          <TextInput :special-field="true" v-model="pdfBody.hoa_dues" title="Hoa Dues" text-label=" "></TextInput>
+          <TextInput :special-field="true" v-model="pdfBody.hoa_dues" title="HOA Dues" text-label=" "></TextInput>
         </b-form-group>
       </b-card>
 
