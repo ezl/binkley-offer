@@ -64,7 +64,7 @@
           </b-form-group>
           <b-row>
             <b-col>
-              <b-button variant="primary" class="btn float-right" @click="convertPdf"> Generate PDF</b-button>
+              <b-button v-if="!loading" variant="primary" class="btn float-right" @click="convertPdf"> Generate PDF</b-button>
               <b-spinner v-if="loading" class="float-right" variant="primary" label="Spinning"></b-spinner>
             </b-col>
           </b-row>
