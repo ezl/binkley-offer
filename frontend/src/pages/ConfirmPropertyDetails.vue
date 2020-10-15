@@ -67,16 +67,16 @@
           <TextInput :special-field="true" v-model="pdfBody.tax_exemptions" title="Tax Exemptions"
                      text-label=" "></TextInput>
         </b-form-group>
+        <div v-if="isLoaded">
+          <b-row>
+            <b-col>
+              <b-button @click="backPage">Back to Property Search</b-button>
+              <b-button v-if="!showError" class="btn float-right mr-auto" variant="primary" @click="nextPage"> Next Page
+              </b-button>
+            </b-col>
+          </b-row>
+        </div>
       </b-card>
-      <div v-if="isLoaded">
-        <b-row>
-          <b-col>
-            <b-button @click="backPage">Back to Property Search</b-button>
-            <b-button v-if="!showError" class="btn float-right mr-auto" variant="primary" @click="nextPage"> Next Page
-            </b-button>
-          </b-col>
-        </b-row>
-      </div>
     </b-container>
   </div>
 </template>

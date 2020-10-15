@@ -275,11 +275,13 @@
           </div>
         </b-col>
       </b-row>
+      <b-card bg-variant="white" class="border-0">
       <b-row>
         <b-col>
           <b-button class="btn float-right mr-auto" variant="primary" @click="nextPage">Next Page</b-button>
         </b-col>
       </b-row>
+      </b-card>
     </b-container>
   </div>
 </template>

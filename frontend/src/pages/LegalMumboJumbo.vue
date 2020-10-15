@@ -80,13 +80,12 @@
           <TextInputDate v-model="pdfBody.offer_date" title="Date" text-label=" "></TextInputDate>
 
         </b-form-group>
+        <b-row>
+          <b-col>
+            <b-button class="btn float-right mr-auto" variant="primary" @click="nextPage">Next Page</b-button>
+          </b-col>
+        </b-row>
       </b-card>
-      <b-row>
-        <b-col>
-          <b-button class="btn float-right mr-auto" variant="primary" @click="nextPage">Next Page</b-button>
-        </b-col>
-      </b-row>
-
     </b-container>
   </div>
 </template>
