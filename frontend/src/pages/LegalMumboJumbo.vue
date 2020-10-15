@@ -47,11 +47,11 @@
         >
           <TextInput :special-field="true" v-model="pdfBody.dual_agent_broker_name"
                      title="Dual Agent Broker Name" text-label=" "></TextInput>
-          <TextInput :special-field="true" v-model="pdfBody.length_of_attorney_review" append="days"
+          <TextInput :special-field="true" v-model="pdfBody.length_of_attorney_review" append="Days"
                      title="Length of Attorney Review" text-label=" "></TextInput>
-          <TextInput :special-field="true" v-model="pdfBody.length_of_inspection_period"
+          <TextInput :special-field="true" v-model="pdfBody.length_of_inspection_period" append="Days"
                      title="Length of Inspection Period" text-label=" "></TextInput>
-          <TextInputDate v-model="pdfBody.offer_date" title="Date" text-label=" "></TextInputDate>
+          <TextInputDate v-model="pdfBody.offer_date" title="Offer Date" text-label=" "></TextInputDate>
 
         </b-form-group>
         <b-row>
