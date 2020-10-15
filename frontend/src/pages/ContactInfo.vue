@@ -36,7 +36,8 @@
             <TextInput :special-field="true" v-model="pdfBody.agent_fax" title="Agent Fax" text-label=" "></TextInput>
             <TextInput :special-field="true" v-model="pdfBody.broker_email" title="Broker Email"
                        text-label=" "></TextInput>
-            <CheckboxInput :special-field="true" text-label="Save for future use"></CheckboxInput>
+            <CheckboxInput v-model="saveForFutureUseBroker" :special-field="true"
+                           text-label="Save for future use"></CheckboxInput>
           </b-form-group>
         </b-card>
         <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
@@ -57,6 +58,8 @@
                        text-label=" "></TextInput>
             <TextInput :special-field="true" v-model="pdfBody.attorney_email" title="Attorney Email"
                        text-label=" "></TextInput>
+            <CheckboxInput v-model="saveForFutureUseAttorney" :special-field="true"
+                           text-label="Save for future use"></CheckboxInput>
           </b-form-group>
         </b-card>
         <b-card bg-variant="white" class="border-0">
@@ -78,6 +81,8 @@
             <TextInput :special-field="true" v-model="pdfBody.lender_fax" title="Lender Fax" text-label=" "></TextInput>
             <TextInput :special-field="true" v-model="pdfBody.lender_email" title="Lender Email"
                        text-label=" "></TextInput>
+            <CheckboxInput v-model="saveForFutureUseLender" :special-field="true"
+                           text-label="Save for future use"></CheckboxInput>
           </b-form-group>
           <b-row>
             <b-col>
@@ -101,6 +106,9 @@ import FormGroupInput from '../components/FormGroupInput'
 import PersistentChoices from '../models/PersistentChoices'
 import PersistentChoicesContact from '../models/PersistentChoicesContact'
 import HeaderSiteMap from '../components/HeaderSiteMap'
+import PersistentChoicesContactBroker from '../models/PersistentChoicesContactBroker'
+import PersistentChoicesContactAttorney from '../models/PersistentChoicesContactAttorney'
+import PersistentChoicesContactLender from '../models/PersistentChoicesContactLender'
 
 export default {
   name: 'ContactInfo',
@@ -117,6 +125,9 @@ export default {
       loading: false,
       pdfBody: new PdfBody(),
       persistentChoices: new PersistentChoices(),
+      saveForFutureUseBroker: false,
+      saveForFutureUseAttorney: false,
+      saveForFutureUseLender: false,
       siteMap: [
         {
           displayName: 'Address',
@@ -167,13 +178,13 @@ export default {
       if (this.redfinUrl !== null) {
         this.loading = true
         axios({
-          url: 'http://50.116.19.93:8000/api/pdf/',
+          url: 'http://localhost:8000/api/pdf/',
           method: 'POST',
           data: this.pdfBody,
           responseType: 'blob'
         }).then(response => {
           axios({
-            url: 'http://50.116.19.93:8000/api/pdf?url=' + this.pdfBody.url,
+            url: 'http://localhost:8000/api/pdf?url=' + this.pdfBody.url,
             method: 'GET'
           })
             .then(responseGet => {
@@ -194,6 +205,30 @@ export default {
                 }
               }
               )
+              if (this.saveForFutureUseBroker) {
+                Object.keys(new PersistentChoices()).forEach(key => {
+                  if (key in new PersistentChoicesContactBroker()) {
+                    newPersistentChoices[key] = this.pdfBody[key]
+                  }
+                }
+                )
+              }
+              if (this.saveForFutureUseAttorney) {
+                Object.keys(new PersistentChoices()).forEach(key => {
+                  if (key in new PersistentChoicesContactAttorney()) {
+                    newPersistentChoices[key] = this.pdfBody[key]
+                  }
+                }
+                )
+              }
+              if (this.saveForFutureUseLender) {
+                Object.keys(new PersistentChoices()).forEach(key => {
+                  if (key in new PersistentChoicesContactLender()) {
+                    newPersistentChoices[key] = this.pdfBody[key]
+                  }
+                }
+                )
+              }
               localStorage.persistentChoices = JSON.stringify(newPersistentChoices)
             })
             .catch(err => {
@@ -214,6 +249,7 @@ export default {
       )
       this.isLoaded = true
     },
+
     showFile (blob, fileName) {
       var newBlob = new Blob([blob], {type: 'application/pdf'})
       if (window.navigator && window.navigator.msSaveOrOpenBlob) {
