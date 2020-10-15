@@ -13,51 +13,25 @@
       <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
         <b-form-group
           label-cols-lg="3"
-          label="Disclosures A : "
+          label="Disclosures: "
           label-size="lg"
           label-class="font-weight-bold pt-0"
           class="mb-0"
         >
           <RadioInputTwoOptions :special-field="true" :item="disclosuresARadioItem"
+                                text-label="Illinois Residential Real Property Disclosure Report"
                                 item-one-label="Yes"
                                 item-two-label="No"></RadioInputTwoOptions>
-        </b-form-group>
-      </b-card>
-      <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
-        <b-form-group
-          label-cols-lg="3"
-          label="Disclosures B : "
-          label-size="lg"
-          label-class="font-weight-bold pt-0"
-          class="mb-0"
-        >
           <RadioInputTwoOptions :special-field="true" :item="disclosuresBRadioItem"
+                                text-label="Heat Disclosure (gas/electric)"
                                 item-one-label="Yes "
                                 item-two-label="No "></RadioInputTwoOptions>
-        </b-form-group>
-      </b-card>
-      <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
-        <b-form-group
-          label-cols-lg="3"
-          label="Disclosures C : "
-          label-size="lg"
-          label-class="font-weight-bold pt-0"
-          class="mb-0"
-        >
           <RadioInputTwoOptions :special-field="true" :item="disclosuresCRadioItem"
+                                text-label="Lead Paint Disclosure and Pamphlet"
                                 item-one-label="Yes "
                                 item-two-label="No "></RadioInputTwoOptions>
-        </b-form-group>
-      </b-card>
-      <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
-        <b-form-group
-          label-cols-lg="3"
-          label="Disclosures D : "
-          label-size="lg"
-          label-class="font-weight-bold pt-0"
-          class="mb-0"
-        >
           <RadioInputTwoOptions :special-field="true" :item="disclosuresDRadioItem"
+                                text-label="Radon Disclosure and Pamphlet"
                                 item-one-label="Yes "
                                 item-two-label="No "></RadioInputTwoOptions>
         </b-form-group>
