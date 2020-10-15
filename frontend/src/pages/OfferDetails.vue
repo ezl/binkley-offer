@@ -154,19 +154,19 @@ export default {
       },
       siteMap: [
         {
-          displayName: 'Address/',
+          displayName: 'Address',
           pageUrl: 'Home',
           isDisabled: false,
           color: 'dodgerblue'
         },
         {
-          displayName: 'Property Details/',
+          displayName: 'Property Details',
           pageUrl: 'ConfirmPropertyDetails',
           isDisabled: false,
           color: 'dodgerblue'
         },
         {
-          displayName: 'Fixtures And Personal Property/',
+          displayName: 'Fixtures And Personal Property',
           pageUrl: 'FixturesAndPersonalProperty',
           isDisabled: false,
           color: 'dodgerblue'

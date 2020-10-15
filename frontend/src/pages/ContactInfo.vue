@@ -14,18 +14,18 @@
         <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
           <b-form-group
             label-cols-lg="3"
-            label="Buyer's Broker:"
+            label="Buyer's Broker's Information:"
             label-size="lg"
             label-class="font-weight-bold pt-0"
             class="mb-0"
           >
             <TextInput :special-field="true" v-model="pdfBody.designated_agent" title="Designated Agent"
                        text-label=" "></TextInput>
-            <TextInput :special-field="true" v-model="pdfBody.agent_mls" title="Agent Mls" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.agent_mls" title="Agent MLS" text-label=" "></TextInput>
             <TextInput :special-field="true" v-model="pdfBody.agent_license" title="Agent License"
                        text-label=" "></TextInput>
             <TextInput :special-field="true" v-model="pdfBody.brokerage" title="Brokerage" text-label=" "></TextInput>
-            <TextInput :special-field="true" v-model="pdfBody.brokerage_mls" title="Brokerage Mls"
+            <TextInput :special-field="true" v-model="pdfBody.brokerage_mls" title="Brokerage MLS"
                        text-label=" "></TextInput>
             <TextInput :special-field="true" v-model="pdfBody.brokerage_license" title="Brokerage License"
                        text-label=" "></TextInput>
@@ -42,7 +42,7 @@
         <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
           <b-form-group
             label-cols-lg="3"
-            label="Buyer's Attorney:"
+            label="Buyer's Attorney's Information:"
             label-size="lg"
             label-class="font-weight-bold pt-0"
             class="mb-0"
@@ -62,7 +62,7 @@
         <b-card bg-variant="white" class="border-0">
           <b-form-group
             label-cols-lg="3"
-            label="Buyer's Lender:"
+            label="Buyer's Lender's Information:"
             label-size="lg"
             label-class="font-weight-bold pt-0"
             class="mb-0"
@@ -119,25 +119,25 @@ export default {
       persistentChoices: new PersistentChoices(),
       siteMap: [
         {
-          displayName: 'Address/',
+          displayName: 'Address',
           pageUrl: 'Home',
           isDisabled: false,
           color: 'dodgerblue'
         },
         {
-          displayName: 'Property Details/',
+          displayName: 'Property Details',
           pageUrl: 'ConfirmPropertyDetails',
           isDisabled: false,
           color: 'dodgerblue'
         },
         {
-          displayName: 'Fixtures And Personal Property/',
+          displayName: 'Fixtures And Personal Property',
           pageUrl: 'FixturesAndPersonalProperty',
           isDisabled: false,
           color: 'dodgerblue'
         },
         {
-          displayName: 'Offer Details/',
+          displayName: 'Offer Details',
           pageUrl: 'OfferDetails',
           isDisabled: false,
           color: 'dodgerblue'

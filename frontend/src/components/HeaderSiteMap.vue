@@ -5,6 +5,7 @@
       <button class="btn" :style="{color: item.color}" @click="navigate(item.pageUrl)" :disabled="item.isDisabled">
         {{ item.displayName }}
       </button>
+      <b-icon-arrow-right-circle variant="info" v-if="!item.isDisabled"></b-icon-arrow-right-circle>
     </div>
   </b-row>
 </template>
