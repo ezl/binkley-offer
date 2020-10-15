@@ -3,14 +3,14 @@
                 label-cols-sm="3"
                 :label="titleAsData"
                 label-align-sm="right">
-    <b-input-group :append="appendAsData" size="md">
-	<b-form-input
-            type="text"
-            v-model="valueAsData"
-            @input="handleInput"
-            :placeholder="textLabelAsData"
-	/>
-    </b-input-group>
+      <b-input-group :append="appendAsData" size="md">
+          <b-form-input
+              type="text"
+              v-model="valueAsData"
+              @input="handleInput"
+              :placeholder="textLabelAsData"
+          />
+      </b-input-group>
   </b-form-group>
   <b-form-input v-else
                 type="text"
