@@ -2,6 +2,7 @@
   <b-form-group v-if="specialFieldAsData"
                 label-cols-sm="3"
                 :label="titleAsData"
+                :append="appendAsData"
                 label-align-sm="right">
     <b-form-input
       type="text"
@@ -24,6 +25,7 @@ export default {
   props: {
     value: String,
     textLabel: String,
+    appendAsData: this.append,
     title: String,
     specialField: Boolean
   },

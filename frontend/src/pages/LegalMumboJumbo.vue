@@ -47,7 +47,7 @@
         >
           <TextInput :special-field="true" v-model="pdfBody.dual_agent_broker_name"
                      title="Dual Agent Broker Name" text-label=" "></TextInput>
-          <TextInput :special-field="true" v-model="pdfBody.length_of_attorney_review"
+          <TextInput :special-field="true" v-model="pdfBody.length_of_attorney_review" append="days"
                      title="Length of Attorney Review" text-label=" "></TextInput>
           <TextInput :special-field="true" v-model="pdfBody.length_of_inspection_period"
                      title="Length of Inspection Period" text-label=" "></TextInput>

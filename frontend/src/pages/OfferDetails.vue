@@ -64,27 +64,33 @@
           label-class="font-weight-bold pt-0"
           class="mb-0"
         >
-          <TextInput title="Brokerage For Earnest Money (Escrowee)" v-model="pdfBody.brokerage_for_earnest_money"
-                          text-label=" "></TextInputMoney>
-          <TextInput title="Amount" v-model="pdfBody.initial_earnest_money_amount"
+          <TextInput
+		:special-field=true
+		title="Brokerage For Earnest Money (Escrowee)"
+		v-model="pdfBody.brokerage_for_earnest_money"
+                text-label=" "
+		></TextInput>
+          <p><strong>The initial earnest money amount after the acceptance date shall be</strong></p>
+          <TextInputMoney title="Amount" prepend="$" v-model="pdfBody.initial_earnest_money_amount"
                           text-label=" "></TextInputMoney>
           <TextInput :special-field="true" title="Payment Type"
                      v-model="pdfBody.how_buyer_deposits_earnest_money"
                      text-label=" "></TextInput>
-          <TextInput :special-field="true" title="Initial Earnest Money Payment Period (In Days)"
+          <TextInput :special-field="true" append="Days" title="Initial Earnest Money Payment Period"
                      v-model="pdfBody.initial_earnest_money_due_date"
                      text-label=" "></TextInput>
-          <TextInputMoney title="Balance of Earnest Money Amount" prepend="$"
+          <p><strong>After the attorney approval period, the earnest money shall be increased to:</strong></p>
+          <TextInputMoney title="Total Earnest Money Amount" prepend="$"
                           v-model="pdfBody.balance_of_earnest_money_amount"
                           text-label="Dollar Amount"></TextInputMoney>
           <b-form-group
             label-cols-sm="3"
-            label="or"
+            label="within"
             label-align-sm="right">
           </b-form-group>
-          <TextInputMoney title="Balance of Earnest Money Due Date" prepend="%"
+          <TextInputMoney title="Balance of Earnest Money Due Date" append="days"
                           v-model="pdfBody.balance_of_earnest_money_due_date"
-                          text-label="Percent Amount"></TextInputMoney>
+                          text-label=" "></TextInputMoney>
         </b-form-group>
       </b-card>
       <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
