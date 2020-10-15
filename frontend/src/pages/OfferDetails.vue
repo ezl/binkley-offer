@@ -66,9 +66,9 @@
           label-class="font-weight-bold pt-0"
           class="mb-0"
         >
-          <TextInputMoney :special-field=true prepend="$" title="Brokerage For Earnest Money (Escrowee)"
+          <TextInput :special-field=true title="Brokerage For Earnest Money (Escrowee)"
                           v-model="pdfBody.brokerage_for_earnest_money" text-label=" "
-          ></TextInputMoney>
+          ></TextInput>
           <p><strong>The initial earnest money amount after the acceptance date shall be</strong></p>
           <TextInputMoney title="Amount" prepend="$" v-model="pdfBody.initial_earnest_money_amount"
                           text-label=" "></TextInputMoney>
