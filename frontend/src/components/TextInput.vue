@@ -5,10 +5,10 @@
                 label-align-sm="right">
     <b-input-group :append="appendAsData" size="md">
 	<b-form-input
-	  type="text"
-	  v-model="valueAsData"
-	  @input="handleInput"
-	  :placeholder="textLabelAsData"
+            type="text"
+            v-model="valueAsData"
+            @input="handleInput"
+            :placeholder="textLabelAsData"
 	/>
     </b-input-group>
   </b-form-group>
