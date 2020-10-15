@@ -10,6 +10,13 @@
         </b-col>
       </b-row>
       <HeaderSiteMap :site-map="siteMap"></HeaderSiteMap>
+      <b-alert  v-if="showError" :show="true" dismissible variant="danger">
+        Subject: Error: We couldn't get the data for that property
+        <br>
+        Detail: Either we were unable to retrieve the data for that property address or that property address data
+        from Redfin does not match the PDF template fields we were expecting. You can either manually enter the
+        information in the field below or press this back button to search again.
+      </b-alert>
       <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
         <b-form-group
           label-cols-lg="3"
@@ -67,13 +74,6 @@
             <b-button @click="backPage">Back to Property Search</b-button>
             <b-button v-if="!showError" class="btn float-right mr-auto" variant="primary" @click="nextPage"> Next Page
             </b-button>
-            <b-alert v-else :show="true" dismissible variant="danger">
-              Subject: Error: We couldn't get the data for that property
-              <br>
-              Detail: Either we were unable to retrieve the data for that property address or that property address data
-              from Redfin does not match the PDF template fields we were expecting. You can either manually enter the
-              information in the field below or press this back button to search again.
-            </b-alert>
           </b-col>
         </b-row>
       </div>

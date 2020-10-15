@@ -19,16 +19,23 @@
             label-class="font-weight-bold pt-0"
             class="mb-0"
           >
-            <TextInput :special-field="true" v-model="pdfBody.designated_agent" title="Designated Agent" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.designated_agent" title="Designated Agent"
+                       text-label=" "></TextInput>
             <TextInput :special-field="true" v-model="pdfBody.agent_mls" title="Agent Mls" text-label=" "></TextInput>
-            <TextInput :special-field="true" v-model="pdfBody.agent_license" title="Agent License" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.agent_license" title="Agent License"
+                       text-label=" "></TextInput>
             <TextInput :special-field="true" v-model="pdfBody.brokerage" title="Brokerage" text-label=" "></TextInput>
-            <TextInput :special-field="true" v-model="pdfBody.brokerage_mls" title="Brokerage Mls" text-label=" "></TextInput>
-            <TextInput :special-field="true" v-model="pdfBody.brokerage_license" title="Brokerage License" text-label=" "></TextInput>
-            <TextInput :special-field="true" v-model="pdfBody.broker_address" title="Broker Address" text-label=" "></TextInput>
-            <TextInput :special-field="true" v-model="pdfBody.agent_phone" title="Agent Phone" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.brokerage_mls" title="Brokerage Mls"
+                       text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.brokerage_license" title="Brokerage License"
+                       text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.broker_address" title="Broker Address"
+                       text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.agent_phone" title="Agent Phone"
+                       text-label=" "></TextInput>
             <TextInput :special-field="true" v-model="pdfBody.agent_fax" title="Agent Fax" text-label=" "></TextInput>
-            <TextInput :special-field="true" v-model="pdfBody.broker_email" title="Broker Email" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.broker_email" title="Broker Email"
+                       text-label=" "></TextInput>
             <CheckboxInput :special-field="true" text-label="Save for future use"></CheckboxInput>
           </b-form-group>
         </b-card>
@@ -40,11 +47,16 @@
             label-class="font-weight-bold pt-0"
             class="mb-0"
           >
-            <TextInput :special-field="true" v-model="pdfBody.attorney_name" title="Attorney Name" text-label=" "></TextInput>
-            <TextInput :special-field="true" v-model="pdfBody.attorney_address" title="Attorney Address" text-label=" "></TextInput>
-            <TextInput :special-field="true" v-model="pdfBody.attorney_phone" title="Attorney Phone" text-label=" "></TextInput>
-            <TextInput :special-field="true" v-model="pdfBody.attorney_fax" title="Attorney Fax" text-label=" "></TextInput>
-            <TextInput :special-field="true" v-model="pdfBody.attorney_email" title="Attorney Email" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.attorney_name" title="Attorney Name"
+                       text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.attorney_address" title="Attorney Address"
+                       text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.attorney_phone" title="Attorney Phone"
+                       text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.attorney_fax" title="Attorney Fax"
+                       text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.attorney_email" title="Attorney Email"
+                       text-label=" "></TextInput>
           </b-form-group>
         </b-card>
         <b-card bg-variant="white" class="border-0">
@@ -55,16 +67,22 @@
             label-class="font-weight-bold pt-0"
             class="mb-0"
           >
-            <TextInput :special-field="true" v-model="pdfBody.lender_name" title="Lender Name" text-label=" "></TextInput>
-            <TextInput :special-field="true" v-model="pdfBody.lender_company" title="Lender Company" text-label=" "></TextInput>
-            <TextInput :special-field="true" v-model="pdfBody.lender_address" title="Lender Address" text-label=" "></TextInput>
-            <TextInput :special-field="true" v-model="pdfBody.lender_phone" title="Lender Phone" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.lender_name" title="Lender Name"
+                       text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.lender_company" title="Lender Company"
+                       text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.lender_address" title="Lender Address"
+                       text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.lender_phone" title="Lender Phone"
+                       text-label=" "></TextInput>
             <TextInput :special-field="true" v-model="pdfBody.lender_fax" title="Lender Fax" text-label=" "></TextInput>
-            <TextInput :special-field="true" v-model="pdfBody.lender_email" title="Lender Email" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.lender_email" title="Lender Email"
+                       text-label=" "></TextInput>
           </b-form-group>
           <b-row>
             <b-col>
-              <b-button v-if="!loading" variant="primary" class="btn float-right" @click="convertPdf"> Generate PDF</b-button>
+              <b-button v-if="!loading" variant="primary" class="btn float-right" @click="convertPdf"> Generate PDF
+              </b-button>
               <b-spinner v-if="loading" class="float-right" variant="primary" label="Spinning"></b-spinner>
             </b-col>
           </b-row>
@@ -196,29 +214,21 @@ export default {
       )
       this.isLoaded = true
     },
-    showFile(blob, fileName){
-      // It is necessary to create a new blob object with mime-type explicitly set
-      // otherwise only Chrome works like it should
-      var newBlob = new Blob([blob], {type: "application/pdf"})
-
-      // IE doesn't allow using a blob object directly as link href
-      // instead it is necessary to use msSaveOrOpenBlob
+    showFile (blob, fileName) {
+      var newBlob = new Blob([blob], {type: 'application/pdf'})
       if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-        window.navigator.msSaveOrOpenBlob(newBlob);
-        return;
+        window.navigator.msSaveOrOpenBlob(newBlob)
+        return
       }
-
-      // For other browsers:
-      // Create a link pointing to the ObjectURL containing the blob.
-      const data = window.URL.createObjectURL(newBlob);
-      var link = document.createElement('a');
-      link.href = data;
-      link.download=fileName;
-      link.click();
-      setTimeout(function(){
+      const data = window.URL.createObjectURL(newBlob)
+      var link = document.createElement('a')
+      link.href = data
+      link.download = fileName
+      link.click()
+      setTimeout(function () {
         // For Firefox it is necessary to delay revoking the ObjectURL
-        window.URL.revokeObjectURL(data);
-      }, 100);
+        window.URL.revokeObjectURL(data)
+      }, 100)
     }
   }
 }
