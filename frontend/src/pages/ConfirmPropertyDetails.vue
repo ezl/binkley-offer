@@ -59,7 +59,7 @@
       <b-card bg-variant="white" class="border-0">
         <b-form-group
           label-cols-lg="3"
-          label="Tax Informations: "
+          label="Tax Information:"
           label-size="lg"
           label-class="font-weight-bold pt-0"
           class="mb-0"
