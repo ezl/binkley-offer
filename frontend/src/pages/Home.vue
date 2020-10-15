@@ -5,7 +5,7 @@
         <b-col>
           <H1 class="title">Binkley Offer: Write an offer letter from your phone</H1>
           <b-progress class="my-2">
-            <b-progress-bar :value="1" :max="6" :label="'Progress: 1/6'" show-progress animated></b-progress-bar>
+            <b-progress-bar :value="1" :max="6" :label="'1 of 6'" show-progress animated></b-progress-bar>
           </b-progress>
         </b-col>
       </b-row>

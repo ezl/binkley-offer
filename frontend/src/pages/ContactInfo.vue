@@ -5,7 +5,7 @@
         <b-col>
           <H1 class="title">Contact Info</H1>
           <b-progress class="my-2">
-            <b-progress-bar :value="6" :max="6" :label="'Progress: 6/6'" show-progress animated></b-progress-bar>
+            <b-progress-bar :value="6" :max="6" :label="'6 of 6'" show-progress animated></b-progress-bar>
           </b-progress>
         </b-col>
       </b-row>

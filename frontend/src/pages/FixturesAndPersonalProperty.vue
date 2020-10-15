@@ -5,7 +5,7 @@
         <b-col>
           <H1 class="title">Fixtures And Personal Property</H1>
           <b-progress class="my-2">
-            <b-progress-bar :value="3" :max="6" :label="'Progress: 3/7'" show-progress animated></b-progress-bar>
+            <b-progress-bar :value="3" :max="6" :label="'3 of 6'" show-progress animated></b-progress-bar>
           </b-progress>
         </b-col>
       </b-row>
