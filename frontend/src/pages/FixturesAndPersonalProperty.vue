@@ -278,7 +278,7 @@
       <b-card bg-variant="white" class="border-0">
       <b-row>
         <b-col>
-          <b-button class="btn float-right mr-auto" variant="primary" @click="nextPage">Next Page</b-button>
+          <b-button class="btn float-right mr-auto" variant="primary" @click="nextPage"><b-icon icon="arrow-right-circle"></b-icon> Next Page</b-button>
         </b-col>
       </b-row>
       </b-card>
