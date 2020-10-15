@@ -64,14 +64,14 @@
           label-class="font-weight-bold pt-0"
           class="mb-0"
         >
-          <TextInputMoney title="Brokerage For Earnest Money" prepend="$" v-model="pdfBody.brokerage_for_earnest_money"
+          <TextInput title="Brokerage For Earnest Money (Escrowee)" v-model="pdfBody.brokerage_for_earnest_money"
                           text-label=" "></TextInputMoney>
-          <TextInputMoney title="Earnest Money Payment Type" prepend="$" v-model="pdfBody.initial_earnest_money_amount"
+          <TextInput title="Amount" v-model="pdfBody.initial_earnest_money_amount"
                           text-label=" "></TextInputMoney>
-          <TextInput :special-field="true" title="Earnest Money Payment Type"
+          <TextInput :special-field="true" title="Payment Type"
                      v-model="pdfBody.how_buyer_deposits_earnest_money"
                      text-label=" "></TextInput>
-          <TextInput :special-field="true" title="Initial Earnest Money Payment Period"
+          <TextInput :special-field="true" title="Initial Earnest Money Payment Period (In Days)"
                      v-model="pdfBody.initial_earnest_money_due_date"
                      text-label=" "></TextInput>
           <TextInputMoney title="Balance of Earnest Money Amount" prepend="$"
