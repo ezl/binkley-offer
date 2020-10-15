@@ -23,7 +23,7 @@
       <b-row align-v="baseline">
         <b-col sm="6">
           <b-list-group class="py-sm-1 cursor-selectable" v-for="(property, index) in propertiesList"
-                        :key="property.id">
+                        :key="index">
             <b-list-group-item class="mt-1" v-bind:class="{ 'active' : isSelected(index)}" @click="saveUrl(index)">
               {{ property.name }} {{ property.subName }}
             </b-list-group-item>

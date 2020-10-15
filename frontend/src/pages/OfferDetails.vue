@@ -33,14 +33,16 @@
           <RadioInputTwoOptions :special-field="true" text-label="Credit Buyer at Closing: "
                                 :item="creditBuyerAtClosingRadioItem" item-one-label=" Yes"
                                 item-two-label="No"></RadioInputTwoOptions>
-          <TextInputMoney title="Dollar Amount" prepend="$" :special-field="true" text-label="Dollar Amount"
+          <TextInputMoney v-if="this.pdfBody.credit_buyer_at_closing_yes" title="Dollar Amount" prepend="$"
+                          :special-field="true" text-label="Dollar Amount"
                           v-model="pdfBody.credit_buyer_at_closing_if_yes_amount"></TextInputMoney>
-          <b-form-group
-            label-cols-sm="3"
-            label="or"
-            label-align-sm="right">
+          <b-form-group v-if="this.pdfBody.credit_buyer_at_closing_yes"
+                        label-cols-sm="3"
+                        label="or"
+                        label-align-sm="right">
           </b-form-group>
-          <TextInputMoney title="Percent Amount" prepend="%" :special-field="true" text-label="Percent Amount"
+          <TextInputMoney v-if="this.pdfBody.credit_buyer_at_closing_yes" title="Percent Amount" prepend="%"
+                          :special-field="true" text-label="Percent Amount"
                           v-model="pdfBody.credit_buyer_at_closing_if_no_percentage"></TextInputMoney>
         </b-form-group>
       </b-card>
@@ -64,12 +66,9 @@
           label-class="font-weight-bold pt-0"
           class="mb-0"
         >
-          <TextInput
-		:special-field=true
-		title="Brokerage For Earnest Money (Escrowee)"
-		v-model="pdfBody.brokerage_for_earnest_money"
-                text-label=" "
-		></TextInput>
+          <TextInputMoney :special-field=true prepend="$" title="Brokerage For Earnest Money (Escrowee)"
+                          v-model="pdfBody.brokerage_for_earnest_money" text-label=" "
+          ></TextInputMoney>
           <p><strong>The initial earnest money amount after the acceptance date shall be</strong></p>
           <TextInputMoney title="Amount" prepend="$" v-model="pdfBody.initial_earnest_money_amount"
                           text-label=" "></TextInputMoney>
@@ -105,13 +104,17 @@
                                 text-label="Contract Subject to Mortgage: "
                                 item-one-label="Yes"
                                 item-two-label="No"></RadioInputTwoOptions>
-          <TextInputDate title="Mortgage Contingency Date" v-model="pdfBody.mortgage_contingency_date"
+          <TextInputDate v-if="this.pdfBody.contract_subject_to_mortgage_yes" title="Mortgage Contingency Date"
+                         v-model="pdfBody.mortgage_contingency_date"
                          text-label="Mortgage Contingency Date"></TextInputDate>
-          <TextInputMoney title="Buyer Interest Rate" prepend="$" v-model="pdfBody.buyer_interest_rate"
+          <TextInputMoney v-if="this.pdfBody.contract_subject_to_mortgage_yes" title="Buyer Interest Rate" prepend="$"
+                          v-model="pdfBody.buyer_interest_rate"
                           text-label=" "></TextInputMoney>
-          <TextInput :special-field="true" title="Buyer Loan Term" v-model="pdfBody.buyer_loan_term"
+          <TextInput v-if="this.pdfBody.contract_subject_to_mortgage_yes" :special-field="true" title="Buyer Loan Term"
+                     v-model="pdfBody.buyer_loan_term"
                      text-label=" "></TextInput>
-          <TextInputMoney title="Buyer Loan to Value" prepend="%" v-model="pdfBody.buyer_loan_to_value"
+          <TextInputMoney v-if="this.pdfBody.contract_subject_to_mortgage_yes" title="Buyer Loan to Value" prepend="%"
+                          v-model="pdfBody.buyer_loan_to_value"
                           text-label=" "></TextInputMoney>
         </b-form-group>
       </b-card>
