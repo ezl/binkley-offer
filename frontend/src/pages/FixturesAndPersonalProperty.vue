@@ -316,13 +316,13 @@ export default {
       persistentChoices: new PersistentChoices(),
       siteMap: [
         {
-          displayName: 'Address /',
+          displayName: 'Address',
           pageUrl: 'Home',
           isDisabled: false,
           color: 'dodgerblue'
         },
         {
-          displayName: 'Property Details /',
+          displayName: 'Property Details',
           pageUrl: 'ConfirmPropertyDetails',
           isDisabled: false,
           color: 'dodgerblue'

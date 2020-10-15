@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import {BootstrapVue, IconsPlugin} from 'bootstrap-vue'
+import {BootstrapVue, BootstrapVueIcons, IconsPlugin} from 'bootstrap-vue'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import GAuth from 'vue-google-oauth2'
@@ -18,6 +18,7 @@ Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(GAuth, gauthOption)
+Vue.use(BootstrapVueIcons)
 
 /* eslint-disable no-new */
 new Vue({
