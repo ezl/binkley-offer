@@ -197,7 +197,7 @@ def parse_bs4():
     details_dict = dict()
     details_dict.update(
         {'property_street_address': street_address_span.get_text().strip(),
-         'property_locality': city_state_zip_span_locality.get_text().strip(),
+         'property_locality': city_state_zip_span_locality.get_text().strip()[:-1],
          'property_region': city_state_zip_span_region.get_text().strip(),
          'property_postal_code': city_state_zip_span_postal_code.get_text().strip(),
          'agent_details_name': agent_details.get_text().split(sep='•')[0][10:].strip(),
