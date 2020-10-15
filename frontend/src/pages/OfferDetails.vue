@@ -19,7 +19,7 @@
           class="mb-0"
         >
           <TextInputMoney prepend="$" title="Purchase Price" v-model="pdfBody.purchase_price"
-                          text-label="Purchase Price"></TextInputMoney>
+                          text-label=" "></TextInputMoney>
         </b-form-group>
       </b-card>
       <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
@@ -55,7 +55,7 @@
           class="mb-0"
         >
           <TextInputMoney title="Home Warranty Amount" prepend="$" v-model="pdfBody.home_warranty_amount"
-                          text-label="Home Warranty Amount"></TextInputMoney>
+                          text-label=""></TextInputMoney>
         </b-form-group>
       </b-card>
       <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
@@ -66,30 +66,30 @@
           label-class="font-weight-bold pt-0"
           class="mb-0"
         >
-          <TextInput :special-field=true title="Brokerage For Earnest Money (Escrowee)"
-                          v-model="pdfBody.brokerage_for_earnest_money" text-label=" "
+          <TextInput :special-field=true title="Escrowee"
+                          v-model="pdfBody.brokerage_for_earnest_money" text-label="(Brokerage For Earnest Money)"
           ></TextInput>
           <p><strong>The initial earnest money amount after the acceptance date shall be</strong></p>
           <TextInputMoney title="Amount" prepend="$" v-model="pdfBody.initial_earnest_money_amount"
-                          text-label=" "></TextInputMoney>
+                          text-label="Initial Earnest Money Dollar Amount"></TextInputMoney>
           <b-form-group label-cols-sm="3" label="paid via" label-align-sm="right"></b-form-group>
           <TextInput :special-field="true" title="Payment Type"
                      v-model="pdfBody.how_buyer_deposits_earnest_money"
-                     text-label=" "></TextInput>
+                     text-label="e.g. check, wire, etc."></TextInput>
           <b-form-group label-cols-sm="3" label="within" label-align-sm="right"></b-form-group>
-          <TextInput :special-field="true" append="Days" title="Initial Earnest Money Payment Period"
+          <TextInput :special-field="true" append="Days" title="Initial Earnest Money Due"
                      v-model="pdfBody.initial_earnest_money_due_date"
                      text-label=" "></TextInput>
           <p><strong>After the attorney approval period, the earnest money shall be increased to:</strong></p>
-          <TextInputMoney title="Total Earnest Money Amount" prepend="$"
+          <TextInputMoney title="Amount" prepend="$"
                           v-model="pdfBody.balance_of_earnest_money_amount"
-                          text-label="Dollar Amount"></TextInputMoney>
+                          text-label="Total Earnest Money Dollar Amount"></TextInputMoney>
 
           <b-form-group label-cols-sm="3" label="within" label-align-sm="right"></b-form-group>
 
-          <TextInputMoney title="Balance of Earnest Money Due Date" append="days"
+          <TextInput :special-field="true" title="Balance of Earnest Money Due" append="Days"
                           v-model="pdfBody.balance_of_earnest_money_due_date"
-                          text-label=" "></TextInputMoney>
+                          text-label=" "></TextInput>
         </b-form-group>
       </b-card>
       <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
