@@ -72,9 +72,11 @@
           <p><strong>The initial earnest money amount after the acceptance date shall be</strong></p>
           <TextInputMoney title="Amount" prepend="$" v-model="pdfBody.initial_earnest_money_amount"
                           text-label=" "></TextInputMoney>
+          <b-form-group label-cols-sm="3" label="paid via" label-align-sm="right"></b-form-group>
           <TextInput :special-field="true" title="Payment Type"
                      v-model="pdfBody.how_buyer_deposits_earnest_money"
                      text-label=" "></TextInput>
+          <b-form-group label-cols-sm="3" label="within" label-align-sm="right"></b-form-group>
           <TextInput :special-field="true" append="Days" title="Initial Earnest Money Payment Period"
                      v-model="pdfBody.initial_earnest_money_due_date"
                      text-label=" "></TextInput>
@@ -82,11 +84,9 @@
           <TextInputMoney title="Total Earnest Money Amount" prepend="$"
                           v-model="pdfBody.balance_of_earnest_money_amount"
                           text-label="Dollar Amount"></TextInputMoney>
-          <b-form-group
-            label-cols-sm="3"
-            label="within"
-            label-align-sm="right">
-          </b-form-group>
+
+          <b-form-group label-cols-sm="3" label="within" label-align-sm="right"></b-form-group>
+
           <TextInputMoney title="Balance of Earnest Money Due Date" append="days"
                           v-model="pdfBody.balance_of_earnest_money_due_date"
                           text-label=" "></TextInputMoney>
