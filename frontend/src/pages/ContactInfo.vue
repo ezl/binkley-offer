@@ -21,11 +21,11 @@
           >
             <TextInput :special-field="true" v-model="pdfBody.designated_agent" title="Designated Agent"
                        text-label=" "></TextInput>
-            <TextInput :special-field="true" v-model="pdfBody.agent_mls" title="Agent Mls" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.agent_mls" title="Agent MLS" text-label=" "></TextInput>
             <TextInput :special-field="true" v-model="pdfBody.agent_license" title="Agent License"
                        text-label=" "></TextInput>
             <TextInput :special-field="true" v-model="pdfBody.brokerage" title="Brokerage" text-label=" "></TextInput>
-            <TextInput :special-field="true" v-model="pdfBody.brokerage_mls" title="Brokerage Mls"
+            <TextInput :special-field="true" v-model="pdfBody.brokerage_mls" title="Brokerage MLS"
                        text-label=" "></TextInput>
             <TextInput :special-field="true" v-model="pdfBody.brokerage_license" title="Brokerage License"
                        text-label=" "></TextInput>
