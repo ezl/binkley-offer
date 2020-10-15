@@ -14,7 +14,7 @@
         <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
           <b-form-group
             label-cols-lg="3"
-            label="Buyer's Broker's Information:"
+            label="Buyer's Broker:"
             label-size="lg"
             label-class="font-weight-bold pt-0"
             class="mb-0"
@@ -42,7 +42,7 @@
         <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
           <b-form-group
             label-cols-lg="3"
-            label="Buyer's Attorney's Information:"
+            label="Buyer's Attorney:"
             label-size="lg"
             label-class="font-weight-bold pt-0"
             class="mb-0"
@@ -62,7 +62,7 @@
         <b-card bg-variant="white" class="border-0">
           <b-form-group
             label-cols-lg="3"
-            label="Buyer's Lender's Information:"
+            label="Buyer's Lender:"
             label-size="lg"
             label-class="font-weight-bold pt-0"
             class="mb-0"
