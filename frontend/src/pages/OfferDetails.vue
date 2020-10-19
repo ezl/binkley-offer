@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container>
+    <b-container v-if="isLoaded">
       <b-row>
         <b-col>
           <H1 class="title">Offer Details</H1>
@@ -152,6 +152,7 @@ export default {
   components: {HeaderSiteMap, RadioInputTwoOptions, TextInputDate, CheckboxInput, TextInput, TextInputMoney},
   data () {
     return {
+      isLoaded: false,
       pdfBody: new PdfBody(),
       mortgageRadioItem: {
         first: false,
@@ -208,6 +209,11 @@ export default {
   mounted () {
     if (localStorage.pdfBody) {
       this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
+      this.creditBuyerAtClosingRadioItem.first = this.pdfBody.credit_buyer_at_closing_yes
+      this.creditBuyerAtClosingRadioItem.second = this.pdfBody.credit_buyer_at_closing_no
+      this.mortgageRadioItem.first = this.pdfBody.contract_subject_to_mortgage_yes
+      this.mortgageRadioItem.second = this.pdfBody.contract_subject_to_mortgage_no
+      this.isLoaded = true
     }
   },
   methods: {

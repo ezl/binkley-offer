@@ -73,6 +73,7 @@ import RadioInputTwoOptions from '../components/RadioInputTwoOptions'
 import PersistentChoices from '../models/PersistentChoices'
 import PersistentChoicesMumboJumbo from '../models/PersistentChoicesMumboJumbo'
 import HeaderSiteMap from '../components/HeaderSiteMap'
+import * as axios from 'axios'
 
 export default {
   name: 'LegalMumboJumbo',
@@ -165,6 +166,9 @@ export default {
   mounted () {
     if (localStorage.pdfBody) {
       this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
+      if (localStorage.token) {
+        this.fillWithDataFromDatabase()
+      }
       if (localStorage.persistentChoices) {
         this.persistentChoices = Object.assign(new PersistentChoices(), JSON.parse(localStorage.persistentChoices))
         this.fillPersistentData(this.pdfBody, this.persistentChoices)
@@ -178,7 +182,6 @@ export default {
   },
   methods: {
     nextPage () {
-      console.log(this.pdfBody.offer_date)
       localStorage.pdfBody = JSON.stringify(this.pdfBody)
       this.$router.push({name: 'ContactInfo'})
     },
@@ -187,10 +190,28 @@ export default {
         if (key in new PdfBody() && key in new PersistentChoicesMumboJumbo()) {
           pdfBody[key] = persistentChoices[key]
         }
-      }
-      )
+      })
       this.changeRadioButtons()
       this.isLoaded = true
+    },
+    fillWithDataFromDatabase () {
+      axios({
+        url: 'http://localhost:8000/api/user-preferences/',
+        method: 'GET',
+        headers: {
+          'Authorization': 'Token ' + localStorage.token
+        }
+      }).then(response => {
+        if (response.status === 200) {
+          Object.keys(new PersistentChoices()).forEach(key => {
+            if (key in new PdfBody() && key in new PersistentChoicesMumboJumbo()) {
+              this.pdfBody[key] = response.data[key]
+            }
+          })
+          this.changeRadioButtons()
+          this.isLoaded = true
+        }
+      })
     },
     changeRadioButtons () {
       this.disclosuresARadioItem.first = this.pdfBody.disclosures_a_yes
@@ -199,8 +220,8 @@ export default {
       this.disclosuresBRadioItem.second = this.pdfBody.disclosures_b_no
       this.disclosuresCRadioItem.first = this.pdfBody.disclosures_c_yes
       this.disclosuresCRadioItem.second = this.pdfBody.disclosures_c_no
-      this.disclosuresDRadioItem.first = this.pdfBody.disclosures_c_yes
-      this.disclosuresDRadioItem.second = this.pdfBody.disclosures_c_no
+      this.disclosuresDRadioItem.first = this.pdfBody.disclosures_d_yes
+      this.disclosuresDRadioItem.second = this.pdfBody.disclosures_d_no
     },
     getDate () {
       const toTwoDigits = num => num < 10 ? '0' + num : num

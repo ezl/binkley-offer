@@ -295,6 +295,7 @@ import RadioInputTwoOptions from '../components/RadioInputTwoOptions'
 import PersistentChoices from '../models/PersistentChoices'
 import PersistentChoicesFixtures from '../models/PersistentChoicesFixtures'
 import HeaderSiteMap from '../components/HeaderSiteMap'
+import * as axios from 'axios'
 
 export default {
   name: 'FixturesAndPersonalProperty',
@@ -348,6 +349,10 @@ export default {
   mounted () {
     if (localStorage.pdfBody) {
       this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
+      console.log(this.pdfBody.other_equipment)
+      if (localStorage.token) {
+        this.fillWithDataFromDatabase()
+      }
       if (localStorage.persistentChoices) {
         this.persistentChoices = Object.assign(new PersistentChoices(), JSON.parse(localStorage.persistentChoices))
         this.fillPersistentData(this.pdfBody, this.persistentChoices)
@@ -366,9 +371,26 @@ export default {
         if (key in new PdfBody() && key in new PersistentChoicesFixtures()) {
           pdfBody[key] = persistentChoices[key]
         }
-      }
-      )
+      })
       this.isLoaded = true
+    },
+    fillWithDataFromDatabase () {
+      axios({
+        url: 'http://localhost:8000/api/user-preferences/',
+        method: 'GET',
+        headers: {
+          'Authorization': 'Token ' + localStorage.token
+        }
+      }).then(response => {
+        if (response.status === 200) {
+          Object.keys(new PersistentChoices()).forEach(key => {
+            if (key in new PdfBody() && key in new PersistentChoicesFixtures()) {
+              this.pdfBody[key] = response.data[key]
+            }
+          })
+          this.isLoaded = true
+        }
+      })
     }
   }
 }

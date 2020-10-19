@@ -165,6 +165,9 @@ export default {
   mounted () {
     if (localStorage.pdfBody) {
       this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
+      if (localStorage.token) {
+        this.fillWithDataFromDatabase()
+      }
       if (localStorage.persistentChoices) {
         this.persistentChoices = Object.assign(new PersistentChoices(), JSON.parse(localStorage.persistentChoices))
         this.fillPersistentData(this.pdfBody, this.persistentChoices)
@@ -200,7 +203,9 @@ export default {
               localStorage.persistentChoices = null
               let newPersistentChoices = new PersistentChoices()
               Object.keys(new PersistentChoices()).forEach(key => {
-                if (key in new PdfBody()) {
+                if (key in new PdfBody() && !(key in new PersistentChoicesContactBroker()) &&
+                !(key in new PersistentChoicesContactAttorney()) &&
+                !(key in new PersistentChoicesContactLender())) {
                   newPersistentChoices[key] = this.pdfBody[key]
                 }
               }
@@ -230,6 +235,16 @@ export default {
                 )
               }
               localStorage.persistentChoices = JSON.stringify(newPersistentChoices)
+              if (localStorage.token) {
+                axios({
+                  url: 'http://50.116.19.93:8000/api/user-preferences/',
+                  method: 'POST',
+                  headers: {
+                    'Authorization': 'Token ' + localStorage.token
+                  },
+                  data: newPersistentChoices
+                })
+              }
             })
             .catch(err => {
               console.log(err)
@@ -249,7 +264,24 @@ export default {
       )
       this.isLoaded = true
     },
-
+    fillWithDataFromDatabase () {
+      axios({
+        url: 'http://localhost:8000/api/user-preferences/',
+        method: 'GET',
+        headers: {
+          'Authorization': 'Token ' + localStorage.token
+        }
+      }).then(response => {
+        if (response.status === 200) {
+          Object.keys(new PersistentChoices()).forEach(key => {
+            if (key in new PdfBody() && key in new PersistentChoicesContact()) {
+              this.pdfBody[key] = response.data[key]
+            }
+          })
+          this.isLoaded = true
+        }
+      })
+    },
     showFile (blob, fileName) {
       var newBlob = new Blob([blob], {type: 'application/pdf'})
       if (window.navigator && window.navigator.msSaveOrOpenBlob) {

@@ -48,5 +48,8 @@ export default new Router({
       name: 'ContactInfo',
       component: ContactInfo
     }
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
 })
