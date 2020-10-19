@@ -172,9 +172,13 @@ export default {
         this.isLoaded = true
       }
     }
+    if (!this.pdfBody.offer_date) {
+      this.getDate()
+    }
   },
   methods: {
     nextPage () {
+      console.log(this.pdfBody.offer_date)
       localStorage.pdfBody = JSON.stringify(this.pdfBody)
       this.$router.push({name: 'ContactInfo'})
     },
@@ -197,11 +201,17 @@ export default {
       this.disclosuresCRadioItem.second = this.pdfBody.disclosures_c_no
       this.disclosuresDRadioItem.first = this.pdfBody.disclosures_c_yes
       this.disclosuresDRadioItem.second = this.pdfBody.disclosures_c_no
+    },
+    getDate () {
+      const toTwoDigits = num => num < 10 ? '0' + num : num
+      let today = new Date()
+      let year = today.getFullYear()
+      let month = toTwoDigits(today.getMonth() + 1)
+      let day = toTwoDigits(today.getDate())
+      this.pdfBody.offer_date = `${year}-${month}-${day}`
     }
   }
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
