@@ -287,7 +287,7 @@ export default {
                 localStorage.attorneyProfiles = JSON.stringify(this.createProfileForSectionInLocalStorage(this.attorneyProfiles, new PersistentChoicesContactAttorney()))
               }
               if (this.saveForFutureUseLenderProfile) {
-                localStorage.lenderProfiles = JSON.stringify(this.createProfileForSectionInLocalStorage(this.lenderProfiles, new PersistentChoicesContactAttorney()))
+                localStorage.lenderProfiles = JSON.stringify(this.createProfileForSectionInLocalStorage(this.lenderProfiles, new PersistentChoicesContactLender()))
               }
               localStorage.persistentChoices = JSON.stringify(newPersistentChoices)
               if (localStorage.token) {
