@@ -166,6 +166,7 @@ export default {
   mounted () {
     if (localStorage.pdfBody) {
       this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
+      this.changeRadioButtons()
       if (localStorage.token) {
         this.fillWithDataFromDatabase()
       }
