@@ -349,7 +349,6 @@ export default {
   mounted () {
     if (localStorage.pdfBody) {
       this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
-      console.log(this.pdfBody.other_equipment)
       if (localStorage.token) {
         this.fillWithDataFromDatabase()
       }

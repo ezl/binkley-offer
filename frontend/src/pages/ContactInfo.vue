@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :key="forceUpdateCount">
     <b-container>
       <b-row>
         <b-col>
@@ -38,6 +38,24 @@
                        text-label=" "></TextInput>
             <CheckboxInput v-model="saveForFutureUseBroker" :special-field="true"
                            text-label="Save for future use"></CheckboxInput>
+            <CheckboxInput v-model="saveForFutureUseBrokerProfile" :special-field="true"
+                           text-label="Save this profile for future use"></CheckboxInput>
+            <b-dropdown id="dropdown-grouped" text="Buyer Broker Profiles" class="m-2">
+              <b-dropdown-group v-for="(item, index) in brokerProfiles" :key="index">
+                <b-dropdown-item-button @click="selectProfile(index, 'broker')"> Profile {{index + 1}} </b-dropdown-item-button>
+                <b-dropdown-text>Designated Agent: <b>{{item.designated_agent}}</b></b-dropdown-text>
+                <b-dropdown-text>Agent Mls: <b>{{item.agent_mls}}</b></b-dropdown-text>
+                <b-dropdown-text>Agent License: <b>{{item.agent_license}}</b></b-dropdown-text>
+                <b-dropdown-text>Brokerage: <b>{{item.brokerage}}</b></b-dropdown-text>
+                <b-dropdown-text>Brokerage Mls: <b>{{item.brokerage_mls}}</b></b-dropdown-text>
+                <b-dropdown-text>Brokerage License: <b>{{item.brokerage_license}}</b></b-dropdown-text>
+                <b-dropdown-text>Broker Address: <b>{{item.broker_address}}</b></b-dropdown-text>
+                <b-dropdown-text>Agent Phone: <b>{{item.agent_phone}}</b></b-dropdown-text>
+                <b-dropdown-text>Agent Fax: <b>{{item.agent_fax}}</b></b-dropdown-text>
+                <b-dropdown-text>Broker Email: <b>{{item.broker_email}}</b></b-dropdown-text>
+                <b-dropdown-divider></b-dropdown-divider>
+              </b-dropdown-group>
+          </b-dropdown>
           </b-form-group>
         </b-card>
         <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
@@ -60,6 +78,19 @@
                        text-label=" "></TextInput>
             <CheckboxInput v-model="saveForFutureUseAttorney" :special-field="true"
                            text-label="Save for future use"></CheckboxInput>
+            <CheckboxInput v-model="saveForFutureUseAttorneyProfile" :special-field="true"
+                           text-label="Save this profile for future use"></CheckboxInput>
+            <b-dropdown id="dropdown-grouped" text="Buyer Attorney Profiles" class="m-2">
+              <b-dropdown-group v-for="(item, index) in attorneyProfiles" :key="index">
+                <b-dropdown-item-button @click="selectProfile(index, 'attorney')"> Profile {{index + 1}} </b-dropdown-item-button>
+                <b-dropdown-text>Attorney Name: <b>{{item.attorney_name}}</b></b-dropdown-text>
+                <b-dropdown-text>Attorney Address: <b>{{item.attorney_address}}</b></b-dropdown-text>
+                <b-dropdown-text>Attorney Phone: <b>{{item.attorney_phone}}</b></b-dropdown-text>
+                <b-dropdown-text>Attorney Fax: <b>{{item.attorney_fax}}</b></b-dropdown-text>
+                <b-dropdown-text>Attorney Email: <b>{{item.attorney_email}}</b></b-dropdown-text>
+                <b-dropdown-divider></b-dropdown-divider>
+              </b-dropdown-group>
+          </b-dropdown>
           </b-form-group>
         </b-card>
         <b-card bg-variant="white" class="border-0">
@@ -83,6 +114,20 @@
                        text-label=" "></TextInput>
             <CheckboxInput v-model="saveForFutureUseLender" :special-field="true"
                            text-label="Save for future use"></CheckboxInput>
+            <CheckboxInput v-model="saveForFutureUseLenderProfile" :special-field="true"
+                           text-label="Save this profile for future use"></CheckboxInput>
+            <b-dropdown id="dropdown-grouped" text="Buyer Attorney Profiles" class="m-2">
+              <b-dropdown-group v-for="(item, index) in attorneyProfiles" :key="index">
+                <b-dropdown-item-button @click="selectProfile(index, 'lender')"> Profile {{index + 1}} </b-dropdown-item-button>
+                <b-dropdown-text>Lender Name: <b>{{item.lender_name}}</b></b-dropdown-text>
+                <b-dropdown-text>Lender Company: <b>{{item.lender_company}}</b></b-dropdown-text>
+                <b-dropdown-text>Lender Address: <b>{{item.lender_address}}</b></b-dropdown-text>
+                <b-dropdown-text>Lender Phone: <b>{{item.lender_phone}}</b></b-dropdown-text>
+                <b-dropdown-text>Lender Fax: <b>{{item.lender_fax}}</b></b-dropdown-text>
+                <b-dropdown-text>Lender Email: <b>{{item.lender_email}}</b></b-dropdown-text>
+                <b-dropdown-divider></b-dropdown-divider>
+              </b-dropdown-group>
+          </b-dropdown>
           </b-form-group>
           <b-row>
             <b-col>
@@ -121,6 +166,7 @@ export default {
   components: {HeaderSiteMap, FormGroupInput, CheckboxInput, TextInput},
   data () {
     return {
+      forceUpdateCount: 0,
       isLoaded: false,
       loading: false,
       pdfBody: new PdfBody(),
@@ -128,6 +174,12 @@ export default {
       saveForFutureUseBroker: false,
       saveForFutureUseAttorney: false,
       saveForFutureUseLender: false,
+      saveForFutureUseBrokerProfile: false,
+      saveForFutureUseAttorneyProfile: false,
+      saveForFutureUseLenderProfile: false,
+      brokerProfiles: [],
+      attorneyProfiles: [],
+      lenderProfiles: [],
       siteMap: [
         {
           displayName: 'Address',
@@ -167,6 +219,15 @@ export default {
       this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
       if (localStorage.token) {
         this.fillWithDataFromDatabase()
+      }
+      if (localStorage.brokerProfiles) {
+        this.brokerProfiles = Object.assign([], JSON.parse(localStorage.brokerProfiles))
+      }
+      if (localStorage.attorneyProfiles) {
+        this.attorneyProfiles = Object.assign([], JSON.parse(localStorage.attorneyProfiles))
+      }
+      if (localStorage.lenderProfiles) {
+        this.lenderProfiles = Object.assign([], JSON.parse(localStorage.lenderProfiles))
       }
       if (localStorage.persistentChoices && !localStorage.token) {
         this.persistentChoices = Object.assign(new PersistentChoices(), JSON.parse(localStorage.persistentChoices))
@@ -211,28 +272,22 @@ export default {
               }
               )
               if (this.saveForFutureUseBroker) {
-                Object.keys(new PersistentChoices()).forEach(key => {
-                  if (key in new PersistentChoicesContactBroker()) {
-                    newPersistentChoices[key] = this.pdfBody[key]
-                  }
-                }
-                )
+                this.putDataOnLocalStorage(newPersistentChoices, new PersistentChoicesContactBroker())
               }
               if (this.saveForFutureUseAttorney) {
-                Object.keys(new PersistentChoices()).forEach(key => {
-                  if (key in new PersistentChoicesContactAttorney()) {
-                    newPersistentChoices[key] = this.pdfBody[key]
-                  }
-                }
-                )
+                this.putDataOnLocalStorage(newPersistentChoices, new PersistentChoicesContactAttorney())
               }
               if (this.saveForFutureUseLender) {
-                Object.keys(new PersistentChoices()).forEach(key => {
-                  if (key in new PersistentChoicesContactLender()) {
-                    newPersistentChoices[key] = this.pdfBody[key]
-                  }
-                }
-                )
+                this.putDataOnLocalStorage(newPersistentChoices, new PersistentChoicesContactAttorney())
+              }
+              if (this.saveForFutureUseBrokerProfile) {
+                localStorage.brokerProfiles = JSON.stringify(this.createProfileForSectionInLocalStorage(this.brokerProfiles, new PersistentChoicesContactBroker()))
+              }
+              if (this.saveForFutureUseAttorneyProfile) {
+                localStorage.attorneyProfiles = JSON.stringify(this.createProfileForSectionInLocalStorage(this.attorneyProfiles, new PersistentChoicesContactAttorney()))
+              }
+              if (this.saveForFutureUseLenderProfile) {
+                localStorage.lenderProfiles = JSON.stringify(this.createProfileForSectionInLocalStorage(this.lenderProfiles, new PersistentChoicesContactAttorney()))
               }
               localStorage.persistentChoices = JSON.stringify(newPersistentChoices)
               if (localStorage.token) {
@@ -282,6 +337,63 @@ export default {
         }
       })
     },
+    putDataOnLocalStorage (newPersistentChoices, type) {
+      Object.keys(new PersistentChoices()).forEach(key => {
+        if (key in type) {
+          newPersistentChoices[key] = this.pdfBody[key]
+        }
+      }
+      )
+    },
+    createProfileForSectionInLocalStorage (storage, type) {
+      let item = type
+      Object.keys(new PersistentChoices()).forEach(key => {
+        if (key in type) {
+          item[key] = this.pdfBody[key]
+        }
+      }
+      )
+      storage.push(item)
+      return storage
+    },
+    selectProfile (index, type) {
+      switch (type) {
+        case 'broker':
+          if (this.brokerProfiles.length > 0) {
+            this.pdfBody.designated_agent = this.brokerProfiles[index].designated_agent
+            this.pdfBody.agent_mls = this.brokerProfiles[index].agent_mls
+            this.pdfBody.agent_license = this.brokerProfiles[index].agent_license
+            this.pdfBody.brokerage = this.brokerProfiles[index].brokerage
+            this.pdfBody.brokerage_mls = this.brokerProfiles[index].brokerage_mls
+            this.pdfBody.brokerage_license = this.brokerProfiles[index].brokerage_license
+            this.pdfBody.broker_address = this.brokerProfiles[index].broker_address
+            this.pdfBody.agent_phone = this.brokerProfiles[index].agent_phone
+            this.pdfBody.agent_fax = this.brokerProfiles[index].agent_fax
+            this.pdfBody.broker_email = this.brokerProfiles[index].broker_email
+          }
+          break
+        case 'attorney':
+          if (this.attorneyProfiles.length > 0) {
+            this.pdfBody.attorney_name = this.attorneyProfiles[index].attorney_name
+            this.pdfBody.attorney_address = this.attorneyProfiles[index].attorney_address
+            this.pdfBody.attorney_phone = this.attorneyProfiles[index].attorney_phone
+            this.pdfBody.attorney_fax = this.attorneyProfiles[index].attorney_fax
+            this.pdfBody.attorney_email = this.attorneyProfiles[index].attorney_email
+          }
+          break
+        case 'lender':
+          if (this.lenderProfiles.length > 0) {
+            this.pdfBody.lender_name = this.lenderProfiles[index].lender_name
+            this.pdfBody.lender_company = this.lenderProfiles[index].lender_company
+            this.pdfBody.lender_address = this.lenderProfiles[index].lender_address
+            this.pdfBody.lender_phone = this.lenderProfiles[index].lender_phone
+            this.pdfBody.lender_fax = this.lenderProfiles[index].lender_fax
+            this.pdfBody.lender_email = this.lenderProfiles[index].lender_email
+          }
+          break
+      }
+      this.forceUpdate()
+    },
     showFile (blob, fileName) {
       var newBlob = new Blob([blob], {type: 'application/pdf'})
       if (window.navigator && window.navigator.msSaveOrOpenBlob) {
@@ -297,6 +409,9 @@ export default {
         // For Firefox it is necessary to delay revoking the ObjectURL
         window.URL.revokeObjectURL(data)
       }, 100)
+    },
+    forceUpdate () {
+      this.forceUpdateCount += 1
     }
   }
 }
