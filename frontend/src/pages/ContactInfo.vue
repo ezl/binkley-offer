@@ -116,8 +116,8 @@
                            text-label="Save for future use"></CheckboxInput>
             <CheckboxInput v-model="saveForFutureUseLenderProfile" :special-field="true"
                            text-label="Save this profile for future use"></CheckboxInput>
-            <b-dropdown id="dropdown-grouped" text="Buyer Attorney Profiles" class="m-2">
-              <b-dropdown-group v-for="(item, index) in attorneyProfiles" :key="index">
+            <b-dropdown id="dropdown-grouped" text="Buyer Lender Profiles" class="m-2">
+              <b-dropdown-group v-for="(item, index) in lenderProfiles" :key="index">
                 <b-dropdown-item-button @click="selectProfile(index, 'lender')"> Profile {{index + 1}} </b-dropdown-item-button>
                 <b-dropdown-text>Lender Name: <b>{{item.lender_name}}</b></b-dropdown-text>
                 <b-dropdown-text>Lender Company: <b>{{item.lender_company}}</b></b-dropdown-text>
