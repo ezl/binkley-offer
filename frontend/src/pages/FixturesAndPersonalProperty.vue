@@ -376,7 +376,7 @@ export default {
     },
     fillWithDataFromDatabase () {
       axios({
-        url: 'http://localhost:8000/api/user-preferences/',
+        url: 'http://50.116.19.93:8000/api/user-preferences/',
         method: 'GET',
         headers: {
           'Authorization': 'Token ' + localStorage.token
