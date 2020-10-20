@@ -16,12 +16,15 @@ from rest_framework.response import Response
 
 from .exceptions.custom_exceptions import RedfinScrapperException, UnhandledException
 from .serializers import CreatePdfSerializer, GetPdfSerializer, SearchSerializer, RedfinScrapperSerializer, \
-    GoogleAuthSerializer, CreateUserSerializer, ResponseUserSerializer, LoginUserSerializer
+    GoogleAuthSerializer, CreateUserSerializer, ResponseUserSerializer, LoginUserSerializer, UserPreferencesSerializer
 from .models import Pdf
 
 from .services.search_service import search_redfin_autocomplete_api
 from .services.pdf_service import scraper_redfin
 from .services.auth_service import *
+from .services.user_service import create_user_persistent_choices
+from pdf.models import PersistentUserChoice
+from rest_framework import status
 
 
 class PdfViewSet(ViewSet):
@@ -43,7 +46,8 @@ class PdfViewSet(ViewSet):
             raise NotFound(detail='PDF not found')
 
         if request.auth:
-            user = User.objects.get(id=Token.objects.get(key=request.auth.key).user_id)
+            user = User.objects.get(
+                id=Token.objects.get(key=request.auth.key).user_id)
             pdf.user_email = user.username
             pdf.save()
 
@@ -148,7 +152,8 @@ class UserAuth(ViewSet):
             raise ParseError(detail=serializer.errors)
 
         try:
-            serializer_response = ResponseUserSerializer(data=create_user(serializer.validated_data))
+            serializer_response = ResponseUserSerializer(
+                data=create_user(serializer.validated_data))
             if not serializer_response.is_valid():
                 raise ParseError(detail=serializer_response.errors)
 
@@ -180,7 +185,8 @@ class UserLogin(ViewSet):
         if not serializer.is_valid():
             raise ParseError(detail=serializer.errors)
         try:
-            serializer_response = ResponseUserSerializer(data=login_user(serializer.validated_data))
+            serializer_response = ResponseUserSerializer(
+                data=login_user(serializer.validated_data))
             if not serializer_response.is_valid():
                 raise ParseError(detail=serializer_response.errors)
 
@@ -190,11 +196,40 @@ class UserLogin(ViewSet):
         except UnhandledException:
             raise UnhandledException(detail="Unhandled Exception", code=500)
 
+
 class UserPdfs(APIView):
     authentication_classes = (TokenAuthentication,)
 
     def get(self, request):
-        user = User.objects.get(id=Token.objects.get(key=request.auth.key).user_id)
+        user = User.objects.get(
+            id=Token.objects.get(key=request.auth.key).user_id)
         pdfs = Pdf.objects.filter(user_email=user.username)
         serializer_response = GetPdfSerializer(pdfs, many=True)
         return Response({'pdfs': serializer_response.data})
+
+
+class UserPreferences(ViewSet):
+    authentication_classes = (TokenAuthentication,)
+
+    def create(self, request):
+        serializer = UserPreferencesSerializer(data=request.data)
+
+        if not serializer.is_valid():
+            raise ParseError(detail=serializer.errors)
+        create_user_persistent_choices(serializer.validated_data, User.objects.get(
+            id=Token.objects.get(key=request.auth.key).user_id))
+
+        return Response(status=status.HTTP_201_CREATED)
+
+    def list(self, request):
+
+        user_preferences = PersistentUserChoice.objects.filter(user=User.objects.get(
+            id=Token.objects.get(key=request.auth.key).user_id)).first()
+
+        
+        if not user_preferences:
+            raise NotFound(detail='User Preferences not found')
+
+        serializer = UserPreferencesSerializer(user_preferences)
+
+        return Response(serializer.data)
