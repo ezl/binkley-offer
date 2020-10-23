@@ -21,11 +21,11 @@
           >
             <TextInput :special-field="true" v-model="pdfBody.designated_agent" title="Designated Agent"
                        text-label=" "></TextInput>
-            <TextInput :special-field="true" v-model="pdfBody.agent_mls" title="Agent MLS" text-label=" "></TextInput>
-            <TextInput :special-field="true" v-model="pdfBody.agent_license" title="Agent License"
+            <TextInput :special-field="true" v-model="pdfBody.agent_mls" title="Agent MLS#" text-label=" "></TextInput>
+            <TextInput :special-field="true" v-model="pdfBody.agent_license" title="Agent License#"
                        text-label=" "></TextInput>
             <TextInput :special-field="true" v-model="pdfBody.brokerage" title="Brokerage" text-label=" "></TextInput>
-            <TextInput :special-field="true" v-model="pdfBody.brokerage_mls" title="Brokerage MLS"
+            <TextInput :special-field="true" v-model="pdfBody.brokerage_mls" title="Brokerage MLS#"
                        text-label=" "></TextInput>
             <TextInput :special-field="true" v-model="pdfBody.brokerage_license" title="Brokerage License"
                        text-label=" "></TextInput>
@@ -42,10 +42,10 @@
               <b-dropdown-group v-for="(item, index) in brokerProfiles" :key="index">
                 <b-dropdown-item-button @click="selectProfile(index, 'broker')"> Profile {{index + 1}} </b-dropdown-item-button>
                 <b-dropdown-text>Designated Agent: <b>{{item.designated_agent}}</b></b-dropdown-text>
-                <b-dropdown-text>Agent Mls: <b>{{item.agent_mls}}</b></b-dropdown-text>
-                <b-dropdown-text>Agent License: <b>{{item.agent_license}}</b></b-dropdown-text>
+                <b-dropdown-text>Agent Mls#: <b>{{item.agent_mls}}</b></b-dropdown-text>
+                <b-dropdown-text>Agent License#: <b>{{item.agent_license}}</b></b-dropdown-text>
                 <b-dropdown-text>Brokerage: <b>{{item.brokerage}}</b></b-dropdown-text>
-                <b-dropdown-text>Brokerage Mls: <b>{{item.brokerage_mls}}</b></b-dropdown-text>
+                <b-dropdown-text>Brokerage Mls#: <b>{{item.brokerage_mls}}</b></b-dropdown-text>
                 <b-dropdown-text>Brokerage License: <b>{{item.brokerage_license}}</b></b-dropdown-text>
                 <b-dropdown-text>Broker Address: <b>{{item.broker_address}}</b></b-dropdown-text>
                 <b-dropdown-text>Agent Phone: <b>{{item.agent_phone}}</b></b-dropdown-text>
