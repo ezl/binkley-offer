@@ -111,6 +111,8 @@ export default class PdfBody {
   disclosures_c_no = false
   disclosures_d_yes = false
   disclosures_d_no = false
+  dual_agent_broker_yes = false
+  dual_agent_broker_no = false
   dual_agent_broker_name = null
   length_of_attorney_review = null
   length_of_inspection_period = null

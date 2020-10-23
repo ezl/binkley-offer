@@ -45,7 +45,11 @@
           label-class="font-weight-bold pt-0"
           class="mb-0"
         >
-          <TextInput :special-field="true" v-model="pdfBody.dual_agent_broker_name"
+          <RadioInputTwoOptions :special-field="true" :item="dualAgencyRadioItem"
+                        text-label="Dual Agent"
+                        item-one-label="Yes "
+                        item-two-label="No "></RadioInputTwoOptions>
+          <TextInput :special-field="true" v-if="pdfBody.dual_agent_broker_yes" v-model="pdfBody.dual_agent_broker_name"
                      title="Dual Agent Broker Name" text-label=" "></TextInput>
           <TextInput :special-field="true" v-model="pdfBody.length_of_attorney_review" append="Days"
                      title="Length of Attorney Review" text-label=" "></TextInput>
@@ -96,6 +100,10 @@ export default {
         second: false
       },
       disclosuresDRadioItem: {
+        first: false,
+        second: false
+      },
+      dualAgencyRadioItem: {
         first: false,
         second: false
       },
@@ -160,6 +168,13 @@ export default {
       handler () {
         this.pdfBody.disclosures_d_yes = Boolean(this.disclosuresDRadioItem.first)
         this.pdfBody.disclosures_d_no = Boolean(this.disclosuresDRadioItem.second)
+      }
+    },
+    dualAgencyRadioItem: {
+      deep: true,
+      handler () {
+        this.pdfBody.dual_agent_broker_yes = Boolean(this.dualAgencyRadioItem.first)
+        this.pdfBody.dual_agent_broker_no = Boolean(this.dualAgencyRadioItem.second)
       }
     }
   },
