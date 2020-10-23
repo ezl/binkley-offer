@@ -40,7 +40,6 @@
 
 <script>
 import PdfBody from '../models/PdfBody'
-import PersistentChoices from '../models/PersistentChoices'
 import * as axios from 'axios'
 import HeaderSiteMap from '../components/HeaderSiteMap'
 

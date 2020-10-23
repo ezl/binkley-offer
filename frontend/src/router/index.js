@@ -52,7 +52,7 @@ export default new Router({
     {
       path: '/done',
       name: 'Done',
-      component:Done
+      component: Done
     }
   ],
   scrollBehavior (to, from, savedPosition) {
