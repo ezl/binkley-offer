@@ -36,8 +36,6 @@
             <TextInput :special-field="true" v-model="pdfBody.agent_fax" title="Agent Fax" text-label=" "></TextInput>
             <TextInput :special-field="true" v-model="pdfBody.broker_email" title="Broker Email"
                        text-label=" "></TextInput>
-            <CheckboxInput v-model="saveForFutureUseBroker" :special-field="true"
-                           text-label="Save for future use"></CheckboxInput>
             <CheckboxInput v-model="saveForFutureUseBrokerProfile" :special-field="true"
                            text-label="Save this profile for future use"></CheckboxInput>
             <b-dropdown id="dropdown-grouped" text="Buyer Broker Profiles" class="m-2">
@@ -76,8 +74,6 @@
                        text-label=" "></TextInput>
             <TextInput :special-field="true" v-model="pdfBody.attorney_email" title="Attorney Email"
                        text-label=" "></TextInput>
-            <CheckboxInput v-model="saveForFutureUseAttorney" :special-field="true"
-                           text-label="Save for future use"></CheckboxInput>
             <CheckboxInput v-model="saveForFutureUseAttorneyProfile" :special-field="true"
                            text-label="Save this profile for future use"></CheckboxInput>
             <b-dropdown id="dropdown-grouped" text="Buyer Attorney Profiles" class="m-2">
@@ -112,8 +108,6 @@
             <TextInput :special-field="true" v-model="pdfBody.lender_fax" title="Lender Fax" text-label=" "></TextInput>
             <TextInput :special-field="true" v-model="pdfBody.lender_email" title="Lender Email"
                        text-label=" "></TextInput>
-            <CheckboxInput v-model="saveForFutureUseLender" :special-field="true"
-                           text-label="Save for future use"></CheckboxInput>
             <CheckboxInput v-model="saveForFutureUseLenderProfile" :special-field="true"
                            text-label="Save this profile for future use"></CheckboxInput>
             <b-dropdown id="dropdown-grouped" text="Buyer Lender Profiles" class="m-2">
@@ -171,9 +165,6 @@ export default {
       loading: false,
       pdfBody: new PdfBody(),
       persistentChoices: new PersistentChoices(),
-      saveForFutureUseBroker: false,
-      saveForFutureUseAttorney: false,
-      saveForFutureUseLender: false,
       saveForFutureUseBrokerProfile: false,
       saveForFutureUseAttorneyProfile: false,
       saveForFutureUseLenderProfile: false,
@@ -271,15 +262,6 @@ export default {
                 }
               }
               )
-              if (this.saveForFutureUseBroker) {
-                this.putDataOnLocalStorage(newPersistentChoices, new PersistentChoicesContactBroker())
-              }
-              if (this.saveForFutureUseAttorney) {
-                this.putDataOnLocalStorage(newPersistentChoices, new PersistentChoicesContactAttorney())
-              }
-              if (this.saveForFutureUseLender) {
-                this.putDataOnLocalStorage(newPersistentChoices, new PersistentChoicesContactAttorney())
-              }
               if (this.saveForFutureUseBrokerProfile) {
                 localStorage.brokerProfiles = JSON.stringify(this.createProfileForSectionInLocalStorage(this.brokerProfiles, new PersistentChoicesContactBroker()))
               }
@@ -336,14 +318,6 @@ export default {
           this.isLoaded = true
         }
       })
-    },
-    putDataOnLocalStorage (newPersistentChoices, type) {
-      Object.keys(new PersistentChoices()).forEach(key => {
-        if (key in type) {
-          newPersistentChoices[key] = this.pdfBody[key]
-        }
-      }
-      )
     },
     createProfileForSectionInLocalStorage (storage, type) {
       let item = type
