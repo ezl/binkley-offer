@@ -125,9 +125,7 @@
           </b-form-group>
           <b-row>
             <b-col>
-              <b-button v-if="!loading" variant="primary" class="btn float-right" @click="convertPdf"> Generate PDF
-              </b-button>
-              <b-spinner v-if="loading" class="float-right" variant="primary" label="Spinning"></b-spinner>
+              <b-button class="btn float-right mr-auto" variant="primary" @click="nextPage"><b-icon icon="arrow-right-circle"></b-icon> Next Page</b-button>
             </b-col>
           </b-row>
         </b-card>
@@ -229,69 +227,6 @@ export default {
     }
   },
   methods: {
-    convertPdf: function () {
-      if (this.redfinUrl !== null) {
-        this.loading = true
-        axios({
-          url: 'http://50.116.19.93:8000/api/pdf/',
-          method: 'POST',
-          data: this.pdfBody,
-          responseType: 'blob'
-        }).then(response => {
-          axios({
-            url: 'http://50.116.19.93:8000/api/pdf?url=' + this.pdfBody.url,
-            method: 'GET'
-          })
-            .then(responseGet => {
-              // var fileURL = window.URL.createObjectURL(new Blob([response.data]))
-              // var fileLink = document.createElement('a')
-              // fileLink.href = fileURL
-              // fileLink.setAttribute('download', responseGet.data.pdf_src.split('/').pop())
-              // document.body.appendChild(fileLink)
-              // fileLink.click()
-              this.showFile(response.data, responseGet.data.pdf_src.split('/').pop())
-              this.loading = false
-              localStorage.pdfBody = null
-              localStorage.persistentChoices = null
-              let newPersistentChoices = new PersistentChoices()
-              Object.keys(new PersistentChoices()).forEach(key => {
-                if (key in new PdfBody() && !(key in new PersistentChoicesContactBroker()) &&
-                !(key in new PersistentChoicesContactAttorney()) &&
-                !(key in new PersistentChoicesContactLender())) {
-                  newPersistentChoices[key] = this.pdfBody[key]
-                }
-              }
-              )
-              if (this.saveForFutureUseBrokerProfile) {
-                localStorage.brokerProfiles = JSON.stringify(this.createProfileForSectionInLocalStorage(this.brokerProfiles, new PersistentChoicesContactBroker()))
-              }
-              if (this.saveForFutureUseAttorneyProfile) {
-                localStorage.attorneyProfiles = JSON.stringify(this.createProfileForSectionInLocalStorage(this.attorneyProfiles, new PersistentChoicesContactAttorney()))
-              }
-              if (this.saveForFutureUseLenderProfile) {
-                localStorage.lenderProfiles = JSON.stringify(this.createProfileForSectionInLocalStorage(this.lenderProfiles, new PersistentChoicesContactLender()))
-              }
-              localStorage.persistentChoices = JSON.stringify(newPersistentChoices)
-              if (localStorage.token) {
-                axios({
-                  url: 'http://50.116.19.93:8000/api/user-preferences/',
-                  method: 'POST',
-                  headers: {
-                    'Authorization': 'Token ' + localStorage.token
-                  },
-                  data: newPersistentChoices
-                })
-              }
-            })
-            .catch(err => {
-              console.log(err)
-            })
-        })
-          .catch(err => {
-            console.log(err)
-          })
-      }
-    },
     fillPersistentData (pdfBody, persistentChoices) {
       Object.keys(new PersistentChoices()).forEach(key => {
         if (key in new PdfBody() && key in new PersistentChoicesContact()) {
@@ -368,25 +303,45 @@ export default {
       }
       this.forceUpdate()
     },
-    showFile (blob, fileName) {
-      var newBlob = new Blob([blob], {type: 'application/pdf'})
-      if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-        window.navigator.msSaveOrOpenBlob(newBlob)
-        return
-      }
-      const data = window.URL.createObjectURL(newBlob)
-      var link = document.createElement('a')
-      link.href = data
-      link.download = fileName
-      link.click()
-      setTimeout(function () {
-        // For Firefox it is necessary to delay revoking the ObjectURL
-        window.URL.revokeObjectURL(data)
-      }, 100)
-    },
     forceUpdate () {
       this.forceUpdateCount += 1
-    }
+    },
+    nextPage () {
+      this.loading = false
+      localStorage.pdfBody = null
+      localStorage.persistentChoices = null
+      let newPersistentChoices = new PersistentChoices()
+      Object.keys(new PersistentChoices()).forEach(key => {
+          if (key in new PdfBody() && !(key in new PersistentChoicesContactBroker()) &&
+            !(key in new PersistentChoicesContactAttorney()) &&
+            !(key in new PersistentChoicesContactLender())) {
+            newPersistentChoices[key] = this.pdfBody[key]
+          }
+        }
+      )
+      if (this.saveForFutureUseBrokerProfile) {
+        localStorage.brokerProfiles = JSON.stringify(this.createProfileForSectionInLocalStorage(this.brokerProfiles, new PersistentChoicesContactBroker()))
+      }
+      if (this.saveForFutureUseAttorneyProfile) {
+        localStorage.attorneyProfiles = JSON.stringify(this.createProfileForSectionInLocalStorage(this.attorneyProfiles, new PersistentChoicesContactAttorney()))
+      }
+      if (this.saveForFutureUseLenderProfile) {
+        localStorage.lenderProfiles = JSON.stringify(this.createProfileForSectionInLocalStorage(this.lenderProfiles, new PersistentChoicesContactLender()))
+      }
+      localStorage.persistentChoices = JSON.stringify(newPersistentChoices)
+      if (localStorage.token) {
+        axios({
+          url: 'http://50.116.19.93:8000/api/user-preferences/',
+          method: 'POST',
+          headers: {
+            'Authorization': 'Token ' + localStorage.token
+          },
+          data: newPersistentChoices
+        })
+      }
+      localStorage.pdfBody = JSON.stringify(this.pdfBody)
+      this.$router.push({name: 'Done'})
+    },
   }
 }
 </script>

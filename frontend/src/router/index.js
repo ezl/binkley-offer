@@ -7,6 +7,7 @@ import LegalMumboJumbo from '../pages/LegalMumboJumbo'
 import ContactInfo from '../pages/ContactInfo'
 import ConfirmPropertyDetails from '../pages/ConfirmPropertyDetails'
 import Settings from '../pages/Settings'
+import Done from '../pages/Done'
 
 Vue.use(Router)
 
@@ -47,6 +48,11 @@ export default new Router({
       path: '/fourth-step',
       name: 'ContactInfo',
       component: ContactInfo
+    },
+    {
+      path: '/done',
+      name: 'Done',
+      component:Done
     }
   ],
   scrollBehavior (to, from, savedPosition) {
