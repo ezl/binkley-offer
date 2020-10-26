@@ -215,7 +215,7 @@
         <b-col cols="6" sm="3" md="3">
           <div>
             <CheckboxInput v-model="pdfBody.existing_storms_and_screens"
-                           text-label="Attached Gas Grill"></CheckboxInput>
+                           text-label="Existing Storms and Screens"></CheckboxInput>
             <TextInput v-if="pdfBody.existing_storms_and_screens"
                        :hidden="true" v-model="pdfBody.existing_storms_and_screens_details"></TextInput>
           </div>
