@@ -245,7 +245,7 @@ export default {
     },
     getDate (dateGiven) {
       const toTwoDigits = num => num < 10 ? '0' + num : num
-      let date = dateGiven ? dateGiven : new Date()
+      let date = dateGiven || new Date()
       let year = date.getFullYear()
       let month = toTwoDigits(date.getMonth() + 1)
       let day = toTwoDigits(date.getDate())

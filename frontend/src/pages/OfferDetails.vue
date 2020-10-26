@@ -67,7 +67,7 @@
           class="mb-0"
         >
           <TextInput :special-field=true title="Escrowee"
-                          v-model="pdfBody.brokerage_for_earnest_money" text-label="(Brokerage For Earnest Money)"
+                     v-model="pdfBody.brokerage_for_earnest_money" text-label="(Brokerage For Earnest Money)"
           ></TextInput>
           <p><strong>The initial earnest money amount after the acceptance date shall be</strong></p>
           <TextInputMoney title="Amount" prepend="$" v-model="pdfBody.initial_earnest_money_amount"
@@ -88,8 +88,8 @@
           <b-form-group label-cols-sm="3" label="within" label-align-sm="right"></b-form-group>
 
           <TextInput :special-field="true" title="Balance of Earnest Money Due" append="Days"
-                          v-model="pdfBody.balance_of_earnest_money_due_date"
-                          text-label=" "></TextInput>
+                     v-model="pdfBody.balance_of_earnest_money_due_date"
+                     text-label=" "></TextInput>
         </b-form-group>
       </b-card>
       <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
@@ -130,7 +130,10 @@
         </b-form-group>
         <b-row>
           <b-col>
-            <b-button class="btn float-right mr-auto" variant="primary" @click="nextPage"><b-icon icon="arrow-right-circle"></b-icon> Next Page</b-button>
+            <b-button class="btn float-right mr-auto" variant="primary" @click="nextPage">
+              <b-icon icon="arrow-right-circle"></b-icon>
+              Next Page
+            </b-button>
           </b-col>
         </b-row>
       </b-card>
@@ -213,12 +216,12 @@ export default {
       this.creditBuyerAtClosingRadioItem.second = this.pdfBody.credit_buyer_at_closing_no
       this.mortgageRadioItem.first = this.pdfBody.contract_subject_to_mortgage_yes
       this.mortgageRadioItem.second = this.pdfBody.contract_subject_to_mortgage_no
-      if(this.pdfBody.closing_date){
+      if (this.pdfBody.closing_date) {
         this.pdfBody.closing_date = this.getDate(new Date(this.pdfBody.closing_date))
       } else {
         this.pdfBody.closing_date = this.getDate(null)
       }
-      if(this.pdfBody.mortgage_contingency_date){
+      if (this.pdfBody.mortgage_contingency_date) {
         this.pdfBody.mortgage_contingency_date = this.getDate(new Date(this.pdfBody.mortgage_contingency_date))
       } else {
         this.pdfBody.mortgage_contingency_date = this.getDate(null)
@@ -235,7 +238,7 @@ export default {
     },
     getDate (dateGiven) {
       const toTwoDigits = num => num < 10 ? '0' + num : num
-      let date = dateGiven ? dateGiven : new Date()
+      let date = dateGiven || new Date()
       let year = date.getFullYear()
       let month = toTwoDigits(date.getMonth() + 1)
       let day = toTwoDigits(date.getDate())
