@@ -213,13 +213,40 @@ export default {
       this.creditBuyerAtClosingRadioItem.second = this.pdfBody.credit_buyer_at_closing_no
       this.mortgageRadioItem.first = this.pdfBody.contract_subject_to_mortgage_yes
       this.mortgageRadioItem.second = this.pdfBody.contract_subject_to_mortgage_no
+      if(this.pdfBody.closing_date){
+        this.pdfBody.closing_date = this.getDate(new Date(this.pdfBody.closing_date))
+      } else {
+        this.pdfBody.closing_date = this.getDate(null)
+      }
+      if(this.pdfBody.mortgage_contingency_date){
+        this.pdfBody.mortgage_contingency_date = this.getDate(new Date(this.pdfBody.mortgage_contingency_date))
+      } else {
+        this.pdfBody.mortgage_contingency_date = this.getDate(null)
+      }
       this.isLoaded = true
     }
   },
   methods: {
     nextPage () {
+      this.pdfBody.closing_date = this.getFormattedDate(new Date(this.pdfBody.closing_date))
+      this.pdfBody.mortgage_contingency_date = this.getFormattedDate(new Date(this.pdfBody.mortgage_contingency_date))
       localStorage.pdfBody = JSON.stringify(this.pdfBody)
       this.$router.push({name: 'LegalMumboJumbo'})
+    },
+    getDate (dateGiven) {
+      const toTwoDigits = num => num < 10 ? '0' + num : num
+      let date = dateGiven ? dateGiven : new Date()
+      let year = date.getFullYear()
+      let month = toTwoDigits(date.getMonth() + 1)
+      let day = toTwoDigits(date.getDate())
+      return `${year}-${month}-${day}`
+    },
+    getFormattedDate (date) {
+      let year = date.getFullYear()
+      let month = (1 + date.getMonth()).toString().padStart(2, '0')
+      let day = date.getDate().toString().padStart(2, '0')
+
+      return month + '/' + day + '/' + year
     }
   }
 }

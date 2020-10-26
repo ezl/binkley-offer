@@ -46,9 +46,9 @@
           class="mb-0"
         >
           <RadioInputTwoOptions :special-field="true" :item="dualAgencyRadioItem"
-                        text-label="Dual Agent"
-                        item-one-label="Yes "
-                        item-two-label="No "></RadioInputTwoOptions>
+                                text-label="Dual Agent"
+                                item-one-label="Yes "
+                                item-two-label="No "></RadioInputTwoOptions>
           <TextInput :special-field="true" v-if="pdfBody.dual_agent_broker_yes" v-model="pdfBody.dual_agent_broker_name"
                      title="Dual Agent Broker Name" text-label=" "></TextInput>
           <TextInput :special-field="true" v-model="pdfBody.length_of_attorney_review" append="Days"
@@ -60,7 +60,10 @@
         </b-form-group>
         <b-row>
           <b-col>
-            <b-button class="btn float-right mr-auto" variant="primary" @click="nextPage"><b-icon icon="arrow-right-circle"></b-icon> Next Page</b-button>
+            <b-button class="btn float-right mr-auto" variant="primary" @click="nextPage">
+              <b-icon icon="arrow-right-circle"></b-icon>
+              Next Page
+            </b-button>
           </b-col>
         </b-row>
       </b-card>
@@ -188,16 +191,18 @@ export default {
       if (localStorage.persistentChoices && !localStorage.token) {
         this.persistentChoices = Object.assign(new PersistentChoices(), JSON.parse(localStorage.persistentChoices))
         this.fillPersistentData(this.pdfBody, this.persistentChoices)
-      } else {
-        this.isLoaded = true
       }
-    }
-    if (!this.pdfBody.offer_date) {
-      this.getDate()
+      if (this.pdfBody.offer_date) {
+        this.pdfBody.offer_date = this.getDate(new Date(this.pdfBody.offer_date))
+      } else {
+        this.pdfBody.offer_date = this.getDate(null)
+      }
+      this.isLoaded = true
     }
   },
   methods: {
     nextPage () {
+      this.pdfBody.offer_date = this.getFormattedDate(new Date(this.pdfBody.offer_date))
       localStorage.pdfBody = JSON.stringify(this.pdfBody)
       this.$router.push({name: 'ContactInfo'})
     },
@@ -225,7 +230,6 @@ export default {
             }
           })
           this.changeRadioButtons()
-          this.isLoaded = true
         }
       })
     },
@@ -239,13 +243,20 @@ export default {
       this.disclosuresDRadioItem.first = this.pdfBody.disclosures_d_yes
       this.disclosuresDRadioItem.second = this.pdfBody.disclosures_d_no
     },
-    getDate () {
+    getDate (dateGiven) {
       const toTwoDigits = num => num < 10 ? '0' + num : num
-      let today = new Date()
-      let year = today.getFullYear()
-      let month = toTwoDigits(today.getMonth() + 1)
-      let day = toTwoDigits(today.getDate())
-      this.pdfBody.offer_date = `${year}-${month}-${day}`
+      let date = dateGiven ? dateGiven : new Date()
+      let year = date.getFullYear()
+      let month = toTwoDigits(date.getMonth() + 1)
+      let day = toTwoDigits(date.getDate())
+      return `${year}-${month}-${day}`
+    },
+    getFormattedDate (date) {
+      let year = date.getFullYear()
+      let month = (1 + date.getMonth()).toString().padStart(2, '0')
+      let day = date.getDate().toString().padStart(2, '0')
+
+      return month + '/' + day + '/' + year
     }
   }
 }
