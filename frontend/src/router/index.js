@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '../pages/Home'
 import FixturesAndPersonalProperty from '../pages/FixturesAndPersonalProperty'
 import OfferDetails from '../pages/OfferDetails'
 import LegalMumboJumbo from '../pages/LegalMumboJumbo'
@@ -8,6 +7,8 @@ import ContactInfo from '../pages/ContactInfo'
 import ConfirmPropertyDetails from '../pages/ConfirmPropertyDetails'
 import Settings from '../pages/Settings'
 import Done from '../pages/Done'
+import PropertyType from '../pages/PropertyType'
+import Search from '../pages/Search'
 
 Vue.use(Router)
 
@@ -16,8 +17,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home
+      name: 'PropertyType',
+      component: PropertyType
+    },
+    {
+      path: '/search',
+      name: 'Search',
+      component: Search
     },
     {
       path: '/confirm-details',
@@ -56,6 +62,6 @@ export default new Router({
     }
   ],
   scrollBehavior (to, from, savedPosition) {
-    return { x: 0, y: 0 }
+    return {x: 0, y: 0}
   }
 })
