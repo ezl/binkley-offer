@@ -8,7 +8,7 @@
         v-model="valueAsData"
         @input="handleInput"
         locale="en-US"
-        :date-format-options="{month: '2-digit', day: '2-digit',year: 'numeric' }"
+        :date-format-options="{ year: 'numeric', month: 'short', day: '2-digit', weekday: 'short' }"
         :placeholder="textLabelAsData"></b-form-datepicker>
     </b-input-group>
   </b-form-group>
