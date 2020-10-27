@@ -5,6 +5,8 @@ from rest_framework import serializers
 from .models import Pdf, UserProfile
 from .services import pdf_service
 
+from datetime import datetime
+
 
 class SearchSerializer(serializers.Serializer):
     url = serializers.CharField()
@@ -225,9 +227,17 @@ class CreatePdfSerializer(serializers.Serializer):
         if pdf_from_database:
             return pdf_from_database
 
+        validated_data.mortgage_contingency_date = datetime.strptime(validated_data.mortgage_contingency_date,
+                                                                     '%Y-%m-%d').strftime('%m/%d/%Y')
+        validated_data.closing_date = datetime.strptime(validated_data.closing_date,
+                                                        '%Y-%m-%d').strftime('%m/%d/%Y')
+        validated_data.offer_date = datetime.strptime(validated_data.offer_date,
+                                                      '%Y-%m-%d').strftime('%m/%d/%Y')
+
         pdf_src = pdf_service.convert_to_pdf(validated_data)
 
         return Pdf.objects.create(redfin_src=validated_data.url, pdf_src=pdf_src)
+
 
 class UserPreferencesSerializer(serializers.Serializer):
     refrigerator = serializers.BooleanField(default=False)
