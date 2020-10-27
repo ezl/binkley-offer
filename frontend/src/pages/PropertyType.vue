@@ -8,36 +8,46 @@
       </template>
       <br>
       <br>
-      <b-card-group deck>
-        <b-card border-variant="primary" v-if="isAttachedSelected"
-                style="color: #007BFF"
-                footer="Attached Property"
-                footer-bg-variant="white"
-                footer-border-variant="white">
-          <b-icon-building font-scale="10"/>
-        </b-card>
-        <b-card v-else @click="selectAttached"
-                footer="Attached Property"
-                style="color: gray"
-                footer-bg-variant="white"
-                footer-border-variant="white">
-          <b-icon-building font-scale="10"/>
-        </b-card>
-        <b-card border-variant="primary"
-                v-if="isDetachedSelected"
-                style="color: #007BFF"
-                footer="Detached Property"
-                footer-bg-variant="white"
-                footer-border-variant="white">
-          <b-icon-house-door font-scale="10"/>
-        </b-card>
-        <b-card v-else @click="selectDetached"
-                style="color: gray"
-                footer="Detached Property"
-                footer-bg-variant="white"
-                footer-border-variant="white">
-          <b-icon-house-door font-scale="10"/>
-        </b-card>
+      <b-card-group deck class="justify-content-center">
+        <b-row no-gutters>
+          <b-col class="px-2" v-if="isAttachedSelected" cols="6" sm="6" md="6">
+                    <b-card border-variant="primary"
+                            style="color: #007BFF"
+                            footer="Attached Property"
+                            footer-bg-variant="white"
+                            footer-border-variant="white">
+                      <b-icon-building font-scale="8.3"/>
+                    </b-card>
+          </b-col>
+          <b-col class="px-2" v-else cols="6" sm="6" md="6">
+            <b-card @click="selectAttached"
+                    footer="Attached Property"
+                    style="color: gray"
+                    footer-bg-variant="white"
+                    footer-border-variant="white">
+              <b-icon-building font-scale="8.3"/>
+            </b-card>
+          </b-col>
+          <b-col class="px-2" v-if="isDetachedSelected" cols="6" sm="6" md="6">
+            <b-card border-variant="primary"
+
+                    style="color: #007BFF"
+                    footer="Detached Property"
+                    footer-bg-variant="white"
+                    footer-border-variant="white">
+              <b-icon-house-door font-scale="8.3"/>
+            </b-card>
+          </b-col>
+          <b-col class="px-2" v-else cols="6" sm="6" md="6">
+            <b-card @click="selectDetached"
+                    style="color: gray"
+                    footer="Detached Property"
+                    footer-bg-variant="white"
+                    footer-border-variant="white">
+              <b-icon-house-door font-scale="8.3"/>
+            </b-card>
+          </b-col>
+        </b-row>
       </b-card-group>
       <br>
       <br>
@@ -86,5 +96,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
