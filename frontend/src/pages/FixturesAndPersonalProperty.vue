@@ -97,7 +97,7 @@
           </b-col>
           <b-col cols="6" sm="3" md="3">
             <div>
-              <CheckboxInput v-model="pdfBody.attached_tv" text-label="Attached Tv"></CheckboxInput>
+              <CheckboxInput v-model="pdfBody.attached_tv" text-label="Attached TV"></CheckboxInput>
               <TextInput v-if="pdfBody.attached_tv" :hidden="true" v-model="pdfBody.attached_tv_details"></TextInput>
             </div>
           </b-col>
@@ -105,7 +105,7 @@
         <b-row align-v="baseline">
           <b-col cols="6" sm="3" md="3">
             <div>
-              <CheckboxInput v-model="pdfBody.tv_antenna" text-label="Tv Antenna"></CheckboxInput>
+              <CheckboxInput v-model="pdfBody.tv_antenna" text-label="TV Antenna"></CheckboxInput>
               <TextInput v-if="pdfBody.tv_antenna" :hidden="true" v-model="pdfBody.tv_antenna_details"></TextInput>
             </div>
           </b-col>
