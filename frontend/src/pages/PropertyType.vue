@@ -97,12 +97,17 @@ export default {
 }
 
 .card {
-  margin: 10px;
+  margin: 5px;
   cursor: pointer;
   color: rgba(0,0,0,.4);
   border-color: 1px solid rgba(0,0,0,.4);
 }
 
+@media (min-width: 576px) {
+  .card {
+    margin: 15px;
+  }
+}
 .card.selectedCard {
   color: #007BFF;
   background-color: rgba(233,243,255, 0.5);
