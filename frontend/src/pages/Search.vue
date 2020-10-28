@@ -98,6 +98,7 @@ export default {
       this.selected = index
     },
     nextPage () {
+      this.pdfBody.property_type = localStorage.propertyType
       localStorage.pdfBody = JSON.stringify(this.pdfBody)
       this.$router.push({name: 'ConfirmPropertyDetails'})
     }
