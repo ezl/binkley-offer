@@ -1,57 +1,51 @@
 <template>
   <b-container>
-    <b-jumbotron bg-variant="white" class="text-center">
-      <template #header class="text">Select Property Type</template>
+    <H1 class="title">Select Property Type</H1>
+    <p class="text-center">
+        Before we start, what type of property are you writing a contract for?
+    </p>
+    <section id="propertyTypeChoices">
+      <b-row class="text-center">
+        <b-col cols=12 md=6 offset-md=3>
+          <b-card-group deck class="justify-content-center">
 
-      <template #lead>
-        Before we start, what type of property are you writing a contract for ?
-      </template>
-      <br>
-      <br>
-      <b-card-group deck class="justify-content-center">
-        <b-row no-gutters>
-          <b-col class="px-2" v-if="isAttachedSelected" cols="6" sm="6" md="6">
-            <b-card border-variant="primary"
-                    style="color: #007BFF"
-                    footer-html="<p>Attached <br> Property</p>"
-                    footer-bg-variant="white"
-                    footer-border-variant="white">
-              <b-icon-building font-scale="4.5"/>
+            <b-card
+              @click="selectAttached"
+              :class="{selectedCard: isAttachedSelected}"
+            >
+              <b-card-text class="mb-2">
+                <b-icon-building font-scale="2.5"/>
+              </b-card-text>
+              <b-card-text>Attached Single</b-card-text>
             </b-card>
-          </b-col>
-          <b-col class="px-2" v-else cols="6" sm="6" md="6">
-            <b-card @click="selectAttached"
-                    footer-html="<p>Attached <br> Property</p>"
-                    style="color: gray"
-                    footer-bg-variant="white"
-                    footer-border-variant="white">
-              <b-icon-building font-scale="4.5"/>
+
+            <b-card
+              @click="selectDetached"
+              :class="{selectedCard: isDetachedSelected}"
+            >
+              <b-card-text class="mb-2">
+                <b-icon-house-door font-scale="2.5"/>
+              </b-card-text>
+              <b-card-text>Detached Single</b-card-text>
             </b-card>
-          </b-col>
-          <b-col class="px-2" style="height: 100%" v-if="isDetachedSelected" cols="6" sm="6" md="6">
-            <b-card border-variant="primary"
-                    style="color: #007BFF"
-                    footer-html="<p>Detached Property</p>"
-                    footer-bg-variant="white"
-                    footer-border-variant="white">
-              <b-icon-house-door font-scale="4.5"/>
-            </b-card>
-          </b-col>
-          <b-col class="px-2" v-else cols="6" sm="6" md="6">
-            <b-card @click="selectDetached"
-                    style="color: gray"
-                    footer-bg-variant="white"
-                    footer-html="<p>Detached Property</p>"
-                    footer-border-variant="white">
-              <b-icon-house-door font-scale="4.5"/>
-            </b-card>
-          </b-col>
-        </b-row>
-      </b-card-group>
-      <br>
-      <br>
-      <b-button size="lg" variant="primary" class="btn" @click="getStarted()"> Get Started</b-button>
-    </b-jumbotron>
+          </b-card-group>
+       </b-col>
+     </b-row>
+
+      <b-row class="text-center mt-3 helpText">
+        <b-col>
+          <p v-if="isDetachedSelected">For use with single family homes, fee simple townhomes, or shared community associations</p>
+          <p v-if="isAttachedSelected">For use with condos, including condo townhomes and commercial condos</p>
+          <p v-if="!(isAttachedSelected || isDetachedSelected)" class="Super Hacky Way To Maintain Same Whitespace When Neither Option Is Selected BAD BAD BAD Eric">&nbsp;</p>
+       </b-col>
+     </b-row>
+
+      <b-row class="text-center mt-3" >
+        <b-col>
+          <b-button variant="primary" :disabled="!(isAttachedSelected || isDetachedSelected)" class="btn" @click="getStarted()"> Get Started</b-button>
+       </b-col>
+     </b-row>
+    </section>
   </b-container>
 </template>
 
@@ -95,4 +89,29 @@ export default {
 </script>
 
 <style scoped>
+
+.card-deck {
+  /* overwrite the responsive thing that makes cards tile vertically on small viewports */
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  margin: 10px;
+  cursor: pointer;
+  color: rgba(0,0,0,.4);
+  border-color: 1px solid rgba(0,0,0,.4);
+}
+
+.card.selectedCard {
+  color: #007BFF;
+  background-color: rgba(233,243,255, 0.5);
+  border-color: #007bff;
+}
+
+.helpText {
+  color: rgba(0,0,0,.4);
+  font-size: 0.8em;
+  font-style: italic;
+}
 </style>
