@@ -80,6 +80,7 @@ class LoginUserSerializer(serializers.ModelSerializer):
 
 class CreatePdfSerializer(serializers.Serializer):
     url = serializers.URLField()
+    property_type = serializers.CharField(required=True)
     property_street_address = serializers.CharField(required=True)
     property_locality = serializers.CharField(required=True)
     property_region = serializers.CharField(required=True)

@@ -14,7 +14,7 @@ from rest_framework.response import Response
 # from oauth2client import client
 # from googleapiclient.discovery import build
 
-from .exceptions.custom_exceptions import RedfinScrapperException, UnhandledException
+from .exceptions.custom_exceptions import RedfinScrapperException, UnhandledException, InvalidPropertyType
 from .serializers import CreatePdfSerializer, GetPdfSerializer, SearchSerializer, RedfinScrapperSerializer, \
     GoogleAuthSerializer, CreateUserSerializer, ResponseUserSerializer, LoginUserSerializer, UserPreferencesSerializer
 from .models import Pdf
@@ -39,7 +39,11 @@ class PdfViewSet(ViewSet):
         if not serializer.is_valid():
             raise ParseError(detail=serializer.errors)
 
-        pdf = serializer.save()
+        try:
+            pdf = serializer.save()
+        except InvalidPropertyType as invalid_property_type:
+            raise invalid_property_type
+
         pdf_src = pdf.pdf_src
 
         if not os.path.exists(pdf_src):
