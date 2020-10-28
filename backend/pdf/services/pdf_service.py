@@ -162,6 +162,11 @@ def get_request(url):
 
 def parse_bs4():
     global page
+    hoa_dues = None
+    tax = None
+    tax_exemptions = None
+    tax_year = None
+    parcel_identification_number = None
     soup = BeautifulSoup(page.content, 'html.parser')
     street_address_span = soup.find(class_='street-address')
     city_state_zip_span_locality = soup.find(
@@ -178,7 +183,7 @@ def parse_bs4():
         if 'HOA Dues' in div.get_text():
             hoa_dues = div.find(class_='content text-right')
 
-    tax_exemptions = None
+
     divs_details = soup.findAll(
         class_='amenity-group')
     for div in divs_details:
@@ -197,19 +202,34 @@ def parse_bs4():
                     parcel_identification_number = span
 
     details_dict = dict()
-    details_dict.update(
-        {'property_street_address': street_address_span.get_text().strip(),
-         'property_locality': city_state_zip_span_locality.get_text().strip()[:-1],
-         'property_region': city_state_zip_span_region.get_text().strip(),
-         'property_postal_code': city_state_zip_span_postal_code.get_text().strip(),
-         'agent_details_name': agent_details.get_text().split(sep='•')[0][10:].strip(),
-         'agent_details_company': agent_details.get_text().split(sep='•')[1].strip(),
-         'hoa_dues': hoa_dues.get_text()[1:].strip(),
-         'tax': tax.get_text().split(sep='$')[1].strip(),
-         'tax_year': tax_year.get_text().split(sep=':')[1].split(sep='20')[1].strip(),
-         'tax_exemptions': tax_exemptions.get_text().strip() if tax_exemptions != None else None,
-         'parcel_identification_number': parcel_identification_number.get_text().split(sep=':')[1].strip(),
-         })
+    details_dict.update({
+        'property_street_address': street_address_span.get_text().strip(),
+        'property_locality': city_state_zip_span_locality.get_text().strip()[:-1],
+        'property_region': city_state_zip_span_region.get_text().strip(),
+        'property_postal_code': city_state_zip_span_postal_code.get_text().strip(),
+        'agent_details_name': agent_details.get_text().split(sep='•')[0][10:].strip(),
+        'agent_details_company': agent_details.get_text().split(sep='•')[1].strip()
+    })
+    if hoa_dues:
+        details_dict.update({
+            'hoa_dues': hoa_dues.get_text()[1:].strip()
+        })
+    if tax:
+        details_dict.update({
+            'tax': tax.get_text().split(sep='$')[1].strip()
+        })
+    if tax_year:
+        details_dict.update({
+            'tax_year': tax_year.get_text().split(sep=':')[1].split(sep='20')[1].strip()
+        })
+    if tax_exemptions:
+        details_dict.update({
+            'tax_exemptions': tax_exemptions.get_text().split(sep=':')[1].strip()
+        })
+    if parcel_identification_number:
+        details_dict.update({
+            'parcel_identification_number': parcel_identification_number.get_text().split(sep=':')[1].strip()
+        })
     return details_dict
 
 
