@@ -1,39 +1,42 @@
 <template>
   <b-container>
-    <b-row>
-      <b-col>
-        <H1 class="title">Done</H1>
-      </b-col>
-    </b-row>
-    <HeaderSiteMap :site-map="siteMap"></HeaderSiteMap>
-    <b-jumbotron bg-variant="white">
-      <template #header>Thanks!</template>
+    <b-jumbotron bg-variant="white" class="text-center">
+      <template #header>
+        Tada!
+        <br>
+        <ConfettiIcon/>
+      </template>
 
       <template #lead>
-        Here's your offer letter PDF for <strong> {{ pdfBody.property_street_address }}</strong>
+        <p class="text-left">Here's your offer letter PDF for <strong> {{ pdfBody.property_street_address }}</strong></p>
+        <br>
+        <br>
+        <b-button v-if="!loading" variant="primary" class="btn" @click="convertPdf"> Download PDF
+        </b-button>
+        <b-spinner v-if="loading" class="float-right" variant="primary" label="Spinning"></b-spinner>
       </template>
 
       <hr class="my-4">
 
-      <p>
-        Didn't that suck less than filling it out manually?
-        <br>
-        <br>
-        If you'd like to be able to:
-      </p>
-      <ul>
-        <li>Save profiles (e.g. broker, lender, attorney info) to reuse</li>
-        <li>Save PDFs to download again later</li>
-        <li>Connect to your Gmail account to get buyer info (name, email, attachments like pre-approval letters)</li>
-        <li>Send to Docusign for signing (coming soon)</li>
-      </ul>
-      <h3>Then create an account for next time:</h3>
+      <div class="text-left">
+        <p>
+          Now didn't that suck less than filling it out manually?
+          <br>
+          <br>
+          If you'd like to be able to:
+        </p>
+        <ul>
+          <li>Save profiles (e.g. broker, lender, attorney info) to reuse</li>
+          <li>Save PDFs to download again later</li>
+          <li>Connect to your Gmail account to get buyer info (name, email, attachments like pre-approval letters)</li>
+          <li>Send to Docusign for signing (coming soon)</li>
+        </ul>
+        <strong>Then create an account for next time.</strong>
+      </div>
+      <br>
       <b-button disabled variant="primary" class="btn" @click="createAccount()"> Create An Account
       </b-button>
 
-      <b-button v-if="!loading" variant="primary" class="btn float-right" @click="convertPdf"> Generate PDF
-      </b-button>
-      <b-spinner v-if="loading" class="float-right" variant="primary" label="Spinning"></b-spinner>
     </b-jumbotron>
   </b-container>
 </template>
@@ -42,10 +45,11 @@
 import PdfBody from '../models/PdfBody'
 import * as axios from 'axios'
 import HeaderSiteMap from '../components/HeaderSiteMap'
+import ConfettiIcon from '../components/icons/ConfettiIcon'
 
 export default {
   name: 'Done',
-  components: {HeaderSiteMap},
+  components: {ConfettiIcon, HeaderSiteMap},
   metaInfo: {
     meta: [
       {charset: 'utf-8'},
