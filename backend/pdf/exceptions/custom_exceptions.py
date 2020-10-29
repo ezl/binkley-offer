@@ -13,6 +13,12 @@ class RedfinScrapperException(APIException):
     default_code = "fail_scrapper"
 
 
+class InvalidPropertyType(APIException):
+    status_code = 401
+    default_detail = "Invalid Property Type only <<attached>> and <<detached>> are available and required"
+    default_code = "invalid_property_type"
+
+
 class DuplicateEntityException(APIException):
     status_code = 409
     default_code = "duplicate_entity"

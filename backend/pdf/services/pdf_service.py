@@ -3,10 +3,12 @@ from bs4 import BeautifulSoup
 import pdfrw
 import re
 
-FORM_KEYS = dict()
+from pdf.exceptions.custom_exceptions import InvalidPropertyType
+
+FORM_KEYS_ATTACHED = dict()
 CHECKBOX_PDF_TYPE = 'checkbox'
 STRING_PDF_TYPE = 'string'
-FORM_KEYS.update({
+FORM_KEYS_ATTACHED.update({
     'property_details': STRING_PDF_TYPE,
     'parcel_identification_number': STRING_PDF_TYPE,
     'agent_details_name': STRING_PDF_TYPE,
@@ -162,6 +164,11 @@ def get_request(url):
 
 def parse_bs4():
     global page
+    hoa_dues = None
+    tax = None
+    tax_exemptions = None
+    tax_year = None
+    parcel_identification_number = None
     soup = BeautifulSoup(page.content, 'html.parser')
     street_address_span = soup.find(class_='street-address')
     city_state_zip_span_locality = soup.find(
@@ -178,7 +185,6 @@ def parse_bs4():
         if 'HOA Dues' in div.get_text():
             hoa_dues = div.find(class_='content text-right')
 
-    tax_exemptions = None
     divs_details = soup.findAll(
         class_='amenity-group')
     for div in divs_details:
@@ -197,19 +203,34 @@ def parse_bs4():
                     parcel_identification_number = span
 
     details_dict = dict()
-    details_dict.update(
-        {'property_street_address': street_address_span.get_text().strip(),
-         'property_locality': city_state_zip_span_locality.get_text().strip()[:-1],
-         'property_region': city_state_zip_span_region.get_text().strip(),
-         'property_postal_code': city_state_zip_span_postal_code.get_text().strip(),
-         'agent_details_name': agent_details.get_text().split(sep='•')[0][10:].strip(),
-         'agent_details_company': agent_details.get_text().split(sep='•')[1].strip(),
-         'hoa_dues': hoa_dues.get_text()[1:].strip(),
-         'tax': tax.get_text().split(sep='$')[1].strip(),
-         'tax_year': tax_year.get_text().split(sep=':')[1].split(sep='20')[1].strip(),
-         'tax_exemptions': tax_exemptions.get_text().strip() if tax_exemptions != None else None,
-         'parcel_identification_number': parcel_identification_number.get_text().split(sep=':')[1].strip(),
-         })
+    details_dict.update({
+        'property_street_address': street_address_span.get_text().strip(),
+        'property_locality': city_state_zip_span_locality.get_text().strip()[:-1],
+        'property_region': city_state_zip_span_region.get_text().strip(),
+        'property_postal_code': city_state_zip_span_postal_code.get_text().strip(),
+        'agent_details_name': agent_details.get_text().split(sep='•')[0][10:].strip(),
+        'agent_details_company': agent_details.get_text().split(sep='•')[1].strip()
+    })
+    if hoa_dues:
+        details_dict.update({
+            'hoa_dues': hoa_dues.get_text()[1:].strip()
+        })
+    if tax:
+        details_dict.update({
+            'tax': tax.get_text().split(sep='$')[1].strip()
+        })
+    if tax_year:
+        details_dict.update({
+            'tax_year': tax_year.get_text().split(sep=':')[1].split(sep='20')[1].strip()
+        })
+    if tax_exemptions:
+        details_dict.update({
+            'tax_exemptions': tax_exemptions.get_text().split(sep=':')[1].strip()
+        })
+    if parcel_identification_number:
+        details_dict.update({
+            'parcel_identification_number': parcel_identification_number.get_text().split(sep=':')[1].strip()
+        })
     return details_dict
 
 
@@ -370,9 +391,9 @@ def encode_pdf_string(value, type_pdf):
     return ''
 
 
-def fill_pdf():
-    global data_dict, FORM_KEYS, url_to_scrape
-    pdf_template = pdfrw.PdfReader('pdf/services/CAR-Condo-Contract_Template.pdf')
+def fill_pdf_attached():
+    global data_dict, FORM_KEYS_ATTACHED, url_to_scrape
+    pdf_template = pdfrw.PdfReader('pdf/services/Contract_Template_Attached.pdf')
     for page_pdf in pdf_template.pages:
         annotations = page_pdf['/Annots']
         if annotations is None:
@@ -384,7 +405,7 @@ def fill_pdf():
                     if re.search(r'.-[0-9]+', key):
                         key = key[:-2]
                     if key in data_dict:
-                        if FORM_KEYS[key] == CHECKBOX_PDF_TYPE:
+                        if FORM_KEYS_ATTACHED[key] == CHECKBOX_PDF_TYPE:
                             annotation.update(pdfrw.PdfDict(
                                 AS=encode_pdf_string(data_dict[key], CHECKBOX_PDF_TYPE)))
                         else:
@@ -394,14 +415,46 @@ def fill_pdf():
                     annotation.update(pdfrw.PdfDict(Ff=1))
     pdf_template.Root.AcroForm.update(pdfrw.PdfDict(
         NeedAppearances=pdfrw.PdfObject('true')))
-    pdfrw.PdfWriter().write('files/Contract_' + url_to_scrape.split(sep='/')[-1] + '.pdf', pdf_template)
+    pdfrw.PdfWriter().write('files/Contract_Attached_' + url_to_scrape.split(sep='/')[-1] + '.pdf', pdf_template)
+
+
+def fill_pdf_detached():
+    global data_dict, FORM_KEYS_DETACHED, url_to_scrape
+    pdf_template = pdfrw.PdfReader('pdf/services/Contract_Template_Detached.pdf')
+    for page_pdf in pdf_template.pages:
+        annotations = page_pdf['/Annots']
+        if annotations is None:
+            continue
+        for annotation in annotations:
+            if annotation['/Subtype'] == '/Widget':
+                if annotation['/T']:
+                    key = annotation['/T'][1:-1]
+                    if re.search(r'.-[0-9]+', key):
+                        key = key[:-2]
+                    if key in data_dict:
+                        if FORM_KEYS_ATTACHED[key] == CHECKBOX_PDF_TYPE:
+                            annotation.update(pdfrw.PdfDict(
+                                AS=encode_pdf_string(data_dict[key], CHECKBOX_PDF_TYPE)))
+                        else:
+                            annotation.update(pdfrw.
+                                              PdfDict(V=encode_pdf_string(data_dict[key],
+                                                                          STRING_PDF_TYPE)))
+                    annotation.update(pdfrw.PdfDict(Ff=1))
+    pdf_template.Root.AcroForm.update(pdfrw.PdfDict(
+        NeedAppearances=pdfrw.PdfObject('true')))
+    pdfrw.PdfWriter().write('files/Contract_Detached_' + url_to_scrape.split(sep='/')[-1] + '.pdf', pdf_template)
 
 
 def convert_to_pdf(body_request):
     global url_to_scrape
     url_to_scrape = body_request.url
     create_data_for_pdf(body_request)
-    fill_pdf()
+    if body_request.property_type == 'attached':
+        fill_pdf_attached()
+    elif body_request.property_type == 'detached':
+        fill_pdf_detached()
+    else:
+        raise InvalidPropertyType()
     return 'files/Contract_' + url_to_scrape.split(sep='/')[-1] + '.pdf'
 
 
