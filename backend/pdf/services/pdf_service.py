@@ -6,6 +6,7 @@ import re
 from pdf.exceptions.custom_exceptions import InvalidPropertyType
 
 FORM_KEYS_ATTACHED = dict()
+FORM_KEYS_DETACHED = dict()
 CHECKBOX_PDF_TYPE = 'checkbox'
 STRING_PDF_TYPE = 'string'
 FORM_KEYS_ATTACHED.update({
@@ -123,6 +124,132 @@ FORM_KEYS_ATTACHED.update({
     'dual_agent_broker_name': STRING_PDF_TYPE,
     'length_of_attorney_review': STRING_PDF_TYPE,
     'length_of_inspection_period': STRING_PDF_TYPE,
+    'offer_date': STRING_PDF_TYPE,
+    'designated_agent': STRING_PDF_TYPE,
+    'agent_mls': STRING_PDF_TYPE,
+    'agent_license': STRING_PDF_TYPE,
+    'brokerage': STRING_PDF_TYPE,
+    'brokerage_mls': STRING_PDF_TYPE,
+    'brokerage_license': STRING_PDF_TYPE,
+    'broker_address': STRING_PDF_TYPE,
+    'agent_phone': STRING_PDF_TYPE,
+    'agent_fax': STRING_PDF_TYPE,
+    'broker_email': STRING_PDF_TYPE,
+    'attorney_name': STRING_PDF_TYPE,
+    'attorney_address': STRING_PDF_TYPE,
+    'attorney_phone': STRING_PDF_TYPE,
+    'attorney_fax': STRING_PDF_TYPE,
+    'attorney_email': STRING_PDF_TYPE,
+    'lender_name': STRING_PDF_TYPE,
+    'lender_company': STRING_PDF_TYPE,
+    'lender_address': STRING_PDF_TYPE,
+    'lender_phone': STRING_PDF_TYPE,
+    'lender_fax': STRING_PDF_TYPE,
+    'lender_email': STRING_PDF_TYPE
+})
+FORM_KEYS_DETACHED.update({
+    'property_details': STRING_PDF_TYPE,
+    'parcel_identification_number': STRING_PDF_TYPE,
+    'tax_exemptions_yes': CHECKBOX_PDF_TYPE,
+    'tax_exemptions_no': CHECKBOX_PDF_TYPE,
+    'refrigerator_yes': CHECKBOX_PDF_TYPE,
+    'refrigerator_details': STRING_PDF_TYPE,
+    'oven_or_range_yes': CHECKBOX_PDF_TYPE,
+    'oven_or_range_details': STRING_PDF_TYPE,
+    'microware_yes': CHECKBOX_PDF_TYPE,
+    'microwave_details': STRING_PDF_TYPE,
+    'dishwasher_yes': CHECKBOX_PDF_TYPE,
+    'dishwasher_details': STRING_PDF_TYPE,
+    'garbage_disposal_yes': CHECKBOX_PDF_TYPE,
+    'garbage_disposal_details': STRING_PDF_TYPE,
+    'trash_compactor_yes': CHECKBOX_PDF_TYPE,
+    'trash_compactor_details': STRING_PDF_TYPE,
+    'washer_yes': CHECKBOX_PDF_TYPE,
+    'washer_details': STRING_PDF_TYPE,
+    'dryer_yes': CHECKBOX_PDF_TYPE,
+    'dryer_details': STRING_PDF_TYPE,
+    'water_softener_yes': CHECKBOX_PDF_TYPE,
+    'water_softner_details': STRING_PDF_TYPE,
+    'sump_pump_yes': CHECKBOX_PDF_TYPE,
+    'sump_pump_details': STRING_PDF_TYPE,
+    'smoke_and_monoxide_detectors_yes': CHECKBOX_PDF_TYPE,
+    'smoke_and_carbon_monoxide_detectors_details': STRING_PDF_TYPE,
+    'intercom_system_yes': CHECKBOX_PDF_TYPE,
+    'intercom_system_details': STRING_PDF_TYPE,
+    'security_system_yes': CHECKBOX_PDF_TYPE,
+    'security_system_details': STRING_PDF_TYPE,
+    'security_system_rented_yes': CHECKBOX_PDF_TYPE,
+    'security_system_owned_yes': CHECKBOX_PDF_TYPE,
+    'satellite_dish_yes': CHECKBOX_PDF_TYPE,
+    'satellite_dish_details': STRING_PDF_TYPE,
+    'attached_tv_yes': CHECKBOX_PDF_TYPE,
+    'attached_tv_details': STRING_PDF_TYPE,
+    'tv_antenna_yes': CHECKBOX_PDF_TYPE,
+    'tv_antenna_details': STRING_PDF_TYPE,
+    'multimedia_equipment_yes': CHECKBOX_PDF_TYPE,
+    'multimedia_equipment_details': STRING_PDF_TYPE,
+    'central_air_conditioner_yes': CHECKBOX_PDF_TYPE,
+    'central_air_conditioner_details': STRING_PDF_TYPE,
+    'window_air_conditioner_yes': CHECKBOX_PDF_TYPE,
+    'window_air_conditioner_details': STRING_PDF_TYPE,
+    'electronic_air_filter_yes': CHECKBOX_PDF_TYPE,
+    'electronic_air_filter_details': STRING_PDF_TYPE,
+    'central_humidifier_yes': CHECKBOX_PDF_TYPE,
+    'central_humidifier_details': STRING_PDF_TYPE,
+    'lighting_fixtures_yes': CHECKBOX_PDF_TYPE,
+    'lighting_fixtures_details': STRING_PDF_TYPE,
+    'electronic_garage_door_yes': CHECKBOX_PDF_TYPE,
+    'electronic_garage_door_with_remote_unit_details': STRING_PDF_TYPE,
+    'tacked_down_carpeting_yes': CHECKBOX_PDF_TYPE,
+    'fireplace_screen_and_equipment_yes': CHECKBOX_PDF_TYPE,
+    'fireplace_screen_and_equipment_details': STRING_PDF_TYPE,
+    'fireplace_gas_log_yes': CHECKBOX_PDF_TYPE,
+    'fireplace_gas_log_details': STRING_PDF_TYPE,
+    'firewood_yes': CHECKBOX_PDF_TYPE,
+    'firewood_details': STRING_PDF_TYPE,
+    'attached_gas_grill_yes': CHECKBOX_PDF_TYPE,
+    'attached_gas_grill_details': STRING_PDF_TYPE,
+    'existing_storms_and_screens_yes': CHECKBOX_PDF_TYPE,
+    'existing_storms_and_screens_details': STRING_PDF_TYPE,
+    'window_treatments_yes': CHECKBOX_PDF_TYPE,
+    'window_treatments_details': STRING_PDF_TYPE,
+    'other_equipment_yes': CHECKBOX_PDF_TYPE,
+    'other_equipment_details': STRING_PDF_TYPE,
+    'built_in_or_attached_shelves_or_cabinets_yes': CHECKBOX_PDF_TYPE,
+    'built_int_or_attached_shelves_or_cabinets_details': STRING_PDF_TYPE,
+    'ceiling_fan_yes': CHECKBOX_PDF_TYPE,
+    'ceiling_fan_details': STRING_PDF_TYPE,
+    'radiator_covers_yes': CHECKBOX_PDF_TYPE,
+    'radiator_covers_details': STRING_PDF_TYPE,
+    'all_planted_vegetation_yes': CHECKBOX_PDF_TYPE,
+    'outdoor_play_set_or_swings_yes': CHECKBOX_PDF_TYPE,
+    'outdoor_shed_yes': CHECKBOX_PDF_TYPE,
+    'purchase_price': STRING_PDF_TYPE,
+    'credit_buyer_at_closing_yes': CHECKBOX_PDF_TYPE,
+    'credit_buyer_at_closing_if_yes_amount': STRING_PDF_TYPE,
+    'credit_buyer_at_closing_no': CHECKBOX_PDF_TYPE,
+    'credit_buyer_at_closing_if_no_percentage': STRING_PDF_TYPE,
+    'home_warranty_amount': STRING_PDF_TYPE,
+    'brokerage_for_earnest_money': STRING_PDF_TYPE,
+    'initial_earnest_money_amount': STRING_PDF_TYPE,
+    'how_buyer_deposits_earnest_money': STRING_PDF_TYPE,
+    'initial_earnest_money_due_date': STRING_PDF_TYPE,
+    'balance_of_earnest_money_amount': STRING_PDF_TYPE,
+    'balance_of_earnest_money_due_date': STRING_PDF_TYPE,
+    'contract_subject_to_mortgage_yes': CHECKBOX_PDF_TYPE,
+    'contract_subject_to_mortgage_no': CHECKBOX_PDF_TYPE,
+    'mortgage_contingency_date': STRING_PDF_TYPE,
+    'buyer_loan_to_value': STRING_PDF_TYPE,
+    'buyer_interest_rate': STRING_PDF_TYPE,
+    'buyer_loan_term': STRING_PDF_TYPE,
+    'closing_date': STRING_PDF_TYPE,
+    'homeowner_yes': CHECKBOX_PDF_TYPE,
+    'homeowner_no': CHECKBOX_PDF_TYPE,
+    'dual_agent_broker_name': STRING_PDF_TYPE,
+    'length_of_attorney_review': STRING_PDF_TYPE,
+    'length_of_inspection_period': STRING_PDF_TYPE,
+    'riders_or_addendums': STRING_PDF_TYPE,
+    'offer_deadline': STRING_PDF_TYPE,
     'offer_date': STRING_PDF_TYPE,
     'designated_agent': STRING_PDF_TYPE,
     'agent_mls': STRING_PDF_TYPE,
@@ -373,7 +500,11 @@ def create_data_for_pdf(body_request):
         'lender_address': body_request.lender_address,
         'lender_phone': body_request.lender_phone,
         'lender_fax': body_request.lender_fax,
-        'lender_email': body_request.lender_email
+        'lender_email': body_request.lender_email,
+        'riders_or_addendums': body_request.riders_or_addendums,
+        'offer_deadline': body_request.offer_deadline,
+        'homeowner_yes': body_request.homeowner_yes,
+        'homeowner_no': body_request.homeowner_no
     })
 
 
@@ -432,7 +563,7 @@ def fill_pdf_detached():
                     if re.search(r'.-[0-9]+', key):
                         key = key[:-2]
                     if key in data_dict:
-                        if FORM_KEYS_ATTACHED[key] == CHECKBOX_PDF_TYPE:
+                        if FORM_KEYS_DETACHED[key] == CHECKBOX_PDF_TYPE:
                             annotation.update(pdfrw.PdfDict(
                                 AS=encode_pdf_string(data_dict[key], CHECKBOX_PDF_TYPE)))
                         else:
@@ -451,11 +582,12 @@ def convert_to_pdf(body_request):
     create_data_for_pdf(body_request)
     if body_request.property_type == 'attached':
         fill_pdf_attached()
+        return 'files/Contract_Attached_' + url_to_scrape.split(sep='/')[-1] + '.pdf'
     elif body_request.property_type == 'detached':
         fill_pdf_detached()
+        return 'files/Contract_Detached_' + url_to_scrape.split(sep='/')[-1] + '.pdf'
     else:
         raise InvalidPropertyType()
-    return 'files/Contract_' + url_to_scrape.split(sep='/')[-1] + '.pdf'
 
 
 def scraper_redfin(url):
