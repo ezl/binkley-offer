@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <div>
     <b-jumbotron bg-variant="white" class="text-center">
       <template #header>
         Tada!
@@ -37,7 +37,7 @@
       </b-button>
 
     </b-jumbotron>
-  </b-container>
+  </div>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <div>
     <H1 class="title">Select Property Type</H1>
     <p class="text-center">
         Before we start, what type of property are you writing a contract for?
@@ -46,7 +46,7 @@
        </b-col>
      </b-row>
     </section>
-  </b-container>
+  </div>
 </template>
 
 <script>
