@@ -11,7 +11,7 @@
         <p class="text-left">Here's your offer letter PDF for <strong> {{ pdfBody.property_street_address }}</strong></p>
         <b-button v-if="!loading" variant="primary" class="btn" @click="convertPdf"> Download PDF
         </b-button>
-        <b-spinner v-if="loading" class="float-right" variant="primary" label="Spinning"></b-spinner>
+        <b-spinner v-if="loading" variant="primary" label="Spinning"></b-spinner>
       </template>
 
       <hr class="my-4">
