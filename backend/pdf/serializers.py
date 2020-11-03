@@ -222,6 +222,10 @@ class CreatePdfSerializer(serializers.Serializer):
     offer_deadline = serializers.CharField(allow_null=True, default="")
     homeowner_yes = serializers.BooleanField(default=False)
     homeowner_no = serializers.BooleanField(default=False)
+    buyer_name = serializers.CharField(allow_null=True, default="")
+    buyer_email = serializers.CharField(allow_null=True, default="")
+    seller_name = serializers.CharField(allow_null=True, default="")
+    seller_email = serializers.CharField(allow_null=True, default="")
 
     def create(self, validated_data):
         # Turns a dictionary into an object so that keys can be accessed with the . operator
@@ -371,3 +375,11 @@ class UserPreferencesSerializer(serializers.Serializer):
     lender_phone = serializers.CharField(allow_null=True, default="")
     lender_fax = serializers.CharField(allow_null=True, default="")
     lender_email = serializers.CharField(allow_null=True, default="")
+    riders_or_addendums = serializers.CharField(allow_null=True, default="")
+    offer_deadline = serializers.CharField(allow_null=True, default="")
+    homeowner_yes = serializers.BooleanField(default=False)
+    homeowner_no = serializers.BooleanField(default=False)
+    buyer_name = serializers.CharField(allow_null=True, default="")
+    buyer_email = serializers.CharField(allow_null=True, default="")
+    seller_name = serializers.CharField(allow_null=True, default="")
+    seller_email = serializers.CharField(allow_null=True, default="")
