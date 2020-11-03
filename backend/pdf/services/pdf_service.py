@@ -145,7 +145,9 @@ FORM_KEYS_ATTACHED.update({
     'lender_address': STRING_PDF_TYPE,
     'lender_phone': STRING_PDF_TYPE,
     'lender_fax': STRING_PDF_TYPE,
-    'lender_email': STRING_PDF_TYPE
+    'lender_email': STRING_PDF_TYPE,
+    'buyer_name': STRING_PDF_TYPE,
+    'seller_name': STRING_PDF_TYPE
 })
 FORM_KEYS_DETACHED.update({
     'property_details': STRING_PDF_TYPE,
@@ -271,7 +273,9 @@ FORM_KEYS_DETACHED.update({
     'lender_address': STRING_PDF_TYPE,
     'lender_phone': STRING_PDF_TYPE,
     'lender_fax': STRING_PDF_TYPE,
-    'lender_email': STRING_PDF_TYPE
+    'lender_email': STRING_PDF_TYPE,
+    'buyer_name': STRING_PDF_TYPE,
+    'seller_name': STRING_PDF_TYPE
 })
 
 HEADERS = {
@@ -504,7 +508,11 @@ def create_data_for_pdf(body_request):
         'riders_or_addendums': body_request.riders_or_addendums,
         'offer_deadline': body_request.offer_deadline,
         'homeowner_yes': body_request.homeowner_yes,
-        'homeowner_no': body_request.homeowner_no
+        'homeowner_no': body_request.homeowner_no,
+        'buyer_name': body_request.buyer_name,
+        'buyer_email': body_request.buyer_email,
+        'seller_name': body_request.seller_name,
+        'seller_email': body_request.seller_email
     })
 
 

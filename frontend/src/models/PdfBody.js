@@ -138,4 +138,8 @@ export default class PdfBody {
   lender_phone = null
   lender_fax = null
   lender_email = null
+  buyer_name = null
+  buyer_email = null
+  seller_name = null
+  seller_email = null
 }
