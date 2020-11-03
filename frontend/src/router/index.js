@@ -9,6 +9,7 @@ import Settings from '../pages/Settings'
 import Done from '../pages/Done'
 import PropertyType from '../pages/PropertyType'
 import Search from '../pages/Search'
+import BuyerAndSeller from '../pages/BuyerAndSeller'
 
 Vue.use(Router)
 
@@ -36,6 +37,11 @@ export default new Router({
       component: Settings
     },
     {
+      path: '/buyer-and-seller',
+      name: 'BuyerAndSeller',
+      component: BuyerAndSeller
+    },
+    {
       path: '/first-step',
       name: 'FixturesAndPersonalProperty',
       component: FixturesAndPersonalProperty
@@ -59,7 +65,8 @@ export default new Router({
       path: '/done',
       name: 'Done',
       component: Done
-    }
+    },
+
   ],
   scrollBehavior (to, from, savedPosition) {
     return {x: 0, y: 0}
