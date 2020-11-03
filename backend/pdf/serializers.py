@@ -87,7 +87,7 @@ class CreatePdfSerializer(serializers.Serializer):
     property_postal_code = serializers.CharField(required=True)
     agent_details_name = serializers.CharField(required=True)
     agent_details_company = serializers.CharField(required=True)
-    hoa_dues = serializers.CharField(required=True)
+    hoa_dues = serializers.CharField(allow_null=True, required=True)
     tax = serializers.CharField(required=True)
     tax_year = serializers.CharField(required=True)
     tax_exemptions = serializers.CharField(allow_null=True, required=True)
@@ -218,6 +218,10 @@ class CreatePdfSerializer(serializers.Serializer):
     lender_phone = serializers.CharField(allow_null=True, default="")
     lender_fax = serializers.CharField(allow_null=True, default="")
     lender_email = serializers.CharField(allow_null=True, default="")
+    riders_or_addendums = serializers.CharField(allow_null=True, default="")
+    offer_deadline = serializers.CharField(allow_null=True, default="")
+    homeowner_yes = serializers.BooleanField(default=False)
+    homeowner_no = serializers.BooleanField(default=False)
 
     def create(self, validated_data):
         # Turns a dictionary into an object so that keys can be accessed with the . operator
