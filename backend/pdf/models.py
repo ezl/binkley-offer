@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Pdf(models.Model):
-    redfin_src = models.TextField(unique=True)
+    redfin_src = models.TextField()
     pdf_src = models.TextField()
     deleted = models.BooleanField(default=False)
     user_email = models.TextField(default='')
