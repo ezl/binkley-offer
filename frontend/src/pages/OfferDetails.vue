@@ -179,6 +179,12 @@ export default {
           color: 'dodgerblue'
         },
         {
+          displayName: 'Buyer And Seller',
+          pageUrl: 'BuyerAndSeller',
+          isDisabled: false,
+          color: 'dodgerblue'
+        },
+        {
           displayName: 'Fixtures And Personal Property',
           pageUrl: 'FixturesAndPersonalProperty',
           isDisabled: false,
