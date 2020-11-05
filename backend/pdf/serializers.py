@@ -231,10 +231,10 @@ class CreatePdfSerializer(serializers.Serializer):
         # Turns a dictionary into an object so that keys can be accessed with the . operator
         validated_data = SimpleNamespace(**validated_data)
 
-        pdf_from_database = Pdf.objects.filter(redfin_src=validated_data.url).first()
+        # pdf_from_database = Pdf.objects.filter(redfin_src=validated_data.url).first()
 
-        if pdf_from_database:
-            return pdf_from_database
+        # if pdf_from_database:
+        #     return pdf_from_database
 
         validated_data.mortgage_contingency_date = datetime.strptime(validated_data.mortgage_contingency_date,
                                                                      '%Y-%m-%d').strftime('%m/%d/%Y')
