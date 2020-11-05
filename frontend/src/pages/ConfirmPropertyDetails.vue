@@ -92,6 +92,12 @@ import HeaderSiteMap from '../components/HeaderSiteMap'
 
 export default {
   name: 'ConfirmPropertyDetails',
+  metaInfo: {
+    meta: [
+      {charset: 'utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'}
+    ]
+  },
   components: {HeaderSiteMap, TextInputMoney, TextInput, CheckboxInput},
   data () {
     return {
