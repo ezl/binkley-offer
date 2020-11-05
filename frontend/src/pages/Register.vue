@@ -3,7 +3,7 @@
     <b-container>
       <b-row>
         <b-col>
-          <H1 class="title">Register</H1>
+          <H1 class="title">Create an Account</H1>
         </b-col>
       </b-row>
       <b-form @submit="registerAccount" @reset="onReset" v-if="show">
@@ -106,7 +106,7 @@
           ></b-form-input>
         </b-form-group>
         <b-form-group label-cols-lg="2">
-          <b-button type="submit" variant="success">Submit</b-button>
+          <b-button type="submit" variant="success">Create Account</b-button>
           <b-button type="reset" variant="danger">Reset</b-button>
           <b-button v-if="accountCreated" @click="goToHome" variant="success" class="float-right">Home <b-icon icon="arrow-right-circle"></b-icon></b-button>
         </b-form-group>
