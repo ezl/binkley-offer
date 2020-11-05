@@ -158,6 +158,8 @@ class UserAuth(ViewSet):
         try:
             serializer_response = ResponseUserSerializer(
                 data=create_user(serializer.validated_data))
+            serializer_response.is_valid()
+            print(serializer_response.errors)
             if not serializer_response.is_valid():
                 raise ParseError(detail=serializer_response.errors)
 
