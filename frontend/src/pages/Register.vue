@@ -154,7 +154,6 @@ export default {
           }
         }).catch(err => {
           if (err.response.status === 409) {
-            console.log(err.response.data.detail)
             this.passwordErrorServer = err.response.data.detail
           }
         })
