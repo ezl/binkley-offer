@@ -14,7 +14,8 @@ from rest_framework.response import Response
 # from oauth2client import client
 # from googleapiclient.discovery import build
 
-from .exceptions.custom_exceptions import RedfinScrapperException, UnhandledException, InvalidPropertyType
+from .exceptions.custom_exceptions import RedfinScrapperException, UnhandledException, InvalidPropertyType, \
+    InvalidPassword
 from .serializers import CreatePdfSerializer, GetPdfSerializer, SearchSerializer, RedfinScrapperSerializer, \
     GoogleAuthSerializer, CreateUserSerializer, ResponseUserSerializer, LoginUserSerializer, UserPreferencesSerializer
 from .models import Pdf
@@ -23,6 +24,7 @@ from .services.search_service import search_redfin_autocomplete_api
 from .services.pdf_service import scraper_redfin
 from .services.auth_service import *
 from .services.user_service import create_user_persistent_choices
+from .services.utils import *
 from pdf.models import PersistentUserChoice
 from rest_framework import status
 
@@ -155,9 +157,13 @@ class UserAuth(ViewSet):
         if not serializer.is_valid():
             raise ParseError(detail=serializer.errors)
 
+        if not password_checker(serializer.validated_data['password']):
+            raise InvalidPassword()
         try:
             serializer_response = ResponseUserSerializer(
                 data=create_user(serializer.validated_data))
+            serializer_response.is_valid()
+            print(serializer_response.errors)
             if not serializer_response.is_valid():
                 raise ParseError(detail=serializer_response.errors)
 

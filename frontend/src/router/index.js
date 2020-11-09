@@ -10,6 +10,7 @@ import Done from '../pages/Done'
 import PropertyType from '../pages/PropertyType'
 import Search from '../pages/Search'
 import BuyerAndSeller from '../pages/BuyerAndSeller'
+import Register from '../pages/Register'
 
 Vue.use(Router)
 
@@ -65,6 +66,11 @@ export default new Router({
       path: '/done',
       name: 'Done',
       component: Done
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register
     }
   ],
   scrollBehavior (to, from, savedPosition) {

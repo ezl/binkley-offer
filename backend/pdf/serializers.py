@@ -33,23 +33,47 @@ class GetPdfSerializer(serializers.ModelSerializer):
 
 
 class CreateUserSerializer(serializers.ModelSerializer):
-    username = serializers.CharField(required=True)
-    password = serializers.CharField(required=True)
     email = serializers.EmailField(required=True)
+    password = serializers.CharField(required=True)
+    first_name = serializers.CharField(allow_null=True, default='')
+    last_name = serializers.CharField(allow_null=True, default='')
+    agent_mls = serializers.CharField(allow_null=True, default='')
+    agent_license = serializers.CharField(allow_null=True, default='')
+    brokerage = serializers.CharField(allow_null=True, default='')
+    brokerage_mls = serializers.CharField(allow_null=True, default='')
+    brokerage_license = serializers.CharField(allow_null=True, default='')
+    agent_phone = serializers.CharField(allow_null=True, default='')
+    agent_fax = serializers.CharField(allow_null=True, default='')
 
     class Meta:
         model = UserProfile
         fields = [
-            'username',
             'password',
-            'email'
+            'email',
+            'first_name',
+            'last_name',
+            'agent_mls',
+            'agent_license',
+            'brokerage',
+            'brokerage_mls',
+            'brokerage_license',
+            'agent_phone',
+            'agent_fax'
         ]
 
 
 class ResponseUserSerializer(serializers.ModelSerializer):
     user_uid = serializers.CharField(required=True)
-    username = serializers.CharField(required=True)
     email = serializers.EmailField(required=True)
+    first_name = serializers.CharField(allow_null=True, allow_blank=True, required=False)
+    last_name = serializers.CharField(allow_null=True, allow_blank=True, required=False)
+    agent_mls = serializers.CharField(allow_null=True, allow_blank=True, required=False)
+    agent_license = serializers.CharField(allow_null=True, allow_blank=True, required=False)
+    brokerage = serializers.CharField(allow_null=True, allow_blank=True, required=False)
+    brokerage_mls = serializers.CharField(allow_null=True, allow_blank=True, required=False)
+    brokerage_license = serializers.CharField(allow_null=True, allow_blank=True, required=False)
+    agent_phone = serializers.CharField(allow_null=True, allow_blank=True, required=False)
+    agent_fax = serializers.CharField(allow_null=True, allow_blank=True, required=False)
     data_joined = serializers.DateTimeField(required=True)
     is_confirmed = serializers.BooleanField(required=True)
     token = serializers.CharField(required=False)
@@ -58,8 +82,16 @@ class ResponseUserSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = [
             'user_uid',
-            'username',
             'email',
+            'first_name',
+            'last_name',
+            'agent_mls',
+            'agent_license',
+            'brokerage',
+            'brokerage_mls',
+            'brokerage_license',
+            'agent_phone',
+            'agent_fax',
             'data_joined',
             'is_confirmed',
             'token'
