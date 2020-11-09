@@ -261,8 +261,7 @@
           <b-col cols="6" sm="3" md="3">
             <div>
               <CheckboxInput v-model="pdfBody.other_equipment" text-label="Other Equipment"></CheckboxInput>
-              <TextInput v-if="pdfBody.other_equipment" :hidden="true"
-                         v-model="pdfBody.other_equipment_details"></TextInput>
+              <TextInput v-if="pdfBody.other_equipment" v-model="pdfBody.other_equipment_details"></TextInput>
             </div>
           </b-col>
         </b-row>
