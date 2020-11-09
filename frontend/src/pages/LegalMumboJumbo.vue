@@ -45,6 +45,10 @@
           label-class="font-weight-bold pt-0"
           class="mb-0"
         >
+          <RadioInputTwoOptions :special-field="true" :item="isHomeownerAssociation"
+                                text-label="Is this home in a Homeowners Association?"
+                                item-one-label="Yes "
+                                item-two-label="No "></RadioInputTwoOptions>
           <RadioInputTwoOptions :special-field="true" :item="dualAgencyRadioItem"
                                 text-label="Dual Agent"
                                 item-one-label="Yes "
@@ -55,6 +59,16 @@
                      title="Length of Attorney Review" text-label=" "></TextInput>
           <TextInput :special-field="true" v-model="pdfBody.length_of_inspection_period" append="Days"
                      title="Length of Inspection Period" text-label=" "></TextInput>
+          <RadioInputTwoOptions :special-field="true" :item="ridersOrAddendums"
+                                text-label="Any riders or addendums to add to contract?"
+                                item-one-label="Yes "
+                                item-two-label="No "></RadioInputTwoOptions>
+          <TextInput :special-field="true" v-if="pdfBody.riders_or_addendums_yes" v-model="pdfBody.riders_or_addendums" title="Rider/Addendum Details" text-label=" "></TextInput>
+          <RadioInputTwoOptions :special-field="true" :item="offerDeadline"
+                                text-label="Add an offer deadline?"
+                                item-one-label="Yes "
+                                item-two-label="No "></RadioInputTwoOptions>
+          <TextInputDate :special-field="true" v-if="pdfBody.offer_deadline_yes" v-model="pdfBody.offer_deadline" title="Offer Deadline" text-label=" "></TextInputDate>
           <TextInputDate v-model="pdfBody.offer_date" title="Offer Date" text-label=" "></TextInputDate>
 
         </b-form-group>
@@ -107,6 +121,18 @@ export default {
         second: false
       },
       dualAgencyRadioItem: {
+        first: false,
+        second: false
+      },
+      isHomeownerAssociation: {
+        first: false,
+        second: false
+      },
+      offerDeadline: {
+        first: false,
+        second: false
+      },
+      ridersOrAddendums: {
         first: false,
         second: false
       },
@@ -179,6 +205,27 @@ export default {
         this.pdfBody.dual_agent_broker_yes = Boolean(this.dualAgencyRadioItem.first)
         this.pdfBody.dual_agent_broker_no = Boolean(this.dualAgencyRadioItem.second)
       }
+    },
+    isHomeownerAssociation: {
+      deep: true,
+      handler () {
+        this.pdfBody.homeowner_yes = Boolean(this.isHomeownerAssociation.first)
+        this.pdfBody.homeowner_no = Boolean(this.isHomeownerAssociation.second)
+      }
+    },
+    offerDeadline: {
+      deep: true,
+      handler () {
+        this.pdfBody.offer_deadline_yes = Boolean(this.offerDeadline.first)
+        this.pdfBody.offer_deadline_no = Boolean(this.offerDeadline.second)
+      }
+    },
+    ridersOrAddendums: {
+      deep: true,
+      handler () {
+        this.pdfBody.riders_or_addendums_yes = Boolean(this.ridersOrAddendums.first)
+        this.pdfBody.riders_or_addendums_no = Boolean(this.ridersOrAddendums.second)
+      }
     }
   },
   mounted () {
@@ -196,6 +243,11 @@ export default {
         this.pdfBody.offer_date = this.getDate(new Date(this.pdfBody.offer_date))
       } else {
         this.pdfBody.offer_date = this.getDate(null)
+      }
+      if (this.pdfBody.offer_deadline) {
+        this.pdfBody.offer_deadline = this.getDate(new Date(this.pdfBody.offer_deadline))
+      } else {
+        this.pdfBody.offer_deadline = this.getDate(null)
       }
       this.isLoaded = true
     }
