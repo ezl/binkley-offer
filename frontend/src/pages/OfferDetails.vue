@@ -107,15 +107,15 @@
           <TextInputDate v-if="this.pdfBody.contract_subject_to_mortgage_yes" title="Mortgage Contingency Date"
                          v-model="pdfBody.mortgage_contingency_date"
                          text-label="Mortgage Contingency Date"></TextInputDate>
-          <TextInputMoney v-if="this.pdfBody.contract_subject_to_mortgage_yes" title="Buyer Interest Rate" prepend="$"
+          <TextInputMoney v-if="this.pdfBody.contract_subject_to_mortgage_yes" title="Buyer Loan to Value" prepend="%"
+                          v-model="pdfBody.buyer_loan_to_value"
+                          text-label=" "></TextInputMoney>
+          <TextInputMoney v-if="this.pdfBody.contract_subject_to_mortgage_yes" title="Buyer Interest Rate" prepend="%"
                           v-model="pdfBody.buyer_interest_rate"
                           text-label=" "></TextInputMoney>
           <TextInput v-if="this.pdfBody.contract_subject_to_mortgage_yes" :special-field="true" title="Buyer Loan Term"
                      v-model="pdfBody.buyer_loan_term"
-                     text-label=" "></TextInput>
-          <TextInputMoney v-if="this.pdfBody.contract_subject_to_mortgage_yes" title="Buyer Loan to Value" prepend="%"
-                          v-model="pdfBody.buyer_loan_to_value"
-                          text-label=" "></TextInputMoney>
+                     text-label="(Years) "></TextInput>
         </b-form-group>
       </b-card>
       <b-card bg-variant="white" class="border-0">
