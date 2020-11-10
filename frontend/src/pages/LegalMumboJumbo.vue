@@ -84,6 +84,12 @@ import * as axios from 'axios'
 
 export default {
   name: 'LegalMumboJumbo',
+  metaInfo: {
+    meta: [
+      {charset: 'utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'}
+    ]
+  },
   components: {HeaderSiteMap, RadioInputTwoOptions, CheckboxInput, TextInput, TextInputDate},
   data () {
     return {
