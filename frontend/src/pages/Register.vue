@@ -163,7 +163,7 @@ export default {
       }
     },
     goToHome () {
-      this.$router.push({name: 'PropertyType'})
+      this.$router.push({name: 'Home'})
     },
     onReset (evt) {
       evt.preventDefault()
