@@ -70,7 +70,7 @@ export default {
     loginAccount (evt) {
       evt.preventDefault()
       axios({
-        url: 'http://localhost:8000/api/user-login/',
+        url: 'http://50.116.19.93:8000/api/user-login/',
         data: this.loginAccountBody,
         method: 'POST'
       }).then(response => {

@@ -145,7 +145,7 @@ export default {
       evt.preventDefault()
       if (this.registerAccountBody.password === this.passwordConfirmation) {
         axios({
-          url: 'http://localhost:8000/api/user-auth/',
+          url: 'http://50.116.19.93:8000/api/user-auth/',
           data: this.registerAccountBody,
           method: 'POST'
         }).then(response => {
