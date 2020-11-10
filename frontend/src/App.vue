@@ -18,6 +18,10 @@ export default {
   padding: 1rem;
 }
 
+.hyperlink-text{
+  color: #86AEDB;
+  cursor: pointer;
+}
 #app {
 }
 </style>

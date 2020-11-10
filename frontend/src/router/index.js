@@ -11,6 +11,8 @@ import PropertyType from '../pages/PropertyType'
 import Search from '../pages/Search'
 import BuyerAndSeller from '../pages/BuyerAndSeller'
 import Register from '../pages/Register'
+import Home from '../pages/Home'
+import Login from '../pages/Login'
 
 Vue.use(Router)
 
@@ -19,6 +21,11 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'Home',
+      component: Home
+    },
+    {
+      path: '/property-type',
       name: 'PropertyType',
       component: PropertyType
     },
@@ -71,6 +78,11 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
     }
   ],
   scrollBehavior (to, from, savedPosition) {

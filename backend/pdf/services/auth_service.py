@@ -69,10 +69,13 @@ def login_user(user_request):
     user_request = SimpleNamespace(**user_request)
 
     user_profile = UserProfile.objects.filter(email=user_request.email).first()
+    if not user_profile:
+        raise NotFound(detail='User not found or credentials are incorrect')
+
     user = User.objects.filter(username=user_request.email, password=user_profile.password).first()
 
-    if not user_profile and not user and decrypt_password(user_profile.password) != user_request.password:
-        raise NotFound(detail='User not found')
+    if not user or decrypt_password(user_profile.password) != user_request.password:
+        raise NotFound(detail='User not found or credentials are incorrect')
 
     token_list = Token.objects.filter(user=user)
     if token_list:
@@ -83,6 +86,15 @@ def login_user(user_request):
     return {
         'user_uid': user_profile.user_uid,
         'email': user_profile.email,
+        'first_name': user_profile.first_name,
+        'last_name': user_profile.last_name,
+        'agent_mls': user_profile.agent_mls,
+        'agent_license': user_profile.agent_license,
+        'brokerage': user_profile.brokerage,
+        'brokerage_mls': user_profile.brokerage_mls,
+        'brokerage_license': user_profile.brokerage_license,
+        'agent_phone': user_profile.agent_phone,
+        'agent_fax': user_profile.agent_fax,
         'data_joined': user_profile.data_joined,
         'is_confirmed': user_profile.is_confirmed,
         'token': Token.objects.filter(user=user).first().key

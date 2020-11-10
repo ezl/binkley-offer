@@ -52,6 +52,8 @@
 <script>
 
 import ArrowRightCircle from '../components/icons/ArrowRightCircle'
+import LoggedUser from '../models/LoggedUser'
+import PdfBody from '../models/PdfBody'
 
 export default {
   name: 'PropertyType',
@@ -67,8 +69,12 @@ export default {
   data () {
     return {
       isAttachedSelected: false,
-      isDetachedSelected: false
+      isDetachedSelected: false,
+      loggedUserDetails: new LoggedUser()
     }
+  },
+  mounted () {
+    this.loggedUserDetails = Object.assign(new LoggedUser(), JSON.parse(localStorage.loggedUserDetails))
   },
   methods: {
     selectAttached () {
