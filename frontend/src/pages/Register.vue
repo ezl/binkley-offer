@@ -143,6 +143,7 @@ export default {
   methods: {
     registerAccount (evt) {
       evt.preventDefault()
+      this.passwordError = ''
       if (this.registerAccountBody.password === this.passwordConfirmation) {
         axios({
           url: 'http://50.116.19.93:8000/api/user-auth/',
