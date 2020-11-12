@@ -139,6 +139,7 @@
           </b-progress>
         </b-col>
       </b-row>
+      </b-card>
       <HeaderSiteMap :site-map="siteMap"></HeaderSiteMap>
       <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
         <b-form-group

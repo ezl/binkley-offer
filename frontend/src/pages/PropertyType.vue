@@ -53,6 +53,7 @@
 
 import ArrowRightCircle from '../components/icons/ArrowRightCircle'
 import LoggedUser from '../models/LoggedUser'
+// eslint-disable-next-line
 import PdfBody from '../models/PdfBody'
 
 export default {
