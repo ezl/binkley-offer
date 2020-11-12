@@ -1,43 +1,43 @@
 <template>
   <div v-if="isLoaded">
-    <b-row>
-      <b-col>
-        <H1 class="title">Confirm Property Details</H1>
-        <b-progress class="my-2">
-          <b-progress-bar :value="2" :max="6" :label="'2 of 6'" show-progress animated></b-progress-bar>
-        </b-progress>
-      </b-col>
-    </b-row>
-    <HeaderSiteMap :site-map="siteMap"></HeaderSiteMap>
-    <b-alert  v-if="showError" :show="true" dismissible variant="danger">
-      <strong><b-icon icon="exclamation-circle-fill" variant="danger"></b-icon> Error: We couldn't get the data for that property</strong>
-      <br>
-      <br>
-      <p>Either we were unable to retrieve the data for that property address or that property address data from Redfin does not match the PDF template fields we were expecting.</p>
-      <p>You can either manually enter the information in the form fields below or press this back button to search again.</p>
-      <br>
-      <b-button @click="backPage" variant="danger"><b-icon icon="arrow-left-circle"></b-icon> Back to Property Search</b-button>
-    </b-alert>
-    <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
-      <b-form-group
-        label-cols-lg="3"
-        label="Property: "
-        label-size="lg"
-        label-class="font-weight-bold pt-0"
-        class="mb-0"
-      >
-        <TextInput :special-field="true" v-model="pdfBody.property_street_address"
-                    title="Property Street Address" text-label=" "></TextInput>
-        <TextInput :special-field="true" v-model="pdfBody.property_locality" title="Property Locality"
-                    text-label=" "></TextInput>
-        <TextInput :special-field="true" v-model="pdfBody.property_region" title="Property Region"
-                    text-label=" "></TextInput>
-        <TextInput :special-field="true" v-model="pdfBody.property_postal_code"
-                    title="Property Postal Code" text-label=" "></TextInput>
-        <TextInput :special-field="true" v-model="pdfBody.parcel_identification_number"
-                    title="Parcel Identification Number" text-label=" "></TextInput>
-      </b-form-group>
-    </b-card>
+      <b-row>
+        <b-col>
+          <H1 class="title">Confirm Property Details</H1>
+          <b-progress class="my-2">
+            <b-progress-bar :value="2" :max="6" :label="'2 of 7'" show-progress animated></b-progress-bar>
+          </b-progress>
+        </b-col>
+      </b-row>
+      <HeaderSiteMap :site-map="siteMap"></HeaderSiteMap>
+      <b-alert  v-if="showError" :show="true" dismissible variant="danger">
+        <strong><b-icon icon="exclamation-circle-fill" variant="danger"></b-icon> Error: We couldn't get the data for that property</strong>
+        <br>
+        <br>
+        <p>Either we were unable to retrieve the data for that property address or that property address data from Redfin does not match the PDF template fields we were expecting.</p>
+        <p>You can either manually enter the information in the form fields below or press this back button to search again.</p>
+        <br>
+        <b-button @click="backPage" variant="danger"><b-icon icon="arrow-left-circle"></b-icon> Back to Property Search</b-button>
+      </b-alert>
+      <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
+        <b-form-group
+          label-cols-lg="3"
+          label="Property: "
+          label-size="lg"
+          label-class="font-weight-bold pt-0"
+          class="mb-0"
+        >
+          <TextInput :special-field="true" v-model="pdfBody.property_street_address"
+                     title="Property Street Address" text-label=" "></TextInput>
+          <TextInput :special-field="true" v-model="pdfBody.property_locality" title="Property Locality"
+                     text-label=" "></TextInput>
+          <TextInput :special-field="true" v-model="pdfBody.property_region" title="Property Region"
+                     text-label=" "></TextInput>
+          <TextInput :special-field="true" v-model="pdfBody.property_postal_code"
+                     title="Property Postal Code" text-label=" "></TextInput>
+          <TextInput :special-field="true" v-model="pdfBody.parcel_identification_number"
+                     title="Parcel Identification Number" text-label=" "></TextInput>
+        </b-form-group>
+      </b-card>
 
     <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
       <b-form-group
@@ -90,6 +90,12 @@ import HeaderSiteMap from '../components/HeaderSiteMap'
 
 export default {
   name: 'ConfirmPropertyDetails',
+  metaInfo: {
+    meta: [
+      {charset: 'utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'}
+    ]
+  },
   components: {HeaderSiteMap, TextInputMoney, TextInput, CheckboxInput},
   data () {
     return {
@@ -161,7 +167,7 @@ export default {
     },
     nextPage: function () {
       localStorage.pdfBody = JSON.stringify(this.pdfBody)
-      this.$router.push({name: 'FixturesAndPersonalProperty'})
+      this.$router.push({name: 'BuyerAndSeller'})
     },
     backPage: function () {
       this.$router.push({name: 'Home'})

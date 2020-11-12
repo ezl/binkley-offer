@@ -52,17 +52,29 @@
 <script>
 
 import ArrowRightCircle from '../components/icons/ArrowRightCircle'
+import LoggedUser from '../models/LoggedUser'
+import PdfBody from '../models/PdfBody'
 
 export default {
   name: 'PropertyType',
+  metaInfo: {
+    meta: [
+      {charset: 'utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'}
+    ]
+  },
   components: {
     ArrowRightCircle
   },
   data () {
     return {
       isAttachedSelected: false,
-      isDetachedSelected: false
+      isDetachedSelected: false,
+      loggedUserDetails: new LoggedUser()
     }
+  },
+  mounted () {
+    this.loggedUserDetails = Object.assign(new LoggedUser(), JSON.parse(localStorage.loggedUserDetails))
   },
   methods: {
     selectAttached () {
