@@ -13,6 +13,7 @@ import BuyerAndSeller from '../pages/BuyerAndSeller'
 import Register from '../pages/Register'
 import Home from '../pages/Home'
 import Login from '../pages/Login'
+import ParkingAndStorage from '../pages/ParkingAndStorage'
 
 Vue.use(Router)
 
@@ -56,16 +57,21 @@ export default new Router({
     },
     {
       path: '/second-step',
+      name: 'ParkingAndStorage',
+      component: ParkingAndStorage
+    },
+    {
+      path: '/third-step',
       name: 'OfferDetails',
       component: OfferDetails
     },
     {
-      path: '/third-step',
+      path: '/fourth-step',
       name: 'LegalMumboJumbo',
       component: LegalMumboJumbo
     },
     {
-      path: '/fourth-step',
+      path: '/fifth-step',
       name: 'ContactInfo',
       component: ContactInfo
     },

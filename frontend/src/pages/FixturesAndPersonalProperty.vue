@@ -355,12 +355,6 @@ export default {
           color: 'dodgerblue'
         },
         {
-          displayName: 'Buyer And Seller',
-          pageUrl: 'BuyerAndSeller',
-          isDisabled: false,
-          color: 'dodgerblue'
-        },
-        {
           displayName: 'Fixtures And Personal Property',
           pageUrl: 'FixturesAndPersonalProperty',
           isDisabled: true,
@@ -395,7 +389,7 @@ export default {
   methods: {
     nextPage () {
       localStorage.pdfBody = JSON.stringify(this.pdfBody)
-      this.$router.push({name: 'OfferDetails'})
+      this.$router.push({name: 'ParkingAndStorage'})
     },
     fillPersistentData (pdfBody, persistentChoices) {
       Object.keys(new PersistentChoices()).forEach(key => {

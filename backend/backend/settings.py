@@ -116,7 +116,7 @@ DATABASES = {
         'NAME': os.getenv('BINKLEY_DB_NAME'),
         'USER': os.getenv('BINKLEY_DB_USERNAME'),
         'PASSWORD': os.getenv('BINKLEY_DB_PASSWORD'),
-        'HOST': 'postgres',
+        'HOST': 'localhost',
         'PORT': '5432'
     }
 }

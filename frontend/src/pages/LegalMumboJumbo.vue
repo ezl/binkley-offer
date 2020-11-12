@@ -166,6 +166,12 @@ export default {
           color: 'dodgerblue'
         },
         {
+          displayName: 'Parking And Storage',
+          pageUrl: 'ParkingAndStorage',
+          isDisabled: false,
+          color: 'dodgerblue'
+        },
+        {
           displayName: 'Offer Details',
           pageUrl: 'OfferDetails',
           isDisabled: false,

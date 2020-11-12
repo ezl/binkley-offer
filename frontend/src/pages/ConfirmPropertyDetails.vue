@@ -51,7 +51,24 @@
                     text-label=" "></TextInput>
         <TextInput :special-field="true" v-model="pdfBody.agent_details_company"
                     title="Agent Details Company" text-label=" "></TextInput>
+      </b-form-group>
+    </b-card>
+
+    <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
+      <b-form-group
+          label-cols-lg="3"
+          label="HOA Info: "
+          label-size="lg"
+          label-class="font-weight-bold pt-0"
+          class="mb-0"
+      >
         <TextInput :special-field="true" v-model="pdfBody.hoa_dues" title="HOA Dues" text-label=" "></TextInput>
+        <RadioInputTwoOptions :special-field="true" :item="specialAssessmentRadioItem"
+                              text-label="Special Assessment?"
+                              item-one-label="Yes "
+                              item-two-label="No "></RadioInputTwoOptions>
+        <TextInput :special-field="true" v-model="pdfBody.deliver_association" title="Buyer to deliver Association documents within :" append="business days" text-label=" "></TextInput>
+
       </b-form-group>
     </b-card>
 
@@ -65,10 +82,35 @@
       >
         <TextInputMoney prepend="$" v-model="pdfBody.tax" title="Tax" text-label=" "></TextInputMoney>
         <TextInput :special-field="true" v-model="pdfBody.tax_year" title="Tax Year" text-label=" "></TextInput>
-        <TextInput :special-field="true" v-model="pdfBody.tax_exemptions" title="Tax Exemptions"
-                    text-label=" "></TextInput>
+        <CheckboxInput :special-field="true" v-model="tax_exemptions" title="Tax Exemptions"></CheckboxInput>
       </b-form-group>
-      <div v-if="isLoaded">
+    </b-card>
+    <b-card v-if="tax_exemptions" bg-variant="white" class="border-bottom-0 border-right-0 border-left-0">
+      <b-form-group
+          label-cols-lg="3"
+          label="Exemptions: "
+          label-size="lg"
+          label-class="font-weight-bold pt-0"
+          class="mb-0"
+      >
+        <CheckboxInput :special-field="true" v-model="pdfBody.homeowner" title="Homeowner's"></CheckboxInput>
+        <CheckboxInput :special-field="true" v-model="pdfBody.senior" title="Senior"></CheckboxInput>
+        <CheckboxInput :special-field="true" v-model="pdfBody.senior_freeze" title="Senior Freeze"></CheckboxInput>
+        <CheckboxInput :special-field="true" v-model="pdfBody.historical" title="Historical"></CheckboxInput>
+
+      </b-form-group>
+    </b-card>
+    <b-card bg-variant="white" class="border-bottom-0 border-right-0 border-left-0">
+      <b-form-group
+          label-cols-lg="3"
+          label="Other: "
+          label-size="lg"
+          label-class="font-weight-bold pt-0"
+          class="mb-0"
+      >
+        <TextInput :special-field="true" v-model="pdfBody.prorated" title="Prorated Based On" text-label=" "></TextInput>
+
+        <div v-if="isLoaded">
         <b-row>
           <b-col>
             <b-button v-if="!showError" class="btn float-right mr-auto" variant="primary" @click="nextPage"><b-icon icon="arrow-right-circle"></b-icon>  Next Page
@@ -76,6 +118,7 @@
           </b-col>
         </b-row>
       </div>
+      </b-form-group>
     </b-card>
   </div>
 </template>
@@ -87,6 +130,7 @@ import CheckboxInput from '../components/CheckboxInput'
 import TextInput from '../components/TextInput'
 import TextInputMoney from '../components/TextInputMoney'
 import HeaderSiteMap from '../components/HeaderSiteMap'
+import RadioInputTwoOptions from '../components/RadioInputTwoOptions'
 
 export default {
   name: 'ConfirmPropertyDetails',
@@ -96,12 +140,17 @@ export default {
       {name: 'viewport', content: 'width=device-width, initial-scale=1'}
     ]
   },
-  components: {HeaderSiteMap, TextInputMoney, TextInput, CheckboxInput},
+  components: {RadioInputTwoOptions, HeaderSiteMap, TextInputMoney, TextInput, CheckboxInput},
   data () {
     return {
       pdfBody: new PdfBody(),
       isLoaded: false,
       showError: '',
+      tax_exemptions: false,
+      specialAssessmentRadioItem: {
+        first: false,
+        second: false
+      },
       siteMap: [
         {
           displayName: 'Address',
@@ -133,6 +182,13 @@ export default {
           this.pdfBody.tax || this.pdfBody.tax_year || this.pdfBody.tax_exemptions) {
           this.showError = ''
         }
+      }
+    },
+    specialAssessmentRadioItem: {
+      deep: true,
+      handler () {
+        this.pdfBody.special_assessment_yes = Boolean(this.specialAssessmentRadioItem.first)
+        this.pdfBody.special_assessment_no = Boolean(this.specialAssessmentRadioItem.second)
       }
     }
   },

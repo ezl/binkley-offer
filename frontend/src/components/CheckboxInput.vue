@@ -1,6 +1,7 @@
 <template>
   <b-form-group v-if="specialFieldAsData"
                 label-cols-sm="3"
+                :label="titleAsData"
                 label-align-sm="right">
     <b-form-checkbox
       type="checkbox"
@@ -28,13 +29,15 @@ export default {
   props: {
     value: Boolean,
     textLabel: String,
-    specialField: Boolean
+    specialField: Boolean,
+    title: String
   },
   data () {
     return {
       valueAsData: this.value,
       textLabelAsData: this.textLabel,
-      specialFieldAsData: this.specialField
+      specialFieldAsData: this.specialField,
+      titleAsData: this.title
     }
   },
   methods: {
