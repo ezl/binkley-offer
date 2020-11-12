@@ -301,6 +301,7 @@
           </b-progress>
         </b-col>
       </b-row>
+    </b-card>
       <HeaderSiteMap :site-map="siteMap"></HeaderSiteMap>
       <b-card bg-variant="light" class="border-0 mb-3" title="Appliances">
         <b-row align-v="baseline">
