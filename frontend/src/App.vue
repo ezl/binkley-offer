@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view/>
+    <b-container>
+      <router-view/>
+    </b-container>
   </div>
 </template>
 
@@ -18,6 +20,10 @@ export default {
   padding: 1rem;
 }
 
+.hyperlink-text{
+  color: #86AEDB;
+  cursor: pointer;
+}
 #app {
 }
 </style>

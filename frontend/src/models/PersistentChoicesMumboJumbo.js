@@ -13,5 +13,4 @@ export default class {
   dual_agent_broker_name = null
   length_of_attorney_review = null
   length_of_inspection_period = null
-  offer_date = null
 }

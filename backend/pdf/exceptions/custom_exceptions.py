@@ -29,3 +29,14 @@ class DuplicateEntityException(APIException):
         else:
             detail = f"Duplicate Entity <<debugger>>"
         super().__init__(detail)
+
+
+class InvalidPassword(APIException):
+    status_code = 409
+    default_detail = """Password to weak:
+    Minimum 4 characters.
+    The alphabets must be between [a-z].
+    At least one alphabet should be of Upper Case [A-Z].
+    At least 1 number or digit between [0-9].
+    At least 1 character from [ ! or @ or # or $ or % or ^ or & or * or ( or ) ]."""
+    default_code = "invalid_password_strength"
