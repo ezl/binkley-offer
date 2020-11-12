@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :key="forceUpdateCount">
       <b-row>
         <b-col>
           <H1 class="title">Contact Info</H1>
