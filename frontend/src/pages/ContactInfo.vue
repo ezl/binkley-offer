@@ -1,6 +1,5 @@
 <template>
-  <div :key="forceUpdateCount">
-    <b-container>
+  <div>
       <b-row>
         <b-col>
           <H1 class="title">Contact Info</H1>
@@ -136,7 +135,6 @@
           </b-row>
         </b-card>
       </div>
-    </b-container>
   </div>
 </template>
 

@@ -1,73 +1,75 @@
 <template>
-  <div>
-    <b-container v-if="isLoaded">
+  <div v-if="isLoaded">
+    <b-row>
+      <b-col>
+        <H1 class="title">Legal Mumbo Jumbo</H1>
+        <b-progress class="my-2">
+          <b-progress-bar :value="5" :max="6" :label="'5 of 6'" show-progress animated></b-progress-bar>
+        </b-progress>
+      </b-col>
+    </b-row>
+    <HeaderSiteMap :site-map="siteMap"></HeaderSiteMap>
+    <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
+      <b-form-group
+        label-cols-lg="3"
+        label="Disclosures: "
+        label-size="lg"
+        label-class="font-weight-bold pt-0"
+        class="mb-0"
+      >
+        <RadioInputTwoOptions :special-field="true" :item="disclosuresARadioItem"
+                              text-label="Illinois Residential Real Property Disclosure Report"
+                              item-one-label="Yes"
+                              item-two-label="No"></RadioInputTwoOptions>
+        <RadioInputTwoOptions :special-field="true" :item="disclosuresBRadioItem"
+                              text-label="Heat Disclosure (gas/electric)"
+                              item-one-label="Yes "
+                              item-two-label="No "></RadioInputTwoOptions>
+        <RadioInputTwoOptions :special-field="true" :item="disclosuresCRadioItem"
+                              text-label="Lead Paint Disclosure and Pamphlet"
+                              item-one-label="Yes "
+                              item-two-label="No "></RadioInputTwoOptions>
+        <RadioInputTwoOptions :special-field="true" :item="disclosuresDRadioItem"
+                              text-label="Radon Disclosure and Pamphlet"
+                              item-one-label="Yes "
+                              item-two-label="No "></RadioInputTwoOptions>
+      </b-form-group>
+    </b-card>
+
+    <b-card bg-variant="white" class="border-0">
+      <b-form-group
+        label-cols-lg="3"
+        label="Additional Info : "
+        label-size="lg"
+        label-class="font-weight-bold pt-0"
+        class="mb-0"
+      >
+        <RadioInputTwoOptions :special-field="true" :item="dualAgencyRadioItem"
+                              text-label="Dual Agent"
+                              item-one-label="Yes "
+                              item-two-label="No "></RadioInputTwoOptions>
+        <TextInput :special-field="true" v-if="pdfBody.dual_agent_broker_yes" v-model="pdfBody.dual_agent_broker_name"
+                    title="Dual Agent Broker Name" text-label=" "></TextInput>
+        <TextInput :special-field="true" v-model="pdfBody.length_of_attorney_review" append="Days"
+                    title="Length of Attorney Review" text-label=" "></TextInput>
+        <TextInput :special-field="true" v-model="pdfBody.length_of_inspection_period" append="Days"
+                    title="Length of Inspection Period" text-label=" "></TextInput>
+        <TextInputDate v-model="pdfBody.offer_date" title="Offer Date" text-label=" "></TextInputDate>
+
+      </b-form-group>
       <b-row>
         <b-col>
+          <b-button class="btn float-right mr-auto" variant="primary" @click="nextPage">
+            <b-icon icon="arrow-right-circle"></b-icon>
+            Next Page
+          </b-button>
           <H1 class="title">Legal Mumbo Jumbo</H1>
           <b-progress class="my-2">
             <b-progress-bar :value="5" :max="6" :label="'6 of 7'" show-progress animated></b-progress-bar>
           </b-progress>
         </b-col>
       </b-row>
-      <HeaderSiteMap :site-map="siteMap"></HeaderSiteMap>
-      <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
-        <b-form-group
-          label-cols-lg="3"
-          label="Disclosures: "
-          label-size="lg"
-          label-class="font-weight-bold pt-0"
-          class="mb-0"
-        >
-          <RadioInputTwoOptions :special-field="true" :item="disclosuresARadioItem"
-                                text-label="Illinois Residential Real Property Disclosure Report"
-                                item-one-label="Yes"
-                                item-two-label="No"></RadioInputTwoOptions>
-          <RadioInputTwoOptions :special-field="true" :item="disclosuresBRadioItem"
-                                text-label="Heat Disclosure (gas/electric)"
-                                item-one-label="Yes "
-                                item-two-label="No "></RadioInputTwoOptions>
-          <RadioInputTwoOptions :special-field="true" :item="disclosuresCRadioItem"
-                                text-label="Lead Paint Disclosure and Pamphlet"
-                                item-one-label="Yes "
-                                item-two-label="No "></RadioInputTwoOptions>
-          <RadioInputTwoOptions :special-field="true" :item="disclosuresDRadioItem"
-                                text-label="Radon Disclosure and Pamphlet"
-                                item-one-label="Yes "
-                                item-two-label="No "></RadioInputTwoOptions>
-        </b-form-group>
-      </b-card>
-
-      <b-card bg-variant="white" class="border-0">
-        <b-form-group
-          label-cols-lg="3"
-          label="Additional Info : "
-          label-size="lg"
-          label-class="font-weight-bold pt-0"
-          class="mb-0"
-        >
-          <RadioInputTwoOptions :special-field="true" :item="dualAgencyRadioItem"
-                                text-label="Dual Agent"
-                                item-one-label="Yes "
-                                item-two-label="No "></RadioInputTwoOptions>
-          <TextInput :special-field="true" v-if="pdfBody.dual_agent_broker_yes" v-model="pdfBody.dual_agent_broker_name"
-                     title="Dual Agent Broker Name" text-label=" "></TextInput>
-          <TextInput :special-field="true" v-model="pdfBody.length_of_attorney_review" append="Days"
-                     title="Length of Attorney Review" text-label=" "></TextInput>
-          <TextInput :special-field="true" v-model="pdfBody.length_of_inspection_period" append="Days"
-                     title="Length of Inspection Period" text-label=" "></TextInput>
-          <TextInputDate v-model="pdfBody.offer_date" title="Offer Date" text-label=" "></TextInputDate>
-
-        </b-form-group>
-        <b-row>
-          <b-col>
-            <b-button class="btn float-right mr-auto" variant="primary" @click="nextPage">
-              <b-icon icon="arrow-right-circle"></b-icon>
-              Next Page
-            </b-button>
-          </b-col>
-        </b-row>
-      </b-card>
-    </b-container>
+    </b-card>
   </div>
 </template>
 

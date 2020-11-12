@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <b-container v-if="isLoaded">
+  <div v-if="isLoaded">
       <b-row>
         <b-col>
           <H1 class="title">Confirm Property Details</H1>
@@ -40,45 +39,44 @@
         </b-form-group>
       </b-card>
 
-      <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
-        <b-form-group
-          label-cols-lg="3"
-          label="Agent Details: "
-          label-size="lg"
-          label-class="font-weight-bold pt-0"
-          class="mb-0"
-        >
-          <TextInput :special-field="true" v-model="pdfBody.agent_details_name" title="Agent Details Name"
-                     text-label=" "></TextInput>
-          <TextInput :special-field="true" v-model="pdfBody.agent_details_company"
-                     title="Agent Details Company" text-label=" "></TextInput>
-          <TextInput :special-field="true" v-model="pdfBody.hoa_dues" title="HOA Dues" text-label=" "></TextInput>
-        </b-form-group>
-      </b-card>
+    <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
+      <b-form-group
+        label-cols-lg="3"
+        label="Agent Details: "
+        label-size="lg"
+        label-class="font-weight-bold pt-0"
+        class="mb-0"
+      >
+        <TextInput :special-field="true" v-model="pdfBody.agent_details_name" title="Agent Details Name"
+                    text-label=" "></TextInput>
+        <TextInput :special-field="true" v-model="pdfBody.agent_details_company"
+                    title="Agent Details Company" text-label=" "></TextInput>
+        <TextInput :special-field="true" v-model="pdfBody.hoa_dues" title="HOA Dues" text-label=" "></TextInput>
+      </b-form-group>
+    </b-card>
 
-      <b-card bg-variant="white" class="border-0">
-        <b-form-group
-          label-cols-lg="3"
-          label="Tax Information:"
-          label-size="lg"
-          label-class="font-weight-bold pt-0"
-          class="mb-0"
-        >
-          <TextInputMoney prepend="$" v-model="pdfBody.tax" title="Tax" text-label=" "></TextInputMoney>
-          <TextInput :special-field="true" v-model="pdfBody.tax_year" title="Tax Year" text-label=" "></TextInput>
-          <TextInput :special-field="true" v-model="pdfBody.tax_exemptions" title="Tax Exemptions"
-                     text-label=" "></TextInput>
-        </b-form-group>
-        <div v-if="isLoaded">
-          <b-row>
-            <b-col>
-              <b-button v-if="!showError" class="btn float-right mr-auto" variant="primary" @click="nextPage"><b-icon icon="arrow-right-circle"></b-icon>  Next Page
-              </b-button>
-            </b-col>
-          </b-row>
-        </div>
-      </b-card>
-    </b-container>
+    <b-card bg-variant="white" class="border-0">
+      <b-form-group
+        label-cols-lg="3"
+        label="Tax Information:"
+        label-size="lg"
+        label-class="font-weight-bold pt-0"
+        class="mb-0"
+      >
+        <TextInputMoney prepend="$" v-model="pdfBody.tax" title="Tax" text-label=" "></TextInputMoney>
+        <TextInput :special-field="true" v-model="pdfBody.tax_year" title="Tax Year" text-label=" "></TextInput>
+        <TextInput :special-field="true" v-model="pdfBody.tax_exemptions" title="Tax Exemptions"
+                    text-label=" "></TextInput>
+      </b-form-group>
+      <div v-if="isLoaded">
+        <b-row>
+          <b-col>
+            <b-button v-if="!showError" class="btn float-right mr-auto" variant="primary" @click="nextPage"><b-icon icon="arrow-right-circle"></b-icon>  Next Page
+            </b-button>
+          </b-col>
+        </b-row>
+      </div>
+    </b-card>
   </div>
 </template>
 
