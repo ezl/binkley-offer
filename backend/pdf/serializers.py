@@ -33,23 +33,47 @@ class GetPdfSerializer(serializers.ModelSerializer):
 
 
 class CreateUserSerializer(serializers.ModelSerializer):
-    username = serializers.CharField(required=True)
-    password = serializers.CharField(required=True)
     email = serializers.EmailField(required=True)
+    password = serializers.CharField(required=True)
+    first_name = serializers.CharField(allow_null=True, default='')
+    last_name = serializers.CharField(allow_null=True, default='')
+    agent_mls = serializers.CharField(allow_null=True, default='')
+    agent_license = serializers.CharField(allow_null=True, default='')
+    brokerage = serializers.CharField(allow_null=True, default='')
+    brokerage_mls = serializers.CharField(allow_null=True, default='')
+    brokerage_license = serializers.CharField(allow_null=True, default='')
+    agent_phone = serializers.CharField(allow_null=True, default='')
+    agent_fax = serializers.CharField(allow_null=True, default='')
 
     class Meta:
         model = UserProfile
         fields = [
-            'username',
             'password',
-            'email'
+            'email',
+            'first_name',
+            'last_name',
+            'agent_mls',
+            'agent_license',
+            'brokerage',
+            'brokerage_mls',
+            'brokerage_license',
+            'agent_phone',
+            'agent_fax'
         ]
 
 
 class ResponseUserSerializer(serializers.ModelSerializer):
     user_uid = serializers.CharField(required=True)
-    username = serializers.CharField(required=True)
     email = serializers.EmailField(required=True)
+    first_name = serializers.CharField(allow_null=True, allow_blank=True, required=False)
+    last_name = serializers.CharField(allow_null=True, allow_blank=True, required=False)
+    agent_mls = serializers.CharField(allow_null=True, allow_blank=True, required=False)
+    agent_license = serializers.CharField(allow_null=True, allow_blank=True, required=False)
+    brokerage = serializers.CharField(allow_null=True, allow_blank=True, required=False)
+    brokerage_mls = serializers.CharField(allow_null=True, allow_blank=True, required=False)
+    brokerage_license = serializers.CharField(allow_null=True, allow_blank=True, required=False)
+    agent_phone = serializers.CharField(allow_null=True, allow_blank=True, required=False)
+    agent_fax = serializers.CharField(allow_null=True, allow_blank=True, required=False)
     data_joined = serializers.DateTimeField(required=True)
     is_confirmed = serializers.BooleanField(required=True)
     token = serializers.CharField(required=False)
@@ -58,8 +82,16 @@ class ResponseUserSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = [
             'user_uid',
-            'username',
             'email',
+            'first_name',
+            'last_name',
+            'agent_mls',
+            'agent_license',
+            'brokerage',
+            'brokerage_mls',
+            'brokerage_license',
+            'agent_phone',
+            'agent_fax',
             'data_joined',
             'is_confirmed',
             'token'
@@ -87,7 +119,7 @@ class CreatePdfSerializer(serializers.Serializer):
     property_postal_code = serializers.CharField(required=True)
     agent_details_name = serializers.CharField(required=True)
     agent_details_company = serializers.CharField(required=True)
-    hoa_dues = serializers.CharField(required=True)
+    hoa_dues = serializers.CharField(allow_null=True, required=True)
     tax = serializers.CharField(required=True)
     tax_year = serializers.CharField(required=True)
     tax_exemptions = serializers.CharField(allow_null=True, required=True)
@@ -218,15 +250,23 @@ class CreatePdfSerializer(serializers.Serializer):
     lender_phone = serializers.CharField(allow_null=True, default="")
     lender_fax = serializers.CharField(allow_null=True, default="")
     lender_email = serializers.CharField(allow_null=True, default="")
+    riders_or_addendums = serializers.CharField(allow_null=True, default="")
+    offer_deadline = serializers.CharField(allow_null=True, default="")
+    homeowner_yes = serializers.BooleanField(default=False)
+    homeowner_no = serializers.BooleanField(default=False)
+    buyer_name = serializers.CharField(allow_null=True, default="")
+    buyer_email = serializers.CharField(allow_null=True, default="")
+    seller_name = serializers.CharField(allow_null=True, default="")
+    seller_email = serializers.CharField(allow_null=True, default="")
 
     def create(self, validated_data):
         # Turns a dictionary into an object so that keys can be accessed with the . operator
         validated_data = SimpleNamespace(**validated_data)
 
-        pdf_from_database = Pdf.objects.filter(redfin_src=validated_data.url).first()
+        # pdf_from_database = Pdf.objects.filter(redfin_src=validated_data.url).first()
 
-        if pdf_from_database:
-            return pdf_from_database
+        # if pdf_from_database:
+        #     return pdf_from_database
 
         validated_data.mortgage_contingency_date = datetime.strptime(validated_data.mortgage_contingency_date,
                                                                      '%Y-%m-%d').strftime('%m/%d/%Y')
@@ -367,3 +407,11 @@ class UserPreferencesSerializer(serializers.Serializer):
     lender_phone = serializers.CharField(allow_null=True, default="")
     lender_fax = serializers.CharField(allow_null=True, default="")
     lender_email = serializers.CharField(allow_null=True, default="")
+    riders_or_addendums = serializers.CharField(allow_null=True, default="")
+    offer_deadline = serializers.CharField(allow_null=True, default="")
+    homeowner_yes = serializers.BooleanField(default=False)
+    homeowner_no = serializers.BooleanField(default=False)
+    buyer_name = serializers.CharField(allow_null=True, default="")
+    buyer_email = serializers.CharField(allow_null=True, default="")
+    seller_name = serializers.CharField(allow_null=True, default="")
+    seller_email = serializers.CharField(allow_null=True, default="")

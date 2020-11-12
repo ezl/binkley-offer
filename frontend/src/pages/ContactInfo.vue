@@ -1,11 +1,10 @@
 <template>
-  <div :key="forceUpdateCount">
-    <b-container>
+  <div>
       <b-row>
         <b-col>
           <H1 class="title">Contact Info</H1>
           <b-progress class="my-2">
-            <b-progress-bar :value="6" :max="6" :label="'6 of 6'" show-progress animated></b-progress-bar>
+            <b-progress-bar :value="6" :max="6" :label="'7 of 7'" show-progress animated></b-progress-bar>
           </b-progress>
         </b-col>
       </b-row>
@@ -136,7 +135,6 @@
           </b-row>
         </b-card>
       </div>
-    </b-container>
   </div>
 </template>
 
@@ -185,6 +183,12 @@ export default {
         {
           displayName: 'Property Details',
           pageUrl: 'ConfirmPropertyDetails',
+          isDisabled: false,
+          color: 'dodgerblue'
+        },
+        {
+          displayName: 'Buyer And Seller',
+          pageUrl: 'BuyerAndSeller',
           isDisabled: false,
           color: 'dodgerblue'
         },
