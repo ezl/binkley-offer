@@ -4,7 +4,7 @@
         <b-col>
           <H1 class="title">Legal Mumbo Jumbo</H1>
           <b-progress class="my-2">
-            <b-progress-bar :value="5" :max="6" :label="'6 of 7'" show-progress animated></b-progress-bar>
+            <b-progress-bar :value="7" :max="8" :label="'7 of 8'" show-progress animated></b-progress-bar>
           </b-progress>
         </b-col>
       </b-row>
@@ -69,6 +69,18 @@
                                 item-two-label="No "></RadioInputTwoOptions>
           <TextInputDate :special-field="true" v-if="pdfBody.offer_deadline_yes" v-model="pdfBody.offer_deadline" title="Offer Deadline" text-label=" "></TextInputDate>
           <TextInputDate v-model="pdfBody.offer_date" title="Offer Date" text-label=" "></TextInputDate>
+          <b-form-group
+                        label-cols-sm="3"
+                        label="Attached Riders and Addendums"
+                        label-align-sm="right">
+              <b-form-textarea
+                  id="textarea"
+                  v-model="pdfBody.attached_riders_and_addendums"
+                  placeholder="Enter something..."
+                  rows="3"
+                  max-rows="6"/>
+          </b-form-group>
+          <TextInputDate v-model="pdfBody.contract_accepted_on_or_before" title="Contract accepted by seller on or before" text-label=" "></TextInputDate>
 
         </b-form-group>
         <b-row>
@@ -166,6 +178,12 @@ export default {
           color: 'dodgerblue'
         },
         {
+          displayName: 'Parking And Storage',
+          pageUrl: 'ParkingAndStorage',
+          isDisabled: false,
+          color: 'dodgerblue'
+        },
+        {
           displayName: 'Offer Details',
           pageUrl: 'OfferDetails',
           isDisabled: false,
@@ -258,6 +276,11 @@ export default {
         this.pdfBody.offer_deadline = this.getDate(new Date(this.pdfBody.offer_deadline))
       } else {
         this.pdfBody.offer_deadline = this.getDate(null)
+      }
+      if (this.pdfBody.contract_accepted_on_or_before) {
+        this.pdfBody.contract_accepted_on_or_before = this.getDate(new Date(this.pdfBody.contract_accepted_on_or_before))
+      } else {
+        this.pdfBody.contract_accepted_on_or_before = this.getDate(null)
       }
       this.isLoaded = true
     }

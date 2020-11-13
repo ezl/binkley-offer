@@ -142,4 +142,23 @@ export default class PdfBody {
   buyer_email = null
   seller_name = null
   seller_email = null
+  special_assessment_yes = false
+  special_assessment_no = false
+  deliver_association = null
+  homeowner = false
+  senior = false
+  senior_freeze = false
+  historical = false
+  prorated = null
+  parking_space_numbers = null
+  deeded = false
+  assigned = false
+  indoor = false
+  outdoor = false
+  limited_common_element = false
+  parking_pin = null
+  seller_also_transfers = null
+  items_excluded = null
+  contract_accepted_on_or_before = null
+  attached_riders_and_addendums = null
 }

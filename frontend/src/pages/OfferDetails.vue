@@ -5,7 +5,7 @@
         <b-col>
           <H1 class="title">Offer Details</H1>
           <b-progress class="my-2">
-            <b-progress-bar :value="4" :max="6" :label="'5 of 7'" show-progress animated></b-progress-bar>
+            <b-progress-bar :value="6" :max="8" :label="'6 of 8'" show-progress animated></b-progress-bar>
           </b-progress>
         </b-col>
       </b-row>
@@ -193,6 +193,12 @@ export default {
         {
           displayName: 'Fixtures And Personal Property',
           pageUrl: 'FixturesAndPersonalProperty',
+          isDisabled: false,
+          color: 'dodgerblue'
+        },
+        {
+          displayName: 'Parking And Storage',
+          pageUrl: 'ParkingAndStorage',
           isDisabled: false,
           color: 'dodgerblue'
         },

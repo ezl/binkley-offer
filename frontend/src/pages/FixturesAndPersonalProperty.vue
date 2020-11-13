@@ -5,7 +5,7 @@
         <b-col>
           <H1 class="title">Fixtures And Personal Property</H1>
           <b-progress class="my-2">
-            <b-progress-bar :value="3" :max="6" :label="'4 of 7'" show-progress animated></b-progress-bar>
+            <b-progress-bar :value="4" :max="8" :label="'4 of 8'" show-progress animated></b-progress-bar>
           </b-progress>
         </b-col>
       </b-row>
@@ -292,6 +292,33 @@
           </b-col>
         </b-row>
       </b-card>
+      <b-card bg-variant="light" class="border-0" title="Other">
+        <b-row align-v="baseline">
+          <b-col cols="6" sm="6" md="6">
+            <div>
+              Seller also transfers
+              <b-form-textarea
+                  id="textarea"
+                  v-model="pdfBody.seller_also_transfers"
+                  placeholder="Enter something..."
+                  rows="3"
+                  max-rows="6"/>
+            </div>
+          </b-col>
+          <b-col cols="6" sm="6" md="6">
+            <div>
+              Items excluded
+              <b-form-textarea
+                  id="textarea"
+                  v-model="pdfBody.items_excluded"
+                  placeholder="Enter something..."
+                  rows="3"
+                  max-rows="6"
+              ></b-form-textarea>
+            </div>
+          </b-col>
+        </b-row>
+      </b-card>
       <b-card bg-variant="white" class="border-0">
         <b-row>
           <b-col>
@@ -355,12 +382,6 @@ export default {
           color: 'dodgerblue'
         },
         {
-          displayName: 'Buyer And Seller',
-          pageUrl: 'BuyerAndSeller',
-          isDisabled: false,
-          color: 'dodgerblue'
-        },
-        {
           displayName: 'Fixtures And Personal Property',
           pageUrl: 'FixturesAndPersonalProperty',
           isDisabled: true,
@@ -395,7 +416,7 @@ export default {
   methods: {
     nextPage () {
       localStorage.pdfBody = JSON.stringify(this.pdfBody)
-      this.$router.push({name: 'OfferDetails'})
+      this.$router.push({name: 'ParkingAndStorage'})
     },
     fillPersistentData (pdfBody, persistentChoices) {
       Object.keys(new PersistentChoices()).forEach(key => {
