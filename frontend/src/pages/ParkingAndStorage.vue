@@ -5,7 +5,7 @@
         <b-col>
           <H1 class="title">Parking And Storage</H1>
           <b-progress class="my-2">
-            <b-progress-bar :value="3" :max="6" :label="'4 of 7'" show-progress animated></b-progress-bar>
+            <b-progress-bar :value="5" :max="8" :label="'5 of 8'" show-progress animated></b-progress-bar>
           </b-progress>
         </b-col>
       </b-row>
@@ -71,6 +71,7 @@ import PdfBody from '../models/PdfBody'
 import HeaderSiteMap from '../components/HeaderSiteMap'
 import CheckboxInput from '../components/CheckboxInput'
 import TextInput from '../components/TextInput'
+import PersistentChoices from '../models/PersistentChoices'
 
 export default {
   name: 'ParkingAndStorage',
@@ -119,10 +120,23 @@ export default {
       ]
     }
   },
+  mounted () {
+    if (localStorage.pdfBody) {
+      this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
+      if (localStorage.token) {
+        this.fillWithDataFromDatabase()
+      }
+      this.isLoaded = true
+    }
+  },
   methods: {
     nextPage () {
+      console.log(this.pdfBody)
       localStorage.pdfBody = JSON.stringify(this.pdfBody)
       this.$router.push({name: 'OfferDetails'})
+    },
+    fillWithDataFromDatabase () {
+      console.log('TODO')
     }
   }
 }

@@ -4,7 +4,7 @@
         <b-col>
           <H1 class="title">Confirm Property Details</H1>
           <b-progress class="my-2">
-            <b-progress-bar :value="2" :max="6" :label="'2 of 7'" show-progress animated></b-progress-bar>
+            <b-progress-bar :value="2" :max="8" :label="'2 of 8'" show-progress animated></b-progress-bar>
           </b-progress>
         </b-col>
       </b-row>
