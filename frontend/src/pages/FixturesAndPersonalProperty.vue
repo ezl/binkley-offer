@@ -292,6 +292,33 @@
           </b-col>
         </b-row>
       </b-card>
+      <b-card bg-variant="light" class="border-0" title="Other">
+        <b-row align-v="baseline">
+          <b-col cols="6" sm="6" md="6">
+            <div>
+              Seller also transfers
+              <b-form-textarea
+                  id="textarea"
+                  v-model="pdfBody.seller_also_transfers"
+                  placeholder="Enter something..."
+                  rows="3"
+                  max-rows="6"/>
+            </div>
+          </b-col>
+          <b-col cols="6" sm="6" md="6">
+            <div>
+              Items excluded
+              <b-form-textarea
+                  id="textarea"
+                  v-model="pdfBody.items_excluded"
+                  placeholder="Enter something..."
+                  rows="3"
+                  max-rows="6"
+              ></b-form-textarea>
+            </div>
+          </b-col>
+        </b-row>
+      </b-card>
       <b-card bg-variant="white" class="border-0">
         <b-row>
           <b-col>

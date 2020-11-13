@@ -155,6 +155,10 @@ export default class PdfBody {
   assigned = false
   indoor = false
   outdoor = false
-  limited_common_element = null
+  limited_common_element = false
   parking_pin = null
+  seller_also_transfers = null
+  items_excluded = null
+  contract_accepted_on_or_before = null
+  attached_riders_and_addendums = null
 }
