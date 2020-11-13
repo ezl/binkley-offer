@@ -293,6 +293,8 @@ class CreatePdfSerializer(serializers.Serializer):
                                                         '%Y-%m-%d').strftime('%m/%d/%Y')
         validated_data.offer_date = datetime.strptime(validated_data.offer_date,
                                                       '%Y-%m-%d').strftime('%m/%d/%Y')
+        validated_data.contract_accepted_on_or_before = datetime.strptime(validated_data.contract_accepted_on_or_before,
+                                                                          '%Y-%m-%d').strftime('%m/%d/%Y')
 
         pdf_src = pdf_service.convert_to_pdf(validated_data)
 
