@@ -176,3 +176,7 @@ class PersistentUserChoice(models.Model):
     outdoor = models.BooleanField(default=False)
     limited_common_element = models.BooleanField(default=False)
     parking_pin = models.TextField(null=True, default=None)
+    seller_also_transfers = models.TextField(null=True, default=None)
+    items_excluded = models.TextField(null=True, default=None)
+    contract_accepted_on_or_before = models.TextField(null=True, default=None)
+    attached_riders_and_addendums = models.TextField(null=True, default=None)

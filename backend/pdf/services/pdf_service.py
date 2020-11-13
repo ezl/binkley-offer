@@ -163,6 +163,10 @@ FORM_KEYS_ATTACHED.update({
     'outdoor': CHECKBOX_PDF_TYPE,
     'limited_common_element': CHECKBOX_PDF_TYPE,
     'parking_pin': STRING_PDF_TYPE,
+    'seller_also_transfers': STRING_PDF_TYPE,
+    'items_excluded': STRING_PDF_TYPE,
+    'contract_accepted_on_or_before': STRING_PDF_TYPE,
+    'attached_riders_and_addendums': STRING_PDF_TYPE,
 })
 FORM_KEYS_DETACHED.update({
     'property_details': STRING_PDF_TYPE,
@@ -306,6 +310,10 @@ FORM_KEYS_DETACHED.update({
     'outdoor': CHECKBOX_PDF_TYPE,
     'limited_common_element': CHECKBOX_PDF_TYPE,
     'parking_pin': STRING_PDF_TYPE,
+    'seller_also_transfers': STRING_PDF_TYPE,
+    'items_excluded': STRING_PDF_TYPE,
+    'contract_accepted_on_or_before': STRING_PDF_TYPE,
+    'attached_riders_and_addendums': STRING_PDF_TYPE,
 })
 
 HEADERS = {
@@ -558,6 +566,10 @@ def create_data_for_pdf(body_request):
         'outdoor': body_request.outdoor,
         'limited_common_element': body_request.limited_common_element,
         'parking_pin': body_request.parking_pin,
+        'seller_also_transfers': body_request.seller_also_transfers,
+        'items_excluded': body_request.items_excluded,
+        'contract_accepted_on_or_before': body_request.contract_accepted_on_or_before,
+        'attached_riders_and_addendums': body_request.attached_riders_and_addendums
     })
 
 

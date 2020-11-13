@@ -273,6 +273,10 @@ class CreatePdfSerializer(serializers.Serializer):
     outdoor = serializers.BooleanField(default=False)
     limited_common_element = serializers.BooleanField(default=False)
     parking_pin = serializers.CharField(allow_null=True, default="")
+    seller_also_transfers = serializers.CharField(allow_null=True, default="")
+    items_excluded = serializers.CharField(allow_null=True, default="")
+    contract_accepted_on_or_before = serializers.CharField(allow_null=True, default="")
+    attached_riders_and_addendums = serializers.CharField(allow_null=True, default="")
 
     def create(self, validated_data):
         # Turns a dictionary into an object so that keys can be accessed with the . operator
@@ -445,3 +449,7 @@ class UserPreferencesSerializer(serializers.Serializer):
     outdoor = serializers.BooleanField(default=False)
     limited_common_element = serializers.BooleanField(default=False)
     parking_pin = serializers.CharField(allow_null=True, default="")
+    seller_also_transfers = serializers.CharField(allow_null=True, default="")
+    items_excluded = serializers.CharField(allow_null=True, default="")
+    contract_accepted_on_or_before = serializers.CharField(allow_null=True, default="")
+    attached_riders_and_addendums = serializers.CharField(allow_null=True, default="")
