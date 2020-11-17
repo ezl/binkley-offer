@@ -88,7 +88,7 @@ export default {
       siteMap: [
         {
           displayName: 'Address',
-          pageUrl: 'Home',
+          pageUrl: 'Search',
           isDisabled: false,
           color: 'dodgerblue'
         },
