@@ -9,6 +9,7 @@
         </b-col>
       </b-row>
       <HeaderSiteMap :site-map="siteMap"></HeaderSiteMap>
+    <div v-if="propertyType === 'attached'">
       <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
         <b-form-group
           label-cols-lg="3"
@@ -44,10 +45,6 @@
           label-class="font-weight-bold pt-0"
           class="mb-0"
         >
-          <RadioInputTwoOptions :special-field="true" :item="isHomeownerAssociation"
-                                text-label="Is this home in a Homeowners Association?"
-                                item-one-label="Yes "
-                                item-two-label="No "></RadioInputTwoOptions>
           <RadioInputTwoOptions :special-field="true" :item="dualAgencyRadioItem"
                                 text-label="Dual Agent"
                                 item-one-label="Yes "
@@ -58,17 +55,7 @@
                      title="Length of Attorney Review" text-label=" "></TextInput>
           <TextInput :special-field="true" v-model="pdfBody.length_of_inspection_period" append="Days"
                      title="Length of Inspection Period" text-label=" "></TextInput>
-          <RadioInputTwoOptions :special-field="true" :item="ridersOrAddendums"
-                                text-label="Any riders or addendums to add to contract?"
-                                item-one-label="Yes "
-                                item-two-label="No "></RadioInputTwoOptions>
-          <TextInput :special-field="true" v-if="pdfBody.riders_or_addendums_yes" v-model="pdfBody.riders_or_addendums" title="Rider/Addendum Details" text-label=" "></TextInput>
-          <RadioInputTwoOptions :special-field="true" :item="offerDeadline"
-                                text-label="Add an offer deadline?"
-                                item-one-label="Yes "
-                                item-two-label="No "></RadioInputTwoOptions>
-          <TextInputDate :special-field="true" v-if="pdfBody.offer_deadline_yes" v-model="pdfBody.offer_deadline" title="Offer Deadline" text-label=" "></TextInputDate>
-          <TextInputDate v-model="pdfBody.offer_date" title="Offer Date" text-label=" "></TextInputDate>
+         <TextInputDate v-model="pdfBody.offer_date" title="Offer Date" text-label=" "></TextInputDate>
           <b-form-group
                         label-cols-sm="3"
                         label="Attached Riders and Addendums"
@@ -92,6 +79,63 @@
           </b-col>
         </b-row>
       </b-card>
+    </div>
+    <div v-else-if="propertyType === 'detached'">
+      <b-card bg-variant="white" class="border-0">
+        <b-form-group
+            label-cols-lg="3"
+            label="Additional Info : "
+            label-size="lg"
+            label-class="font-weight-bold pt-0"
+            class="mb-0"
+        >
+          <RadioInputTwoOptions :special-field="true" :item="isHomeownerAssociation"
+                                text-label="Is this home in a Homeowners Association?"
+                                item-one-label="Yes "
+                                item-two-label="No "></RadioInputTwoOptions>
+          <RadioInputTwoOptions :special-field="true" :item="dualAgencyRadioItem"
+                                text-label="Dual Agent"
+                                item-one-label="Yes "
+                                item-two-label="No "></RadioInputTwoOptions>
+          <TextInput :special-field="true" v-if="pdfBody.dual_agent_broker_yes" v-model="pdfBody.dual_agent_broker_name"
+                     title="Dual Agent Broker Name" text-label=" "></TextInput>
+          <TextInput :special-field="true" v-model="pdfBody.length_of_attorney_review" append="Days"
+                     title="Length of Attorney Review" text-label=" "></TextInput>
+          <TextInput :special-field="true" v-model="pdfBody.length_of_inspection_period" append="Days"
+                     title="Length of Inspection Period" text-label=" "></TextInput>
+          <RadioInputTwoOptions :special-field="true" :item="ridersOrAddendums"
+                                text-label="Any riders or addendums to add to contract?"
+                                item-one-label="Yes "
+                                item-two-label="No "></RadioInputTwoOptions>
+          <b-form-group v-if="ridersOrAddendums.first"
+              label-cols-sm="3"
+              label="Rider/Addendum Details"
+              label-align-sm="right">
+            <b-form-textarea
+                id="textarea"
+                v-model="pdfBody.riders_or_addendums"
+                placeholder="Enter something..."
+                rows="3"
+                max-rows="6"/>
+          </b-form-group>
+          <RadioInputTwoOptions :special-field="true" :item="offerDeadline"
+                                text-label="Add an offer deadline?"
+                                item-one-label="Yes "
+                                item-two-label="No "></RadioInputTwoOptions>
+          <TextInputDate :special-field="true" v-if="offerDeadline.first" v-model="pdfBody.offer_deadline" title="Offer Deadline" text-label=" "></TextInputDate>
+          <TextInputDate v-model="pdfBody.offer_date" title="Offer Date" text-label=" "></TextInputDate>
+
+        </b-form-group>
+        <b-row>
+          <b-col>
+            <b-button class="btn float-right mr-auto" variant="primary" @click="nextPage">
+              <b-icon icon="arrow-right-circle"></b-icon>
+              Next Page
+            </b-button>
+          </b-col>
+        </b-row>
+      </b-card>
+    </div>
   </div>
 </template>
 
@@ -120,6 +164,7 @@ export default {
       isLoaded: false,
       pdfBody: new PdfBody(),
       persistentChoices: new PersistentChoices(),
+      propertyType: '',
       disclosuresARadioItem: {
         first: false,
         second: false
@@ -240,24 +285,11 @@ export default {
         this.pdfBody.homeowner_yes = Boolean(this.isHomeownerAssociation.first)
         this.pdfBody.homeowner_no = Boolean(this.isHomeownerAssociation.second)
       }
-    },
-    offerDeadline: {
-      deep: true,
-      handler () {
-        this.pdfBody.offer_deadline_yes = Boolean(this.offerDeadline.first)
-        this.pdfBody.offer_deadline_no = Boolean(this.offerDeadline.second)
-      }
-    },
-    ridersOrAddendums: {
-      deep: true,
-      handler () {
-        this.pdfBody.riders_or_addendums_yes = Boolean(this.ridersOrAddendums.first)
-        this.pdfBody.riders_or_addendums_no = Boolean(this.ridersOrAddendums.second)
-      }
     }
   },
   mounted () {
     if (localStorage.pdfBody) {
+      this.propertyType = localStorage.propertyType
       this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
       this.changeRadioButtons()
       if (localStorage.token) {

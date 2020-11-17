@@ -161,4 +161,8 @@ export default class PdfBody {
   items_excluded = null
   contract_accepted_on_or_before = null
   attached_riders_and_addendums = null
+  homeowner_yes = false
+  homeowner_no = false
+  riders_or_addendums = null
+  offer_deadline = null
 }

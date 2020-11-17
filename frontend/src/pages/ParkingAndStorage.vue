@@ -71,7 +71,6 @@ import PdfBody from '../models/PdfBody'
 import HeaderSiteMap from '../components/HeaderSiteMap'
 import CheckboxInput from '../components/CheckboxInput'
 import TextInput from '../components/TextInput'
-import PersistentChoices from '../models/PersistentChoices'
 
 export default {
   name: 'ParkingAndStorage',
@@ -131,7 +130,6 @@ export default {
   },
   methods: {
     nextPage () {
-      console.log(this.pdfBody)
       localStorage.pdfBody = JSON.stringify(this.pdfBody)
       this.$router.push({name: 'OfferDetails'})
     },
