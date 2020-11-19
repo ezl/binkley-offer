@@ -576,7 +576,7 @@ def create_data_for_pdf(body_request):
 def encode_pdf_string(value, type_pdf):
     if type_pdf == STRING_PDF_TYPE:
         if value:
-            return pdfrw.objects.pdfstring.PdfString.encode(value.upper())
+            return pdfrw.objects.pdfstring.PdfString.encode(value)
         else:
             return pdfrw.objects.pdfstring.PdfString.encode('')
     elif type_pdf == CHECKBOX_PDF_TYPE:

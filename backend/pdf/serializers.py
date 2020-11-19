@@ -171,7 +171,8 @@ class CreatePdfSerializer(serializers.Serializer):
     lighting_fixtures = serializers.BooleanField(default=False)
     lighting_fixtures_details = serializers.CharField(allow_null=True, allow_blank=True, default="")
     electronic_garage_door = serializers.BooleanField(default=False)
-    electronic_garage_door_with_remote_unit_details = serializers.CharField(allow_null=True, allow_blank=True, default="")
+    electronic_garage_door_with_remote_unit_details = serializers.CharField(allow_null=True, allow_blank=True,
+                                                                            default="")
     tacked_down_carpeting = serializers.BooleanField(default=False)
     fireplace_screen_and_equipment = serializers.BooleanField(default=False)
     fireplace_screen_and_equipment_details = serializers.CharField(allow_null=True, allow_blank=True, default="")
@@ -188,7 +189,8 @@ class CreatePdfSerializer(serializers.Serializer):
     other_equipment = serializers.BooleanField(default=False)
     other_equipment_details = serializers.CharField(allow_null=True, allow_blank=True, default="")
     built_in_or_attached_shelves_or_cabinets = serializers.BooleanField(default=False)
-    built_int_or_attached_shelves_or_cabinets_details = serializers.CharField(allow_null=True, allow_blank=True, default="")
+    built_int_or_attached_shelves_or_cabinets_details = serializers.CharField(allow_null=True, allow_blank=True,
+                                                                              default="")
     ceiling_fan = serializers.BooleanField(default=False)
     ceiling_fan_details = serializers.CharField(allow_null=True, allow_blank=True, default="")
     radiator_covers = serializers.BooleanField(default=False)
@@ -286,15 +288,27 @@ class CreatePdfSerializer(serializers.Serializer):
 
         # if pdf_from_database:
         #     return pdf_from_database
-
-        validated_data.mortgage_contingency_date = datetime.strptime(validated_data.mortgage_contingency_date,
-                                                                     '%Y-%m-%d').strftime('%m/%d/%Y')
-        validated_data.closing_date = datetime.strptime(validated_data.closing_date,
-                                                        '%Y-%m-%d').strftime('%m/%d/%Y')
-        validated_data.offer_date = datetime.strptime(validated_data.offer_date,
-                                                      '%Y-%m-%d').strftime('%m/%d/%Y')
-        validated_data.contract_accepted_on_or_before = datetime.strptime(validated_data.contract_accepted_on_or_before,
-                                                                          '%Y-%m-%d').strftime('%m/%d/%Y')
+        try:
+            validated_data.mortgage_contingency_date = datetime.strptime(validated_data.mortgage_contingency_date,
+                                                                         '%Y-%m-%d').strftime('%m/%d/%Y')
+        except Exception:
+            pass
+        try:
+            validated_data.closing_date = datetime.strptime(validated_data.closing_date,
+                                                            '%Y-%m-%d').strftime('%m/%d/%Y')
+        except Exception:
+            pass
+        try:
+            validated_data.offer_date = datetime.strptime(validated_data.offer_date,
+                                                          '%Y-%m-%d').strftime('%m/%d/%Y')
+        except Exception:
+            pass
+        try:
+            validated_data.contract_accepted_on_or_before = datetime.strptime(
+                validated_data.contract_accepted_on_or_before,
+                '%Y-%m-%d').strftime('%m/%d/%Y')
+        except Exception:
+            pass
 
         pdf_src = pdf_service.convert_to_pdf(validated_data)
 
@@ -349,7 +363,8 @@ class UserPreferencesSerializer(serializers.Serializer):
     lighting_fixtures = serializers.BooleanField(default=False)
     lighting_fixtures_details = serializers.CharField(allow_null=True, allow_blank=True, default="")
     electronic_garage_door = serializers.BooleanField(default=False)
-    electronic_garage_door_with_remote_unit_details = serializers.CharField(allow_null=True, allow_blank=True, default="")
+    electronic_garage_door_with_remote_unit_details = serializers.CharField(allow_null=True, allow_blank=True,
+                                                                            default="")
     tacked_down_carpeting = serializers.BooleanField(default=False)
     fireplace_screen_and_equipment = serializers.BooleanField(default=False)
     fireplace_screen_and_equipment_details = serializers.CharField(allow_null=True, allow_blank=True, default="")
@@ -366,7 +381,8 @@ class UserPreferencesSerializer(serializers.Serializer):
     other_equipment = serializers.BooleanField(default=False)
     other_equipment_details = serializers.CharField(allow_null=True, allow_blank=True, default="")
     built_in_or_attached_shelves_or_cabinets = serializers.BooleanField(default=False)
-    built_int_or_attached_shelves_or_cabinets_details = serializers.CharField(allow_null=True, allow_blank=True, default="")
+    built_int_or_attached_shelves_or_cabinets_details = serializers.CharField(allow_null=True, allow_blank=True,
+                                                                              default="")
     ceiling_fan = serializers.BooleanField(default=False)
     ceiling_fan_details = serializers.CharField(allow_null=True, allow_blank=True, default="")
     radiator_covers = serializers.BooleanField(default=False)
