@@ -67,7 +67,7 @@
                   rows="3"
                   max-rows="6"/>
           </b-form-group>
-          <TextInputDate v-model="pdfBody.contract_accepted_on_or_before" title="Contract accepted by seller on or before" text-label=" "></TextInputDate>
+          <TextInputDate v-model="pdfBody.contract_accepted_on_or_before" title="Contract accepted by seller on or before" text-label="Enter something..."></TextInputDate>
 
         </b-form-group>
         <b-row>
@@ -308,11 +308,6 @@ export default {
         this.pdfBody.offer_deadline = this.getDate(new Date(this.pdfBody.offer_deadline))
       } else {
         this.pdfBody.offer_deadline = this.getDate(null)
-      }
-      if (this.pdfBody.contract_accepted_on_or_before) {
-        this.pdfBody.contract_accepted_on_or_before = this.getDate(new Date(this.pdfBody.contract_accepted_on_or_before))
-      } else {
-        this.pdfBody.contract_accepted_on_or_before = this.getDate(null)
       }
       this.isLoaded = true
     }
