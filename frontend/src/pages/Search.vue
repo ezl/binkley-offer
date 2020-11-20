@@ -4,7 +4,8 @@
         <b-col>
           <H1 class="title">Binkley Offer: Write an offer letter from your phone</H1>
           <b-progress class="my-2">
-            <b-progress-bar :value="1" :max="8" :label="'1 of 8'" show-progress animated></b-progress-bar>
+            <b-progress-bar v-if="propertyType === 'attached'" :value="1" :max="8" :label="'1 of 8'" show-progress animated></b-progress-bar>
+            <b-progress-bar v-else-if="propertyType === 'detached'" :value="1" :max="7" :label="'1 of 7'" show-progress animated></b-progress-bar>
           </b-progress>
         </b-col>
       </b-row>
@@ -55,6 +56,7 @@ export default {
   data () {
     return {
       selected: null,
+      propertyType: '',
       pdfBody: new PdfBody(),
       redfinUrl: '',
       pdfName: '',
@@ -65,6 +67,7 @@ export default {
   },
   mounted () {
     this.searchRedfinUrl()
+    this.propertyType = localStorage.propertyType
     localStorage.pdfBody = new PdfBody()
   },
   watch: {

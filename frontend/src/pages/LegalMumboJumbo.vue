@@ -4,7 +4,8 @@
       <b-col>
         <H1 class="title">Legal Mumbo Jumbo</H1>
         <b-progress class="my-2">
-          <b-progress-bar :value="7" :max="8" :label="'7 of 8'" show-progress animated></b-progress-bar>
+          <b-progress-bar v-if="propertyType === 'attached'" :value="7" :max="8" :label="'7 of 8'" show-progress animated></b-progress-bar>
+          <b-progress-bar v-else-if="propertyType === 'detached'" :value="6" :max="7" :label="'6 of 7'" show-progress animated></b-progress-bar>
         </b-progress>
       </b-col>
     </b-row>
@@ -292,6 +293,9 @@ export default {
   mounted () {
     if (localStorage.pdfBody) {
       this.propertyType = localStorage.propertyType
+      if (this.propertyType !== 'attached') {
+        this.siteMap.splice(4, 1)
+      }
       this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
       this.changeRadioButtons()
       if (localStorage.token) {

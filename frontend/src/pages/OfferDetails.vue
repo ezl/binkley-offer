@@ -5,7 +5,8 @@
         <b-col>
           <H1 class="title">Offer Details</H1>
           <b-progress class="my-2">
-            <b-progress-bar :value="6" :max="8" :label="'6 of 8'" show-progress animated></b-progress-bar>
+            <b-progress-bar v-if="propertyType === 'attached'" :value="6" :max="8" :label="'6 of 8'" show-progress animated></b-progress-bar>
+            <b-progress-bar v-else-if="propertyType === 'detached'" :value="5" :max="7" :label="'5 of 7'" show-progress animated></b-progress-bar>
           </b-progress>
         </b-col>
       </b-row>
@@ -163,6 +164,7 @@ export default {
     return {
       isLoaded: false,
       pdfBody: new PdfBody(),
+      propertyType: '',
       mortgageRadioItem: {
         first: false,
         second: false
@@ -229,6 +231,10 @@ export default {
   },
   mounted () {
     if (localStorage.pdfBody) {
+      this.propertyType = localStorage.propertyType
+      if (this.propertyType !== 'attached') {
+        this.siteMap.splice(4, 1)
+      }
       this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
       this.creditBuyerAtClosingRadioItem.first = this.pdfBody.credit_buyer_at_closing_yes
       this.creditBuyerAtClosingRadioItem.second = this.pdfBody.credit_buyer_at_closing_no

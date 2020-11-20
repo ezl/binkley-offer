@@ -4,7 +4,8 @@
         <b-col>
           <H1 class="title">Contact Info</H1>
           <b-progress class="my-2">
-            <b-progress-bar :value="8" :max="8" :label="'8 of 8'" show-progress animated></b-progress-bar>
+            <b-progress-bar v-if="propertyType === 'attached'" :value="8" :max="8" :label="'8 of 8'" show-progress animated></b-progress-bar>
+            <b-progress-bar v-else-if="propertyType === 'detached'" :value="7" :max="7" :label="'7 of 7'" show-progress animated></b-progress-bar>
           </b-progress>
         </b-col>
       </b-row>
@@ -166,6 +167,7 @@ export default {
       isLoaded: false,
       loading: false,
       pdfBody: new PdfBody(),
+      propertyType: '',
       persistentChoices: new PersistentChoices(),
       saveForFutureUseBrokerProfile: false,
       saveForFutureUseAttorneyProfile: false,
@@ -227,6 +229,10 @@ export default {
   },
   mounted () {
     if (localStorage.pdfBody) {
+      this.propertyType = localStorage.propertyType
+      if (this.propertyType !== 'attached') {
+        this.siteMap.splice(4, 1)
+      }
       this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
       if (localStorage.token) {
         this.fillWithDataFromDatabase()

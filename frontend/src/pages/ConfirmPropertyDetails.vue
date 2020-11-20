@@ -4,7 +4,8 @@
         <b-col>
           <H1 class="title">Confirm Property Details</H1>
           <b-progress class="my-2">
-            <b-progress-bar :value="2" :max="8" :label="'2 of 8'" show-progress animated></b-progress-bar>
+            <b-progress-bar v-if="propertyType === 'attached'" :value="2" :max="8" :label="'2 of 8'" show-progress animated></b-progress-bar>
+            <b-progress-bar v-else-if="propertyType === 'detached'" :value="2" :max="7" :label="'2 of 7'" show-progress animated></b-progress-bar>
           </b-progress>
         </b-col>
       </b-row>
@@ -54,7 +55,7 @@
       </b-form-group>
     </b-card>
 
-    <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
+    <b-card v-if="propertyType === 'attached'" bg-variant="white" class="border-top-0 border-right-0 border-left-0">
       <b-form-group
           label-cols-lg="3"
           label="HOA Info: "
@@ -82,7 +83,7 @@
       >
         <TextInputMoney prepend="$" v-model="pdfBody.tax" title="Tax" text-label=" "></TextInputMoney>
         <TextInput :special-field="true" v-model="pdfBody.tax_year" title="Tax Year" text-label=" "></TextInput>
-        <RadioInputTwoOptions :special-field="true" :item="taxExemptions"
+        <RadioInputTwoOptions v-if="propertyType === 'attached'" :special-field="true" :item="taxExemptions"
                               text-label="Tax Exemptions: "
                               item-one-label="Yes"
                               item-two-label="No"></RadioInputTwoOptions>
@@ -148,6 +149,7 @@ export default {
     return {
       pdfBody: new PdfBody(),
       isLoaded: false,
+      propertyType: '',
       showError: '',
       specialAssessmentRadioItem: {
         first: false,
@@ -174,6 +176,7 @@ export default {
     }
   },
   mounted () {
+    this.propertyType = localStorage.propertyType
     this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
     this.loadScrappedData()
   },

@@ -5,7 +5,8 @@
         <b-col>
           <H1 class="title">Buyer and Seller </H1>
           <b-progress class="my-2">
-            <b-progress-bar :value="3" :max="8" :label="'3 of 8'" show-progress animated></b-progress-bar>
+            <b-progress-bar v-if="propertyType === 'attached'" :value="3" :max="8" :label="'3 of 8'" show-progress animated></b-progress-bar>
+            <b-progress-bar v-else-if="propertyType === 'detached'" :value="3" :max="7" :label="'3 of 7'" show-progress animated></b-progress-bar>
           </b-progress>
         </b-col>
       </b-row>
@@ -67,6 +68,7 @@ export default {
     return {
       isLoaded: false,
       pdfBody: new PdfBody(),
+      propertyType: '',
       persistentChoices: new PersistentChoices(),
       siteMap: [
         {
@@ -92,6 +94,7 @@ export default {
   },
   mounted () {
     if (localStorage.pdfBody) {
+      this.propertyType = localStorage.propertyType
       this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
       this.isLoaded = true
     }

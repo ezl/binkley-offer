@@ -5,7 +5,8 @@
         <b-col>
           <H1 class="title">Fixtures And Personal Property</H1>
           <b-progress class="my-2">
-            <b-progress-bar :value="4" :max="8" :label="'4 of 8'" show-progress animated></b-progress-bar>
+            <b-progress-bar v-if="propertyType === 'attached'" :value="4" :max="8" :label="'4 of 8'" show-progress animated></b-progress-bar>
+            <b-progress-bar v-else-if="propertyType === 'detached'" :value="4" :max="7" :label="'4 of 7'" show-progress animated></b-progress-bar>
           </b-progress>
         </b-col>
       </b-row>
@@ -292,7 +293,7 @@
           </b-col>
         </b-row>
       </b-card>
-      <b-card bg-variant="light" class="border-0" title="Other">
+      <b-card v-if="propertyType === 'attached'" bg-variant="light" class="border-0" title="Other">
         <b-row align-v="baseline">
           <b-col cols="6" sm="6" md="6">
             <div>
@@ -357,6 +358,7 @@ export default {
     return {
       isLoaded: false,
       pdfBody: new PdfBody(),
+      propertyType: '',
       securitySystemRadioItem: {
         first: false,
         second: false
@@ -401,6 +403,7 @@ export default {
   },
   mounted () {
     if (localStorage.pdfBody) {
+      this.propertyType = localStorage.propertyType
       this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
       if (localStorage.token) {
         this.fillWithDataFromDatabase()
@@ -416,7 +419,11 @@ export default {
   methods: {
     nextPage () {
       localStorage.pdfBody = JSON.stringify(this.pdfBody)
-      this.$router.push({name: 'ParkingAndStorage'})
+      if (this.propertyType === 'attached') {
+        this.$router.push({name: 'ParkingAndStorage'})
+      } else {
+        this.$router.push({name: 'OfferDetails'})
+      }
     },
     fillPersistentData (pdfBody, persistentChoices) {
       Object.keys(new PersistentChoices()).forEach(key => {
