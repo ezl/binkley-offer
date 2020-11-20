@@ -167,6 +167,7 @@ FORM_KEYS_ATTACHED.update({
     'items_excluded': STRING_PDF_TYPE,
     'contract_accepted_on_or_before': STRING_PDF_TYPE,
     'attached_riders_and_addendums': STRING_PDF_TYPE,
+    'attached_riders_and_addendums_2': STRING_PDF_TYPE
 })
 FORM_KEYS_DETACHED.update({
     'property_details': STRING_PDF_TYPE,
@@ -314,6 +315,8 @@ FORM_KEYS_DETACHED.update({
     'items_excluded': STRING_PDF_TYPE,
     'contract_accepted_on_or_before': STRING_PDF_TYPE,
     'attached_riders_and_addendums': STRING_PDF_TYPE,
+    'attached_riders_and_addendums_2': STRING_PDF_TYPE
+
 })
 
 HEADERS = {
@@ -403,7 +406,20 @@ def parse_bs4():
     return details_dict
 
 
+def overflow_text_on_two_rows(text, size):
+    first_phrase_raw = text[:size]
+    overflow_word = ''
+    if first_phrase_raw[len(first_phrase_raw) - 1].isalnum():
+        if text[72].isalnum():
+            overflow_word = first_phrase_raw.split()[-1]
+
+    first_phrase = first_phrase_raw[:len(first_phrase_raw) - len(overflow_word) - 1]
+    second_phrase = overflow_word + text[size:]
+    return first_phrase.strip(), second_phrase.strip()
+
+
 def create_data_for_pdf(body_request):
+    first_phrase, second_phrase = overflow_text_on_two_rows(body_request.attached_riders_and_addendums, 76)
     data_dict.update({
         'property_details': body_request.property_street_address + ' ' + body_request.property_locality
                             + ' ' + body_request.property_region + ' ' + body_request.property_postal_code,
@@ -569,7 +585,9 @@ def create_data_for_pdf(body_request):
         'seller_also_transfers': body_request.seller_also_transfers,
         'items_excluded': body_request.items_excluded,
         'contract_accepted_on_or_before': body_request.contract_accepted_on_or_before,
-        'attached_riders_and_addendums': body_request.attached_riders_and_addendums
+        'attached_riders_and_addendums': first_phrase,
+        'attached_riders_and_addendums_2': second_phrase
+
     })
 
 
