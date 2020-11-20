@@ -122,7 +122,7 @@
                                 text-label="Add an offer deadline?"
                                 item-one-label="Yes "
                                 item-two-label="No "></RadioInputTwoOptions>
-          <TextInputDate :special-field="true" v-if="offerDeadline.first" v-model="pdfBody.offer_deadline" title="Offer Deadline" text-label=" "></TextInputDate>
+          <TextInput :special-field="true" v-if="offerDeadline.first" v-model="pdfBody.offer_deadline" title="Offer Deadline" text-label="Ex: 10/20/2020 5:00PM""></TextInput>
           <TextInputDate v-model="pdfBody.offer_date" title="Offer Date" text-label=" "></TextInputDate>
 
         </b-form-group>
@@ -303,11 +303,6 @@ export default {
         this.pdfBody.offer_date = this.getDate(new Date(this.pdfBody.offer_date))
       } else {
         this.pdfBody.offer_date = this.getDate(null)
-      }
-      if (this.pdfBody.offer_deadline) {
-        this.pdfBody.offer_deadline = this.getDate(new Date(this.pdfBody.offer_deadline))
-      } else {
-        this.pdfBody.offer_deadline = this.getDate(null)
       }
       this.isLoaded = true
     }
