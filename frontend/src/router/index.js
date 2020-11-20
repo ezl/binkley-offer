@@ -21,12 +21,12 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'Home',
       component: Home
     },
     {
-      path: '/property-type',
+      path: '/',
       name: 'PropertyType',
       component: PropertyType
     },
