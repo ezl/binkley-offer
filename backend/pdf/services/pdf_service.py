@@ -419,7 +419,9 @@ def overflow_text_on_two_rows(text, size):
 
 
 def create_data_for_pdf(body_request):
-    first_phrase, second_phrase = overflow_text_on_two_rows(body_request.attached_riders_and_addendums, 76)
+    first_phrase, second_phrase = '', ''
+    if body_request.attached_riders_and_addendums:
+        first_phrase, second_phrase = overflow_text_on_two_rows(body_request.attached_riders_and_addendums, 76)
     data_dict.update({
         'property_details': body_request.property_street_address + ' ' + body_request.property_locality
                             + ' ' + body_request.property_region + ' ' + body_request.property_postal_code,
