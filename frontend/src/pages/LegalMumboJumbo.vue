@@ -1,22 +1,22 @@
 <template>
   <div v-if="isLoaded">
-      <b-row>
-        <b-col>
-          <H1 class="title">Legal Mumbo Jumbo</H1>
-          <b-progress class="my-2">
-            <b-progress-bar :value="7" :max="8" :label="'7 of 8'" show-progress animated></b-progress-bar>
-          </b-progress>
-        </b-col>
-      </b-row>
-      <HeaderSiteMap :site-map="siteMap"></HeaderSiteMap>
+    <b-row>
+      <b-col>
+        <H1 class="title">Legal Mumbo Jumbo</H1>
+        <b-progress class="my-2">
+          <b-progress-bar :value="7" :max="8" :label="'7 of 8'" show-progress animated></b-progress-bar>
+        </b-progress>
+      </b-col>
+    </b-row>
+    <HeaderSiteMap :site-map="siteMap"></HeaderSiteMap>
     <div v-if="propertyType === 'attached'">
       <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
         <b-form-group
-          label-cols-lg="3"
-          label="Disclosures: "
-          label-size="lg"
-          label-class="font-weight-bold pt-0"
-          class="mb-0"
+            label-cols-lg="3"
+            label="Disclosures: "
+            label-size="lg"
+            label-class="font-weight-bold pt-0"
+            class="mb-0"
         >
           <RadioInputTwoOptions :special-field="true" :item="disclosuresARadioItem"
                                 text-label="Illinois Residential Real Property Disclosure Report"
@@ -39,11 +39,11 @@
 
       <b-card bg-variant="white" class="border-0">
         <b-form-group
-          label-cols-lg="3"
-          label="Additional Info : "
-          label-size="lg"
-          label-class="font-weight-bold pt-0"
-          class="mb-0"
+            label-cols-lg="3"
+            label="Additional Info : "
+            label-size="lg"
+            label-class="font-weight-bold pt-0"
+            class="mb-0"
         >
           <RadioInputTwoOptions :special-field="true" :item="dualAgencyRadioItem"
                                 text-label="Dual Agent"
@@ -55,19 +55,21 @@
                      title="Length of Attorney Review" text-label=" "></TextInput>
           <TextInput :special-field="true" v-model="pdfBody.length_of_inspection_period" append="Days"
                      title="Length of Inspection Period" text-label=" "></TextInput>
-         <TextInputDate v-model="pdfBody.offer_date" title="Offer Date" text-label=" "></TextInputDate>
+          <TextInputDate v-model="pdfBody.offer_date" title="Offer Date" text-label=" "></TextInputDate>
           <b-form-group
-                        label-cols-sm="3"
-                        label="Attached Riders and Addendums"
-                        label-align-sm="right">
-              <b-form-textarea
-                  id="textarea"
-                  v-model="pdfBody.attached_riders_and_addendums"
-                  placeholder="Enter something..."
-                  rows="3"
-                  max-rows="6"/>
+              label-cols-sm="3"
+              label="Attached Riders and Addendums"
+              label-align-sm="right">
+            <b-form-textarea
+                id="textarea"
+                v-model="pdfBody.attached_riders_and_addendums"
+                placeholder="Enter something..."
+                rows="3"
+                max-rows="6"/>
           </b-form-group>
-          <TextInputDate v-model="pdfBody.contract_accepted_on_or_before" title="Contract accepted by seller on or before" text-label="Enter something..."></TextInputDate>
+          <TextInputDate v-model="pdfBody.contract_accepted_on_or_before"
+                         title="Contract accepted by seller on or before"
+                         text-label="Enter something..."></TextInputDate>
 
         </b-form-group>
         <b-row>
@@ -108,9 +110,9 @@
                                 item-one-label="Yes "
                                 item-two-label="No "></RadioInputTwoOptions>
           <b-form-group v-if="ridersOrAddendums.first"
-              label-cols-sm="3"
-              label="Rider/Addendum Details"
-              label-align-sm="right">
+                        label-cols-sm="3"
+                        label="Rider/Addendum Details"
+                        label-align-sm="right">
             <b-form-textarea
                 id="textarea"
                 v-model="pdfBody.riders_or_addendums"
@@ -122,9 +124,9 @@
                                 text-label="Add an offer deadline?"
                                 item-one-label="Yes "
                                 item-two-label="No "></RadioInputTwoOptions>
-          <TextInput :special-field="true" v-if="offerDeadline.first" v-model="pdfBody.offer_deadline" title="Offer Deadline" text-label="Ex: 10/20/2020 5:00PM""></TextInput>
+          <TextInput :special-field="true" v-if="offerDeadline.first" v-model="pdfBody.offer_deadline"
+                     title="Offer Deadline" text-label="Ex: 10/20/2020 5:00PM"></TextInput>
           <TextInputDate v-model="pdfBody.offer_date" title="Offer Date" text-label=" "></TextInputDate>
-
         </b-form-group>
         <b-row>
           <b-col>
