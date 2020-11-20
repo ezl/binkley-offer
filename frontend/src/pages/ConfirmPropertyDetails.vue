@@ -82,10 +82,13 @@
       >
         <TextInputMoney prepend="$" v-model="pdfBody.tax" title="Tax" text-label=" "></TextInputMoney>
         <TextInput :special-field="true" v-model="pdfBody.tax_year" title="Tax Year" text-label=" "></TextInput>
-        <CheckboxInput :special-field="true" v-model="tax_exemptions" title="Tax Exemptions"></CheckboxInput>
+        <RadioInputTwoOptions :special-field="true" :item="taxExemptions"
+                              text-label="Tax Exemptions: "
+                              item-one-label="Yes"
+                              item-two-label="No"></RadioInputTwoOptions>
       </b-form-group>
     </b-card>
-    <b-card v-if="tax_exemptions" bg-variant="white" class="border-bottom-0 border-right-0 border-left-0">
+    <b-card v-if="taxExemptions.first" bg-variant="white" class="border-bottom-0 border-right-0 border-left-0">
       <b-form-group
           label-cols-lg="3"
           label="Exemptions: "
@@ -146,8 +149,11 @@ export default {
       pdfBody: new PdfBody(),
       isLoaded: false,
       showError: '',
-      tax_exemptions: false,
       specialAssessmentRadioItem: {
+        first: false,
+        second: false
+      },
+      taxExemptions: {
         first: false,
         second: false
       },
