@@ -87,7 +87,9 @@ export default {
     }
   },
   mounted () {
-    this.loggedUserDetails = Object.assign(new LoggedUser(), JSON.parse(localStorage.loggedUserDetails))
+    if (localStorage.loggedUserDetails) {
+      this.loggedUserDetails = Object.assign(new LoggedUser(), JSON.parse(localStorage.loggedUserDetails))
+    }
   },
   methods: {
     selectAttached () {
