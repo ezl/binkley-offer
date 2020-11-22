@@ -165,4 +165,5 @@ export default class PdfBody {
   homeowner_no = false
   riders_or_addendums = null
   offer_deadline = null
+  property_type = null
 }

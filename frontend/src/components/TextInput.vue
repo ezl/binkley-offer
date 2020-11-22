@@ -30,6 +30,9 @@ export default {
     title: String,
     specialField: Boolean
   },
+  beforeDestroy () {
+    this.$emit('input', null)
+  },
   data () {
     return {
       valueAsData: this.value,
