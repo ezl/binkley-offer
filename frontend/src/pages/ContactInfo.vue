@@ -1,5 +1,5 @@
 <template>
-  <div :key="forceUpdateCount">
+  <div>
       <b-row>
         <b-col>
           <H1 class="title">Contact Info</H1>
@@ -11,7 +11,7 @@
       </b-row>
       <HeaderSiteMap :site-map="siteMap"></HeaderSiteMap>
       <div v-if="isLoaded">
-        <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
+        <b-card :key="forceUpdateBuyerCount" bg-variant="white" class="border-top-0 border-right-0 border-left-0">
           <b-form-group
             label-cols-lg="3"
             label="Buyer's Broker's Information:"
@@ -57,7 +57,7 @@
             </b-dropdown>
           </b-form-group>
         </b-card>
-        <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
+        <b-card :key="forceUpdateAttorneyCount" bg-variant="white" class="border-top-0 border-right-0 border-left-0">
           <b-form-group
             label-cols-lg="3"
             label="Buyer's Attorney's Information:"
@@ -91,7 +91,7 @@
             </b-dropdown>
           </b-form-group>
         </b-card>
-        <b-card bg-variant="white" class="border-0">
+        <b-card :key="forceUpdateLenderCount" bg-variant="white" class="border-0">
           <b-form-group
             label-cols-lg="3"
             label="Buyer's Lender's Information:"
@@ -163,7 +163,12 @@ export default {
   components: {HeaderSiteMap, FormGroupInput, CheckboxInput, TextInput},
   data () {
     return {
-      forceUpdateCount: 0,
+      indexBroker: null,
+      indexAttorney: null,
+      indexLender: null,
+      forceUpdateBuyerCount: Math.random(),
+      forceUpdateAttorneyCount: Math.random(),
+      forceUpdateLenderCount: Math.random(),
       isLoaded: false,
       loading: false,
       pdfBody: new PdfBody(),
@@ -307,6 +312,8 @@ export default {
             this.pdfBody.agent_phone = this.brokerProfiles[index].agent_phone
             this.pdfBody.agent_fax = this.brokerProfiles[index].agent_fax
             this.pdfBody.broker_email = this.brokerProfiles[index].broker_email
+            this.indexBroker = index
+            this.forceUpdateBuyer()
           }
           break
         case 'attorney':
@@ -316,6 +323,8 @@ export default {
             this.pdfBody.attorney_phone = this.attorneyProfiles[index].attorney_phone
             this.pdfBody.attorney_fax = this.attorneyProfiles[index].attorney_fax
             this.pdfBody.attorney_email = this.attorneyProfiles[index].attorney_email
+            this.indexAttorney = index
+            this.forceUpdateAttorney()
           }
           break
         case 'lender':
@@ -326,17 +335,24 @@ export default {
             this.pdfBody.lender_phone = this.lenderProfiles[index].lender_phone
             this.pdfBody.lender_fax = this.lenderProfiles[index].lender_fax
             this.pdfBody.lender_email = this.lenderProfiles[index].lender_email
+            this.indexLender = index
+            this.forceUpdateLender()
           }
           break
       }
-      this.forceUpdate()
     },
-    forceUpdate () {
-      this.forceUpdateCount += 1
+    forceUpdateBuyer () {
+      this.forceUpdateBuyerCount += 1
+    },
+    forceUpdateAttorney () {
+      this.forceUpdateAttorneyCount += 1
+    },
+    forceUpdateLender () {
+      this.forceUpdateLenderCount += 1
     },
     nextPage () {
+      this.hardFiller()
       this.loading = false
-      localStorage.pdfBody = null
       localStorage.persistentChoices = null
       let newPersistentChoices = new PersistentChoices()
       Object.keys(new PersistentChoices()).forEach(key => {
@@ -369,6 +385,80 @@ export default {
       }
       localStorage.pdfBody = JSON.stringify(this.pdfBody)
       this.$router.push({name: 'Done'})
+    },
+    // There is a weird functionality when using :key to refresh a component and seems like refuse to update our
+    // pdfBody. Change this and refactor only if you will test it.
+    hardFiller () {
+      if (this.indexBroker != null) {
+        if (!this.pdfBody.designated_agent) {
+          this.pdfBody.designated_agent = this.brokerProfiles[this.indexBroker].designated_agent
+        }
+        if (!this.pdfBody.agent_mls) {
+          this.pdfBody.agent_mls = this.brokerProfiles[this.indexBroker].agent_mls
+        }
+        if (!this.pdfBody.agent_license) {
+          this.pdfBody.agent_license = this.brokerProfiles[this.indexBroker].agent_license
+        }
+        if (!this.pdfBody.brokerage) {
+          this.pdfBody.brokerage = this.brokerProfiles[this.indexBroker].brokerage
+        }
+        if (!this.pdfBody.brokerage_mls) {
+          this.pdfBody.brokerage_mls = this.brokerProfiles[this.indexBroker].brokerage_mls
+        }
+        if (!this.pdfBody.brokerage_license) {
+          this.pdfBody.brokerage_license = this.brokerProfiles[this.indexBroker].brokerage_license
+        }
+        if (!this.pdfBody.broker_address) {
+          this.pdfBody.broker_address = this.brokerProfiles[this.indexBroker].broker_address
+        }
+        if (!this.pdfBody.agent_phone) {
+          this.pdfBody.agent_phone = this.brokerProfiles[this.indexBroker].agent_phone
+        }
+        if (!this.pdfBody.agent_fax) {
+          this.pdfBody.agent_fax = this.brokerProfiles[this.indexBroker].agent_fax
+        }
+        if (!this.pdfBody.broker_email) {
+          this.pdfBody.broker_email = this.brokerProfiles[this.indexBroker].broker_email
+        }
+      }
+
+      if (this.indexAttorney != null) {
+        if (!this.pdfBody.attorney_name) {
+          this.pdfBody.attorney_name = this.attorneyProfiles[this.indexAttorney].attorney_name
+        }
+        if (!this.pdfBody.attorney_address) {
+          this.pdfBody.attorney_address = this.attorneyProfiles[this.indexAttorney].attorney_address
+        }
+        if (!this.pdfBody.attorney_phone) {
+          this.pdfBody.attorney_phone = this.attorneyProfiles[this.indexAttorney].attorney_phone
+        }
+        if (!this.pdfBody.attorney_fax) {
+          this.pdfBody.attorney_fax = this.attorneyProfiles[this.indexAttorney].attorney_fax
+        }
+        if (!this.pdfBody.attorney_email) {
+          this.pdfBody.attorney_email = this.attorneyProfiles[this.indexAttorney].attorney_email
+        }
+      }
+      if (this.indexLender != null) {
+        if (!this.pdfBody.lender_name) {
+          this.pdfBody.lender_name = this.lenderProfiles[this.indexLender].lender_name
+        }
+        if (!this.pdfBody.lender_company) {
+          this.pdfBody.lender_company = this.lenderProfiles[this.indexLender].lender_company
+        }
+        if (!this.pdfBody.lender_address) {
+          this.pdfBody.lender_address = this.lenderProfiles[this.indexLender].lender_address
+        }
+        if (!this.pdfBody.lender_phone) {
+          this.pdfBody.lender_phone = this.lenderProfiles[this.indexLender].lender_phone
+        }
+        if (!this.pdfBody.lender_fax) {
+          this.pdfBody.lender_fax = this.lenderProfiles[this.indexLender].lender_fax
+        }
+        if (!this.pdfBody.lender_email) {
+          this.pdfBody.lender_email = this.lenderProfiles[this.indexLender].lender_email
+        }
+      }
     }
   }
 }
