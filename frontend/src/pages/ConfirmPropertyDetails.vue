@@ -68,7 +68,7 @@
                               text-label="Special Assessment?"
                               item-one-label="Yes "
                               item-two-label="No "></RadioInputTwoOptions>
-        <TextInput :special-field="true" v-model="pdfBody.deliver_association" title="Buyer to deliver Association documents within :" append="business days" text-label=" "></TextInput>
+        <TextInput :special-field="true" v-model="pdfBody.deliver_association" title="Business Days to Deliver Documents:" append="Days" text-label=" "></TextInput>
 
       </b-form-group>
     </b-card>
@@ -97,11 +97,20 @@
           label-class="font-weight-bold pt-0"
           class="mb-0"
       >
-        <CheckboxInput :special-field="true" v-model="pdfBody.homeowner" title="Homeowner's"></CheckboxInput>
-        <CheckboxInput :special-field="true" v-model="pdfBody.senior" title="Senior"></CheckboxInput>
-        <CheckboxInput :special-field="true" v-model="pdfBody.senior_freeze" title="Senior Freeze"></CheckboxInput>
-        <CheckboxInput :special-field="true" v-model="pdfBody.historical" title="Historical"></CheckboxInput>
-
+        <b-row align-v="baseline">
+          <b-col cols="6" sm="3" md="3">
+            <CheckboxInput v-model="pdfBody.homeowner" text-label="Homeowner's"></CheckboxInput>
+          </b-col>
+          <b-col>
+            <CheckboxInput  v-model="pdfBody.senior" text-label="Senior"></CheckboxInput>
+          </b-col>
+          <b-col cols="6" sm="3" md="3">
+            <CheckboxInput v-model="pdfBody.senior_freeze" text-label="Senior Freeze"></CheckboxInput>
+          </b-col>
+          <b-col cols="6" sm="3" md="3">
+            <CheckboxInput v-model="pdfBody.historical" text-label="Historical"></CheckboxInput>
+          </b-col>
+        </b-row>
       </b-form-group>
     </b-card>
     <b-card bg-variant="white" class="border-bottom-0 border-right-0 border-left-0">
