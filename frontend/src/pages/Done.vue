@@ -9,6 +9,9 @@
 
       <template #lead>
         <p class="text-left">Here's your offer letter PDF for <strong> {{ pdfBody.property_street_address }}</strong></p>
+        <br>
+        <p class="text-left">For best results, <span style="color: red">view PDF in Safari after downloading.</span> Then Print or Save.</p>
+        <br>
         <b-button v-if="!loading" variant="primary" class="btn" @click="convertPdf"> Download PDF
         </b-button>
         <b-spinner v-if="loading" variant="primary" label="Spinning"></b-spinner>
