@@ -29,6 +29,13 @@
         >
           <TextInput :special-field="true" v-model="pdfBody.property_street_address"
                      title="Property Street Address" text-label=" "></TextInput>
+          <b-form-group v-if="propertyType === 'attached'"
+                        label-cols-sm="3"
+                        label-align-sm="right">
+            <b-input-group size="md">
+              <p class="font-weight-lighter font-weight-italic infoText"><strong><i>Please add your unit number if it is not populated above.</i></strong></p>
+            </b-input-group>
+          </b-form-group>
           <TextInput :special-field="true" v-model="pdfBody.property_locality" title="Property Locality"
                      text-label=" "></TextInput>
           <TextInput :special-field="true" v-model="pdfBody.property_region" title="Property Region"
@@ -252,4 +259,8 @@ export default {
 
 <style scoped>
 
+.infoText {
+  font-size: 0.9em;
+  color: red;
+}
 </style>
