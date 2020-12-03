@@ -121,7 +121,7 @@
           label-class="font-weight-bold pt-0"
           class="mb-0"
       >
-        <TextInput :special-field="true" v-model="pdfBody.prorated" title="Prorated Based On" text-label=" "></TextInput>
+        <TextInput :special-field="true" v-model="pdfBody.prorated" title="Prorated Based On" text-label="105% or tbd"></TextInput>
 
         <div v-if="isLoaded">
         <b-row>
