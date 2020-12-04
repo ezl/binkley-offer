@@ -609,7 +609,7 @@ def encode_pdf_string(value, type_pdf):
 
 def fill_pdf_attached():
     global data_dict, FORM_KEYS_ATTACHED, url_to_scrape
-    pdf_template = pdfrw.PdfReader('pdf/services/Contract_Template_Attached.pdf')
+    pdf_template = pdfrw.PdfReader('pdf/services/Contract_Template_Attached_V2.pdf')
     for page_pdf in pdf_template.pages:
         annotations = page_pdf['/Annots']
         if annotations is None:
