@@ -636,7 +636,7 @@ def fill_pdf_attached():
 
 def fill_pdf_detached():
     global data_dict, FORM_KEYS_DETACHED, url_to_scrape
-    pdf_template = pdfrw.PdfReader('pdf/services/Contract_Template_Detached.pdf')
+    pdf_template = pdfrw.PdfReader('pdf/services/Contract_Template_Detached_V2.pdf')
     for page_pdf in pdf_template.pages:
         annotations = page_pdf['/Annots']
         if annotations is None:
