@@ -56,6 +56,11 @@ export default {
       textLabelAsData: this.textLabel
     }
   },
+  beforeDestroy () {
+    this.itemAsData.first = false
+    this.itemAsData.second = false
+    this.$emit('input', this.itemAsData)
+  },
   methods: {
     handleInputOne () {
       this.itemAsData.first = true

@@ -40,6 +40,9 @@ export default {
       titleAsData: this.title
     }
   },
+  beforeDestroy () {
+    this.$emit('input', null)
+  },
   methods: {
     handleInput (event) {
       this.$emit('input', event)
