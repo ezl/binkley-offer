@@ -41,7 +41,7 @@ export default {
     }
   },
   beforeDestroy () {
-    this.$emit('input', null)
+    this.$emit('input', false)
   },
   methods: {
     handleInput (event) {
