@@ -63,7 +63,7 @@
             v-model="registerAccountBody.last_name"
           ></b-form-input>
         </b-form-group>
-        <b-form-group label-cols-lg="2" id="input-group-5" label="Agent Mls#:" label-for="input-5">
+        <b-form-group label-cols-lg="2" id="input-group-5" label="Agent MLS#:" label-for="input-5">
           <b-form-input
             id="input-5"
             v-model="registerAccountBody.agent_mls"
@@ -81,7 +81,7 @@
             v-model="registerAccountBody.brokerage"
           ></b-form-input>
         </b-form-group>
-        <b-form-group label-cols-lg="2" id="input-group-8" label="Brokerage Mls#:" label-for="input-8">
+        <b-form-group label-cols-lg="2" id="input-group-8" label="Broker MLS#:" label-for="input-8">
           <b-form-input
             id="input-8"
             v-model="registerAccountBody.brokerage_mls"
