@@ -87,6 +87,7 @@ export default {
     }
   },
   mounted () {
+    localStorage.removeItem("futureUserDetails")
     if (localStorage.loggedUserDetails) {
       this.loggedUserDetails = Object.assign(new LoggedUser(), JSON.parse(localStorage.loggedUserDetails))
     }

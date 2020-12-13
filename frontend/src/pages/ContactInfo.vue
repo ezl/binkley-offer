@@ -151,6 +151,7 @@ import HeaderSiteMap from '../components/HeaderSiteMap'
 import PersistentChoicesContactBroker from '../models/PersistentChoicesContactBroker'
 import PersistentChoicesContactAttorney from '../models/PersistentChoicesContactAttorney'
 import PersistentChoicesContactLender from '../models/PersistentChoicesContactLender'
+import LoggedUserDetails from '../models/LoggedUserDetails'
 
 export default {
   name: 'ContactInfo',
@@ -174,6 +175,7 @@ export default {
       pdfBody: new PdfBody(),
       propertyType: '',
       persistentChoices: new PersistentChoices(),
+      loggedUserDetails: new LoggedUserDetails(),
       saveForFutureUseBrokerProfile: false,
       saveForFutureUseAttorneyProfile: false,
       saveForFutureUseLenderProfile: false,
@@ -254,9 +256,17 @@ export default {
       if (localStorage.persistentChoices && !localStorage.token) {
         this.persistentChoices = Object.assign(new PersistentChoices(), JSON.parse(localStorage.persistentChoices))
         this.fillPersistentData(this.pdfBody, this.persistentChoices)
-      } else {
-        this.isLoaded = true
       }
+      if (localStorage.loggedUserDetails) {
+        this.loggedUserDetails = Object.assign(new LoggedUserDetails(), JSON.parse(localStorage.loggedUserDetails))
+        this.pdfBody.designated_agent = this.loggedUserDetails.first_name + ' ' + this.loggedUserDetails.last_name
+        Object.keys(new LoggedUserDetails()).forEach(key => {
+          if (key in new PdfBody()) {
+            this.pdfBody[key] = this.loggedUserDetails[key]
+          }
+        })
+      }
+      this.isLoaded = true
     }
   },
   methods: {

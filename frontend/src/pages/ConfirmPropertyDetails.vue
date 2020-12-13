@@ -251,7 +251,7 @@ export default {
       this.$router.push({name: 'BuyerAndSeller'})
     },
     backPage: function () {
-      this.$router.push({name: 'Home'})
+      this.$router.push({name: 'Search'})
     }
   }
 }

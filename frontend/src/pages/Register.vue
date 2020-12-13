@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container>
+    <b-container v-if="isLoaded">
       <b-row>
         <b-col>
           <H1 class="title">Create an Account</H1>
@@ -121,6 +121,7 @@
 <script>
 import * as axios from 'axios'
 import RegisterAccount from '../models/RegisterAccount'
+import LoggedUserDetails from '../models/LoggedUserDetails'
 
 export default {
   name: 'Register',
@@ -133,12 +134,28 @@ export default {
   data () {
     return {
       registerAccountBody: new RegisterAccount(),
+      futureUserDetails: new LoggedUserDetails(),
       passwordConfirmation: '',
       passwordError: '',
       passwordErrorServer: '',
       accountCreated: false,
-      show: true
+      show: true,
+      isLoaded: false
     }
+  },
+  mounted () {
+    if (localStorage.futureUserDetails) {
+      this.futureUserDetails = Object.assign(new LoggedUserDetails(), JSON.parse(localStorage.futureUserDetails))
+      this.registerAccountBody.agent_mls = this.futureUserDetails.agent_mls
+      this.registerAccountBody.agent_license = this.futureUserDetails.agent_license
+      this.registerAccountBody.brokerage = this.futureUserDetails.brokerage
+      this.registerAccountBody.brokerage_mls = this.futureUserDetails.brokerage_mls
+      this.registerAccountBody.brokerage_license = this.futureUserDetails.brokerage_license
+      this.registerAccountBody.agent_phone = this.futureUserDetails.agent_phone
+      this.registerAccountBody.agent_fax = this.futureUserDetails.agent_fax
+      console.log(this.futureUserDetails)
+    }
+    this.isLoaded = true
   },
   methods: {
     registerAccount (evt) {

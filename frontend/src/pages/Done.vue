@@ -35,7 +35,7 @@
         <strong>Then create an account for next time.</strong>
       </div>
       <br>
-      <b-button disabled variant="primary" class="btn" @click="createAccount()"> Create An Account
+      <b-button variant="primary" class="btn" @click="createAccount()"> Create An Account
       </b-button>
 
     </b-jumbotron>
@@ -47,6 +47,7 @@ import PdfBody from '../models/PdfBody'
 import * as axios from 'axios'
 import HeaderSiteMap from '../components/HeaderSiteMap'
 import ConfettiIcon from '../components/icons/ConfettiIcon'
+import LoggedUserDetails from '../models/LoggedUserDetails'
 
 export default {
   name: 'Done',
@@ -62,6 +63,7 @@ export default {
       isLoaded: false,
       loading: false,
       pdfBody: new PdfBody(),
+      futureUserDetails: new LoggedUserDetails(),
       siteMap: [
         {
           displayName: 'Address',
@@ -105,6 +107,12 @@ export default {
   mounted () {
     if (localStorage.pdfBody) {
       this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
+      Object.keys(new LoggedUserDetails()).forEach(key => {
+        if (key in new PdfBody()) {
+          this.futureUserDetails[key] = this.pdfBody[key]
+        }
+      })
+      localStorage.futureUserDetails = JSON.stringify(this.futureUserDetails)
     }
     this.isLoaded = true
   },
@@ -155,7 +163,7 @@ export default {
       }, 100)
     },
     createAccount () {
-      this.$router.push({name: 'Todo'})
+      this.$router.push({name: 'Register'})
     }
   }
 }
