@@ -56,7 +56,7 @@
           <b-button variant="primary" class="btn" @click="createAccount()">Create an Account</b-button>
         </b-col>
         <b-col>
-          <b-button variant="primary" class="btn" @click="loginAccount()">Login</b-button>
+          <b-button :disabled="isLogged" variant="primary" class="btn" @click="loginAccount()">Login</b-button>
         </b-col>
       </b-row>
     </section>
@@ -83,13 +83,15 @@ export default {
     return {
       isAttachedSelected: false,
       isDetachedSelected: false,
-      loggedUserDetails: new LoggedUser()
+      loggedUserDetails: new LoggedUser(),
+      isLogged: false
     }
   },
   mounted () {
     localStorage.removeItem("futureUserDetails")
     if (localStorage.loggedUserDetails) {
       this.loggedUserDetails = Object.assign(new LoggedUser(), JSON.parse(localStorage.loggedUserDetails))
+      this.isLogged = true
     }
   },
   methods: {
