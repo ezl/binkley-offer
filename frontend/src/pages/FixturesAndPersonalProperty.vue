@@ -295,7 +295,7 @@
       </b-card>
       <b-card v-if="propertyType === 'attached'" bg-variant="light" class="border-0" title="Other">
         <b-row align-v="baseline">
-          <b-col cols="6" sm="6" md="6">
+          <b-col cols="12" sm="6" md="6">
             <div>
               Seller also transfers
               <b-form-textarea
@@ -306,7 +306,7 @@
                   max-rows="6"/>
             </div>
           </b-col>
-          <b-col cols="6" sm="6" md="6">
+          <b-col cols="12" sm="6" md="6">
             <div>
               Items excluded
               <b-form-textarea
