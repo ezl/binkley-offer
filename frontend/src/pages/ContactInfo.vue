@@ -259,12 +259,30 @@ export default {
       }
       if (localStorage.loggedUserDetails) {
         this.loggedUserDetails = Object.assign(new LoggedUserDetails(), JSON.parse(localStorage.loggedUserDetails))
-        this.pdfBody.designated_agent = this.loggedUserDetails.first_name + ' ' + this.loggedUserDetails.last_name
+        if (this.loggedUserDetails.first_name !== null) {
+          this.pdfBody.designated_agent = this.loggedUserDetails.first_name
+        }
+        if (this.loggedUserDetails.last_name !== null) {
+          this.pdfBody.designated_agent = ' ' + this.loggedUserDetails.last_name
+        }
         Object.keys(new LoggedUserDetails()).forEach(key => {
           if (key in new PdfBody()) {
             this.pdfBody[key] = this.loggedUserDetails[key]
           }
         })
+        this.brokerProfiles.unshift({
+          'designated_agent': this.pdfBody.designated_agent,
+          'agent_mls': this.loggedUserDetails['agent_mls'],
+          'agent_license': this.loggedUserDetails['agent_license'],
+          'brokerage': this.loggedUserDetails['brokerage'],
+          'brokerage_mls': this.loggedUserDetails['brokerage_mls'],
+          'brokerage_license': this.loggedUserDetails['brokerage_license'],
+          'broker_address': this.loggedUserDetails['broker_address'],
+          'agent_phone': this.loggedUserDetails['agent_phone'],
+          'agent_fax': this.loggedUserDetails['agent_fax'],
+          'broker_email': this.loggedUserDetails['broker_email']
+        })
+        console.log(this.brokerProfiles)
       }
       this.isLoaded = true
     }
