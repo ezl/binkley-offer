@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pdfrw
 import re
+import os
 
 from pdf.exceptions.custom_exceptions import InvalidPropertyType
 
@@ -631,7 +632,9 @@ def fill_pdf_attached():
                     annotation.update(pdfrw.PdfDict(Ff=1))
     pdf_template.Root.AcroForm.update(pdfrw.PdfDict(
         NeedAppearances=pdfrw.PdfObject('true')))
-    pdfrw.PdfWriter().write('files/Contract_Attached_' + url_to_scrape.split(sep='/')[-1] + '.pdf', pdf_template)
+    pdf_name = 'files/Contract_Attached_' + url_to_scrape.split(sep='/')[-1] + '.pdf'
+    pdfrw.PdfWriter().write(pdf_name, pdf_template)
+    return pdf_name
 
 
 def fill_pdf_detached():
@@ -658,7 +661,9 @@ def fill_pdf_detached():
                     annotation.update(pdfrw.PdfDict(Ff=1))
     pdf_template.Root.AcroForm.update(pdfrw.PdfDict(
         NeedAppearances=pdfrw.PdfObject('true')))
-    pdfrw.PdfWriter().write('files/Contract_Detached_' + url_to_scrape.split(sep='/')[-1] + '.pdf', pdf_template)
+    pdf_name = 'files/Contract_Detached_' + url_to_scrape.split(sep='/')[-1] + '.pdf'
+    pdfrw.PdfWriter().write(pdf_name, pdf_template)
+    return pdf_name
 
 
 def convert_to_pdf(body_request):
@@ -666,11 +671,17 @@ def convert_to_pdf(body_request):
     url_to_scrape = body_request.url
     create_data_for_pdf(body_request)
     if body_request.property_type == 'attached':
-        fill_pdf_attached()
-        return 'files/Contract_Attached_' + url_to_scrape.split(sep='/')[-1] + '.pdf'
+        pdf_path = fill_pdf_attached()
+        os.system('pdf2ps ' + pdf_path + ' temp.ps')
+        os.system('ps2pdf temp.ps ' + pdf_path)
+        os.system('rm temp.ps')
+        return pdf_path
     elif body_request.property_type == 'detached':
-        fill_pdf_detached()
-        return 'files/Contract_Detached_' + url_to_scrape.split(sep='/')[-1] + '.pdf'
+        pdf_path = fill_pdf_detached()
+        os.system('pdf2ps ' + pdf_path + ' temp.ps')
+        os.system('ps2pdf temp.ps ' + pdf_path)
+        os.system('rm temp.ps')
+        return pdf_path
     else:
         raise InvalidPropertyType()
 
