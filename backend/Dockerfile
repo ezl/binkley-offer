@@ -8,5 +8,6 @@ ENV BINKLEY_DB_PASSWORD dexter
 RUN mkdir /code
 WORKDIR /code
 ADD . /code/
-RUN apt-get update && apt-get install -y ghostscript
 RUN pip install -r requirements.txt
+RUN apt-get update && apt-get install -y ghostscript
+
