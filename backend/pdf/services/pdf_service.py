@@ -409,14 +409,17 @@ def parse_bs4():
 
 def overflow_text_on_two_rows(text, size):
     first_phrase_raw = text[:size]
-    overflow_word = ''
-    if first_phrase_raw[len(first_phrase_raw) - 1].isalnum():
-        if text[72].isalnum():
-            overflow_word = first_phrase_raw.split()[-1]
+    if len(first_phrase_raw) < 72:
+        return first_phrase_raw, ''
+    else:
+        overflow_word = ''
+        if first_phrase_raw[len(first_phrase_raw) - 1].isalnum():
+            if text[72].isalnum():
+                overflow_word = first_phrase_raw.split()[-1]
 
-    first_phrase = first_phrase_raw[:len(first_phrase_raw) - len(overflow_word) - 1]
-    second_phrase = overflow_word + text[size:]
-    return first_phrase.strip(), second_phrase.strip()
+        first_phrase = first_phrase_raw[:len(first_phrase_raw) - len(overflow_word) - 1]
+        second_phrase = overflow_word + text[size:]
+        return first_phrase.strip(), second_phrase.strip()
 
 
 def create_data_for_pdf(body_request):
