@@ -679,14 +679,14 @@ def convert_to_pdf(body_request):
     create_data_for_pdf(body_request)
     if body_request.property_type == 'attached':
         pdf_path = fill_pdf_attached()
-        os.system('pdf2ps ' + pdf_path + ' temp.ps')
-        os.system('ps2pdf temp.ps ' + pdf_path)
+        os.system("pdf2ps '" + pdf_path + "' temp.ps")
+        os.system("ps2pdf temp.ps '" + pdf_path + "'")
         os.system('rm temp.ps')
         return pdf_path
     elif body_request.property_type == 'detached':
         pdf_path = fill_pdf_detached()
-        os.system('pdf2ps ' + pdf_path + ' temp.ps')
-        os.system('ps2pdf temp.ps ' + pdf_path)
+        os.system("pdf2ps '" + pdf_path + "' temp.ps")
+        os.system("ps2pdf temp.ps '" + pdf_path + "'")
         os.system('rm temp.ps')
         return pdf_path
     else:
