@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import pdfrw
 import re
 import os
+from datetime import date
 
 from pdf.exceptions.custom_exceptions import InvalidPropertyType
 
@@ -635,7 +636,9 @@ def fill_pdf_attached():
                     annotation.update(pdfrw.PdfDict(Ff=1))
     pdf_template.Root.AcroForm.update(pdfrw.PdfDict(
         NeedAppearances=pdfrw.PdfObject('true')))
-    pdf_name = 'files/Contract_Attached_' + url_to_scrape.split(sep='/')[-1] + '.pdf'
+    pdf_name = 'files/' + data_dict['property_details'] + '__' + data_dict['buyer_name'] \
+               + '__' + date.today().strftime("%m-%d-%y") + '.pdf'
+    print(pdf_name)
     pdfrw.PdfWriter().write(pdf_name, pdf_template)
     return pdf_name
 
@@ -664,7 +667,8 @@ def fill_pdf_detached():
                     annotation.update(pdfrw.PdfDict(Ff=1))
     pdf_template.Root.AcroForm.update(pdfrw.PdfDict(
         NeedAppearances=pdfrw.PdfObject('true')))
-    pdf_name = 'files/Contract_Detached_' + url_to_scrape.split(sep='/')[-1] + '.pdf'
+    pdf_name = 'files/' + data_dict['property_details'] + ' __ ' + data_dict['buyer_name'] \
+               + ' __ ' + date.today().strftime("%m/%d/%y") + '.pdf'
     pdfrw.PdfWriter().write(pdf_name, pdf_template)
     return pdf_name
 
