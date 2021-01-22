@@ -99,17 +99,20 @@ FORM_KEYS_ATTACHED.update({
     'credit_buyer_at_closing_if_yes_amount': STRING_PDF_TYPE,
     'credit_buyer_at_closing_no': CHECKBOX_PDF_TYPE,
     'credit_buyer_at_closing_if_no_percentage': STRING_PDF_TYPE,
+    'home_warranty_yes': CHECKBOX_PDF_TYPE,
     'home_warranty_amount': STRING_PDF_TYPE,
     'brokerage_for_earnest_money': STRING_PDF_TYPE,
     'initial_earnest_money_amount': STRING_PDF_TYPE,
     'how_buyer_deposits_earnest_money': STRING_PDF_TYPE,
     'initial_earnest_money_due_date': STRING_PDF_TYPE,
     'balance_of_earnest_money_amount': STRING_PDF_TYPE,
+    'balance_of_earnest_money_yes': CHECKBOX_PDF_TYPE,
     'balance_of_earnest_money_due_date': STRING_PDF_TYPE,
     'contract_subject_to_mortgage_yes': CHECKBOX_PDF_TYPE,
     'contract_subject_to_mortgage_no': CHECKBOX_PDF_TYPE,
     'mortgage_contingency_date': STRING_PDF_TYPE,
     'buyer_loan_to_value': STRING_PDF_TYPE,
+    'buyer_loan_yes': CHECKBOX_PDF_TYPE,
     'buyer_interest_rate': STRING_PDF_TYPE,
     'buyer_loan_term': STRING_PDF_TYPE,
     'closing_date': STRING_PDF_TYPE,
@@ -260,11 +263,13 @@ FORM_KEYS_DETACHED.update({
     'how_buyer_deposits_earnest_money': STRING_PDF_TYPE,
     'initial_earnest_money_due_date': STRING_PDF_TYPE,
     'balance_of_earnest_money_amount': STRING_PDF_TYPE,
+    'balance_of_earnest_money_yes': CHECKBOX_PDF_TYPE,
     'balance_of_earnest_money_due_date': STRING_PDF_TYPE,
     'contract_subject_to_mortgage_yes': CHECKBOX_PDF_TYPE,
     'contract_subject_to_mortgage_no': CHECKBOX_PDF_TYPE,
     'mortgage_contingency_date': STRING_PDF_TYPE,
     'buyer_loan_to_value': STRING_PDF_TYPE,
+    'buyer_loan_yes': CHECKBOX_PDF_TYPE,
     'buyer_interest_rate': STRING_PDF_TYPE,
     'buyer_loan_term': STRING_PDF_TYPE,
     'closing_date': STRING_PDF_TYPE,
@@ -525,11 +530,13 @@ def create_data_for_pdf(body_request):
         'how_buyer_deposits_earnest_money': body_request.how_buyer_deposits_earnest_money,
         'initial_earnest_money_due_date': body_request.initial_earnest_money_due_date,
         'balance_of_earnest_money_amount': body_request.balance_of_earnest_money_amount,
+        'balance_of_earnest_money_yes': True if body_request.balance_of_earnest_money_amount is not None else False,
         'balance_of_earnest_money_due_date': body_request.balance_of_earnest_money_due_date,
         'contract_subject_to_mortgage_yes': body_request.contract_subject_to_mortgage_yes,
         'contract_subject_to_mortgage_no': body_request.contract_subject_to_mortgage_no,
         'mortgage_contingency_date': body_request.mortgage_contingency_date,
         'buyer_loan_to_value': body_request.buyer_loan_to_value,
+        'buyer_loan_yes': True if body_request.buyer_loan_to_value is not None else False,
         'buyer_interest_rate': body_request.buyer_interest_rate,
         'buyer_loan_term': body_request.buyer_loan_term,
         'closing_date': body_request.closing_date,
@@ -596,7 +603,6 @@ def create_data_for_pdf(body_request):
         'contract_accepted_on_or_before': body_request.contract_accepted_on_or_before,
         'attached_riders_and_addendums': first_phrase,
         'attached_riders_and_addendums_2': second_phrase
-
     })
 
 
@@ -628,6 +634,7 @@ def fill_pdf_attached():
                     if re.search(r'.-[0-9]+', key):
                         key = key[:-2]
                     if key in data_dict:
+                        print(key)
                         if FORM_KEYS_ATTACHED[key] == CHECKBOX_PDF_TYPE:
                             annotation.update(pdfrw.PdfDict(
                                 AS=encode_pdf_string(data_dict[key], CHECKBOX_PDF_TYPE)))
