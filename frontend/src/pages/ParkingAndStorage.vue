@@ -4,6 +4,7 @@
       <b-row>
         <b-col>
           <H1 class="title">Parking And Storage</H1>
+          <p class="mt-0 pt-0 text-center text-muted">{{ propertyType | capitalize }}</p>
           <b-progress class="my-2">
             <b-progress-bar :value="5" :max="8" :label="'5 of 8'" show-progress animated></b-progress-bar>
           </b-progress>
@@ -84,6 +85,7 @@ export default {
   data () {
     return {
       isLoaded: true,
+      propertyType: '',
       pdfBody: new PdfBody(),
       siteMap: [
         {
@@ -121,6 +123,7 @@ export default {
   },
   mounted () {
     if (localStorage.pdfBody) {
+      this.propertyType = localStorage.propertyType
       this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
       if (localStorage.token) {
         this.fillWithDataFromDatabase()

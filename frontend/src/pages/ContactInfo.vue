@@ -3,6 +3,7 @@
       <b-row>
         <b-col>
           <H1 class="title">Contact Info</H1>
+          <p class="mt-0 pt-0 text-center text-muted">{{ propertyType | capitalize }}</p>
           <b-progress class="my-2">
             <b-progress-bar v-if="propertyType === 'attached'" :value="8" :max="8" :label="'8 of 8'" show-progress animated></b-progress-bar>
             <b-progress-bar v-else-if="propertyType === 'detached'" :value="7" :max="7" :label="'7 of 7'" show-progress animated></b-progress-bar>

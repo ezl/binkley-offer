@@ -8,9 +8,9 @@
       </template>
 
       <template #lead>
-        <p class="text-left">Here's your offer letter PDF for <strong> {{ pdfBody.property_street_address }}</strong></p>
+        <p class="text-left">Here's your offer letter PDF for <strong> {{ pdfBody.property_street_address }}</strong> - {{ propertyType | capitalize }}</p>
         <br>
-        <p class="text-left">For best results, <span style="color: red">view PDF in Safari after downloading.</span> Then Print or Save.</p>
+        <p class="text-left">For best results, <span style="color: #ff0000">view PDF in Safari after downloading.</span> Then Print or Save.</p>
         <br>
         <b-button v-if="!loading" variant="primary" class="btn" @click="convertPdf"> Download PDF
         </b-button>
@@ -63,6 +63,7 @@ export default {
       isLoaded: false,
       loading: false,
       pdfBody: new PdfBody(),
+      propertyType: '',
       futureUserDetails: new LoggedUserDetails(),
       siteMap: [
         {
@@ -106,6 +107,7 @@ export default {
   },
   mounted () {
     if (localStorage.pdfBody) {
+      this.propertyType = localStorage.propertyType
       this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
       Object.keys(new LoggedUserDetails()).forEach(key => {
         if (key in new PdfBody()) {
