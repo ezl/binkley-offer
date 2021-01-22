@@ -254,6 +254,7 @@ FORM_KEYS_DETACHED.update({
     'credit_buyer_at_closing_no': CHECKBOX_PDF_TYPE,
     'credit_buyer_at_closing_if_no_percentage': STRING_PDF_TYPE,
     'home_warranty_amount': STRING_PDF_TYPE,
+    'home_warranty_yes': CHECKBOX_PDF_TYPE,
     'brokerage_for_earnest_money': STRING_PDF_TYPE,
     'initial_earnest_money_amount': STRING_PDF_TYPE,
     'how_buyer_deposits_earnest_money': STRING_PDF_TYPE,
@@ -518,6 +519,7 @@ def create_data_for_pdf(body_request):
         'credit_buyer_at_closing_no': body_request.credit_buyer_at_closing_no,
         'credit_buyer_at_closing_if_no_percentage': body_request.credit_buyer_at_closing_if_no_percentage,
         'home_warranty_amount': body_request.home_warranty_amount,
+        'home_warranty_yes': True if body_request.home_warranty_amount is not None else False,
         'brokerage_for_earnest_money': body_request.brokerage_for_earnest_money,
         'initial_earnest_money_amount': body_request.initial_earnest_money_amount,
         'how_buyer_deposits_earnest_money': body_request.how_buyer_deposits_earnest_money,
@@ -667,8 +669,8 @@ def fill_pdf_detached():
                     annotation.update(pdfrw.PdfDict(Ff=1))
     pdf_template.Root.AcroForm.update(pdfrw.PdfDict(
         NeedAppearances=pdfrw.PdfObject('true')))
-    pdf_name = 'files/' + data_dict['property_details'] + ' __ ' + data_dict['buyer_name'] \
-               + ' __ ' + date.today().strftime("%m/%d/%y") + '.pdf'
+    pdf_name = 'files/' + data_dict['property_details'] + '__' + data_dict['buyer_name'] \
+               + '__' + date.today().strftime("%m-%d-%y") + '.pdf'
     pdfrw.PdfWriter().write(pdf_name, pdf_template)
     return pdf_name
 
@@ -685,6 +687,7 @@ def convert_to_pdf(body_request):
         return pdf_path
     elif body_request.property_type == 'detached':
         pdf_path = fill_pdf_detached()
+        print(pdf_path)
         os.system("pdf2ps '" + pdf_path + "' temp.ps")
         os.system("ps2pdf temp.ps '" + pdf_path + "'")
         os.system('rm temp.ps')
