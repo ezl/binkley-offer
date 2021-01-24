@@ -39,6 +39,7 @@ import PdfBody from '../models/PdfBody.js'
 import TextInput from '../components/TextInput'
 import CheckboxInput from '../components/CheckboxInput'
 import ArrowRightCircle from '../components/icons/ArrowRightCircle'
+import * as _ from 'debounce'
 
 export default {
   name: 'Search',
@@ -61,7 +62,6 @@ export default {
       redfinUrl: '',
       pdfName: '',
       queryUrl: null,
-      fruits: ['apple', 'banana', 'orange'],
       propertiesList: []
     }
   },
@@ -71,9 +71,9 @@ export default {
     localStorage.pdfBody = new PdfBody()
   },
   watch: {
-    queryUrl: function () {
+    queryUrl: _.debounce(function () {
       this.searchRedfinUrl()
-    }
+    }, 500)
   },
   methods: {
     isSelected (i) {
@@ -88,7 +88,10 @@ export default {
           data: {url: 'https://www.redfin.com/stingray/do/location-autocomplete?location=' + this.queryUrl + '&count=10&v=2'}
         }).then(response => {
           if (response.data) {
-            response.data.properties.forEach(property => this.propertiesList.push(property))
+            this.propertiesList = []
+            response.data.properties.forEach(property => {
+              this.propertiesList.push(property)
+            })
           }
         })
       }
