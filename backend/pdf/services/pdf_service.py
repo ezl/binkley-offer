@@ -172,7 +172,12 @@ FORM_KEYS_ATTACHED.update({
     'items_excluded': STRING_PDF_TYPE,
     'contract_accepted_on_or_before': STRING_PDF_TYPE,
     'attached_riders_and_addendums': STRING_PDF_TYPE,
-    'attached_riders_and_addendums_2': STRING_PDF_TYPE
+    'attached_riders_and_addendums_2': STRING_PDF_TYPE,
+    'storage_deeded': CHECKBOX_PDF_TYPE,
+    'storage_limited_common_element': CHECKBOX_PDF_TYPE,
+    'storage_assigned': CHECKBOX_PDF_TYPE,
+    'storage_pin': STRING_PDF_TYPE,
+    'closing_cost_credit': CHECKBOX_PDF_TYPE
 })
 FORM_KEYS_DETACHED.update({
     'property_details': STRING_PDF_TYPE,
@@ -278,7 +283,6 @@ FORM_KEYS_DETACHED.update({
     'dual_agent_broker_name': STRING_PDF_TYPE,
     'length_of_attorney_review': STRING_PDF_TYPE,
     'length_of_inspection_period': STRING_PDF_TYPE,
-    'riders_or_addendums': STRING_PDF_TYPE,
     'offer_deadline': STRING_PDF_TYPE,
     'offer_date': STRING_PDF_TYPE,
     'designated_agent': STRING_PDF_TYPE,
@@ -322,9 +326,9 @@ FORM_KEYS_DETACHED.update({
     'seller_also_transfers': STRING_PDF_TYPE,
     'items_excluded': STRING_PDF_TYPE,
     'contract_accepted_on_or_before': STRING_PDF_TYPE,
-    'attached_riders_and_addendums': STRING_PDF_TYPE,
-    'attached_riders_and_addendums_2': STRING_PDF_TYPE
-
+    'riders_or_addendums': STRING_PDF_TYPE,
+    'riders_or_addendums_2': STRING_PDF_TYPE,
+    'closing_cost_credit': CHECKBOX_PDF_TYPE
 })
 
 HEADERS = {
@@ -416,7 +420,7 @@ def parse_bs4():
 
 def overflow_text_on_two_rows(text, size):
     first_phrase_raw = text[:size]
-    if len(first_phrase_raw) < 72:
+    if len(first_phrase_raw) <= 72:
         return first_phrase_raw, ''
     else:
         overflow_word = ''
@@ -430,9 +434,12 @@ def overflow_text_on_two_rows(text, size):
 
 
 def create_data_for_pdf(body_request):
-    first_phrase, second_phrase = '', ''
+    first_phrase_attached, second_phrase_attached = '', ''
+    first_phrase_detached, second_phrase_detached = '', ''
     if body_request.attached_riders_and_addendums:
-        first_phrase, second_phrase = overflow_text_on_two_rows(body_request.attached_riders_and_addendums, 76)
+        first_phrase_attached, second_phrase_attached = overflow_text_on_two_rows(body_request.attached_riders_and_addendums, 76)
+    if body_request.riders_or_addendums:
+        first_phrase_detached, second_phrase_detached = overflow_text_on_two_rows(body_request.riders_or_addendums, 76)
     data_dict.update({
         'property_details': body_request.property_street_address + ' ' + body_request.property_locality
                             + ' ' + body_request.property_region + ' ' + body_request.property_postal_code,
@@ -519,9 +526,9 @@ def create_data_for_pdf(body_request):
         'outdoor_play_set_or_swings_yes': body_request.outdoor_play_set_or_swings,
         'outdoor_shed_yes': body_request.outdoor_shed,
         'purchase_price': body_request.purchase_price,
-        'credit_buyer_at_closing_yes': body_request.credit_buyer_at_closing_yes,
+        'credit_buyer_at_closing_yes': True if body_request.credit_buyer_at_closing_if_yes_amount is not None else False,
         'credit_buyer_at_closing_if_yes_amount': body_request.credit_buyer_at_closing_if_yes_amount,
-        'credit_buyer_at_closing_no': body_request.credit_buyer_at_closing_no,
+        'credit_buyer_at_closing_no': True if body_request.credit_buyer_at_closing_if_no_percentage is not None else False,
         'credit_buyer_at_closing_if_no_percentage': body_request.credit_buyer_at_closing_if_no_percentage,
         'home_warranty_amount': body_request.home_warranty_amount,
         'home_warranty_yes': True if body_request.home_warranty_amount is not None else False,
@@ -575,13 +582,12 @@ def create_data_for_pdf(body_request):
         'lender_phone': body_request.lender_phone,
         'lender_fax': body_request.lender_fax,
         'lender_email': body_request.lender_email,
-        'riders_or_addendums': body_request.riders_or_addendums,
         'offer_deadline': body_request.offer_deadline,
         'homeowner_yes': body_request.homeowner_yes,
         'homeowner_no': body_request.homeowner_no,
-        'buyer_name': body_request.buyer_name,
+        'buyer_name': 'No Buyer Name' if body_request.buyer_name is None else body_request.buyer_name,
         'buyer_email': body_request.buyer_email,
-        'seller_name': body_request.seller_name,
+        'seller_name': 'No Seller Name' if body_request.seller_name is None else body_request.seller_name,
         'seller_email': body_request.seller_email,
         'special_assessment_yes': body_request.special_assessment_yes,
         'special_assessment_no': body_request.special_assessment_no,
@@ -601,8 +607,15 @@ def create_data_for_pdf(body_request):
         'seller_also_transfers': body_request.seller_also_transfers,
         'items_excluded': body_request.items_excluded,
         'contract_accepted_on_or_before': body_request.contract_accepted_on_or_before,
-        'attached_riders_and_addendums': first_phrase,
-        'attached_riders_and_addendums_2': second_phrase
+        'attached_riders_and_addendums': first_phrase_attached,
+        'attached_riders_and_addendums_2': second_phrase_attached,
+        'riders_or_addendums': first_phrase_detached,
+        'riders_or_addendums_2': second_phrase_detached,
+        'storage_deeded': body_request.storage_deeded,
+        'storage_limited_common_element': body_request.storage_limited_common_element,
+        'storage_assigned': body_request.storage_assigned,
+        'storage_pin': body_request.storage_pin,
+        'closing_cost_credit':  body_request.credit_buyer_at_closing_yes
     })
 
 
@@ -634,7 +647,6 @@ def fill_pdf_attached():
                     if re.search(r'.-[0-9]+', key):
                         key = key[:-2]
                     if key in data_dict:
-                        print(key)
                         if FORM_KEYS_ATTACHED[key] == CHECKBOX_PDF_TYPE:
                             annotation.update(pdfrw.PdfDict(
                                 AS=encode_pdf_string(data_dict[key], CHECKBOX_PDF_TYPE)))
@@ -647,7 +659,6 @@ def fill_pdf_attached():
         NeedAppearances=pdfrw.PdfObject('true')))
     pdf_name = 'files/' + data_dict['property_details'] + '__' + data_dict['buyer_name'] \
                + '__' + date.today().strftime("%m-%d-%y") + '.pdf'
-    print(pdf_name)
     pdfrw.PdfWriter().write(pdf_name, pdf_template)
     return pdf_name
 
@@ -694,7 +705,6 @@ def convert_to_pdf(body_request):
         return pdf_path
     elif body_request.property_type == 'detached':
         pdf_path = fill_pdf_detached()
-        print(pdf_path)
         os.system("pdf2ps '" + pdf_path + "' temp.ps")
         os.system("ps2pdf temp.ps '" + pdf_path + "'")
         os.system('rm temp.ps')

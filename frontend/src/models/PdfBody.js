@@ -166,4 +166,8 @@ export default class PdfBody {
   riders_or_addendums = null
   offer_deadline = null
   property_type = null
+  storage_deeded = null
+  storage_limited_common_element = null
+  storage_assigned = null
+  storage_pin = null
 }

@@ -54,6 +54,31 @@
         <b-col cols="6" sm="3" md="3"/>
       </b-row>
     </b-card>
+    <b-card bg-variant="light" class="border-0 mb-3" title="Storage">
+      <b-row align-v="baseline">
+        <b-col cols="6" sm="3" md="3">
+          <div>
+            <CheckboxInput v-model="pdfBody.storage_deeded" text-label="Deeded"></CheckboxInput>
+          </div>
+        </b-col>
+        <b-col cols="6" sm="3" md="3">
+          <div>
+            <CheckboxInput v-model="pdfBody.storage_limited_common_element" text-label="Limited common element"></CheckboxInput>
+          </div>
+        </b-col>
+        <b-col cols="6" sm="3" md="3">
+          <div>
+            <CheckboxInput v-model="pdfBody.storage_assigned" text-label="Assigned"></CheckboxInput>
+          </div>
+        </b-col>
+        <b-col cols="6" sm="3" md="3">
+          <div>
+            <TextInput v-model="pdfBody.storage_pin" text-label="Storage PIN"></TextInput>
+          </div>
+        </b-col>
+        <b-col cols="6" sm="3" md="3"/>
+      </b-row>
+    </b-card>
     <b-card bg-variant="white" class="border-0">
       <b-row>
         <b-col>
