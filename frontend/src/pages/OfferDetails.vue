@@ -6,19 +6,21 @@
           <H1 class="title">Offer Details</H1>
           <p class="mt-0 pt-0 text-center text-muted">{{ propertyType | capitalize }}</p>
           <b-progress class="my-2">
-            <b-progress-bar v-if="propertyType === 'attached'" :value="6" :max="8" :label="'6 of 8'" show-progress animated></b-progress-bar>
-            <b-progress-bar v-else-if="propertyType === 'detached'" :value="5" :max="7" :label="'5 of 7'" show-progress animated></b-progress-bar>
+            <b-progress-bar v-if="propertyType === 'attached'" :value="6" :max="8" :label="'6 of 8'" show-progress
+                            animated></b-progress-bar>
+            <b-progress-bar v-else-if="propertyType === 'detached'" :value="5" :max="7" :label="'5 of 7'" show-progress
+                            animated></b-progress-bar>
           </b-progress>
         </b-col>
       </b-row>
       <HeaderSiteMap :site-map="siteMap"></HeaderSiteMap>
       <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
         <b-form-group
-          label-cols-lg="3"
-          label="Purchase Price: "
-          label-size="lg"
-          label-class="font-weight-bold pt-0"
-          class="mb-0"
+            label-cols-lg="3"
+            label="Purchase Price: "
+            label-size="lg"
+            label-class="font-weight-bold pt-0"
+            class="mb-0"
         >
           <TextInputMoney prepend="$" title="Purchase Price" v-model="pdfBody.purchase_price"
                           text-label=" "></TextInputMoney>
@@ -26,11 +28,11 @@
       </b-card>
       <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
         <b-form-group
-          label-cols-lg="3"
-          label="Closing Cost Credit: "
-          label-size="lg"
-          label-class="font-weight-bold pt-0"
-          class="mb-0"
+            label-cols-lg="3"
+            label="Closing Cost Credit: "
+            label-size="lg"
+            label-class="font-weight-bold pt-0"
+            class="mb-0"
         >
           <RadioInputTwoOptions :special-field="true" text-label="Credit Buyer at Closing: "
                                 :item="creditBuyerAtClosingRadioItem" item-one-label=" Yes"
@@ -50,11 +52,11 @@
       </b-card>
       <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
         <b-form-group
-          label-cols-lg="3"
-          label="Home Warranty: "
-          label-size="lg"
-          label-class="font-weight-bold pt-0"
-          class="mb-0"
+            label-cols-lg="3"
+            label="Home Warranty: "
+            label-size="lg"
+            label-class="font-weight-bold pt-0"
+            class="mb-0"
         >
           <TextInputMoney title="Home Warranty Amount" prepend="$" v-model="pdfBody.home_warranty_amount"
                           text-label=""></TextInputMoney>
@@ -62,11 +64,11 @@
       </b-card>
       <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
         <b-form-group
-          label-cols-lg="3"
-          label="Earnest Money: "
-          label-size="lg"
-          label-class="font-weight-bold pt-0"
-          class="mb-0"
+            label-cols-lg="3"
+            label="Earnest Money: "
+            label-size="lg"
+            label-class="font-weight-bold pt-0"
+            class="mb-0"
         >
           <TextInput :special-field=true title="Escrowee"
                      v-model="pdfBody.brokerage_for_earnest_money" text-label="(Brokerage For Earnest Money)"
@@ -96,11 +98,11 @@
       </b-card>
       <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
         <b-form-group
-          label-cols-lg="3"
-          label="Mortgage Contingency: "
-          label-size="lg"
-          label-class="font-weight-bold pt-0"
-          class="mb-0"
+            label-cols-lg="3"
+            label="Mortgage Contingency: "
+            label-size="lg"
+            label-class="font-weight-bold pt-0"
+            class="mb-0"
         >
           <RadioInputTwoOptions :special-field="true" :item="mortgageRadioItem"
                                 text-label="Contract Subject to Mortgage: "
@@ -122,11 +124,11 @@
       </b-card>
       <b-card bg-variant="white" class="border-0">
         <b-form-group
-          label-cols-lg="3"
-          label="Closing: "
-          label-size="lg"
-          label-class="font-weight-bold pt-0"
-          class="mb-0"
+            label-cols-lg="3"
+            label="Closing: "
+            label-size="lg"
+            label-class="font-weight-bold pt-0"
+            class="mb-0"
         >
           <TextInputDate title="Closing Date" v-model="pdfBody.closing_date" text-label="Closing Date"></TextInputDate>
         </b-form-group>

@@ -1,16 +1,20 @@
 <template>
   <div v-if="isLoaded">
-    <b-row>
-      <b-col>
-        <H1 class="title">Legal Mumbo Jumbo</H1>
-        <p class="mt-0 pt-0 text-center text-muted">{{ propertyType | capitalize }}</p>
-        <b-progress class="my-2">
-          <b-progress-bar v-if="propertyType === 'attached'" :value="7" :max="8" :label="'7 of 8'" show-progress animated></b-progress-bar>
-          <b-progress-bar v-else-if="propertyType === 'detached'" :value="6" :max="7" :label="'6 of 7'" show-progress animated></b-progress-bar>
-        </b-progress>
-      </b-col>
-    </b-row>
-    <HeaderSiteMap :site-map="siteMap"></HeaderSiteMap>
+    <b-card bg-variant="white" class="border-0">
+      <b-row>
+        <b-col>
+          <H1 class="title">Legal Mumbo Jumbo</H1>
+          <p class="mt-0 pt-0 text-center text-muted">{{ propertyType | capitalize }}</p>
+          <b-progress class="my-2">
+            <b-progress-bar v-if="propertyType === 'attached'" :value="7" :max="8" :label="'7 of 8'" show-progress
+                            animated></b-progress-bar>
+            <b-progress-bar v-else-if="propertyType === 'detached'" :value="6" :max="7" :label="'6 of 7'" show-progress
+                            animated></b-progress-bar>
+          </b-progress>
+        </b-col>
+      </b-row>
+      <HeaderSiteMap :site-map="siteMap"></HeaderSiteMap>
+    </b-card>
     <div v-if="propertyType === 'attached'">
       <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
         <b-form-group

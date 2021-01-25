@@ -1,65 +1,77 @@
 <template>
   <div v-if="isLoaded">
+    <b-card bg-variant="white" class="border-0">
       <b-row>
         <b-col>
           <H1 class="title">Confirm Property Details</H1>
           <p class="mt-0 pt-0 text-center text-muted">{{ propertyType | capitalize }}</p>
           <b-progress class="my-2">
-            <b-progress-bar v-if="propertyType === 'attached'" :value="2" :max="8" :label="'2 of 8'" show-progress animated></b-progress-bar>
-            <b-progress-bar v-else-if="propertyType === 'detached'" :value="2" :max="7" :label="'2 of 7'" show-progress animated></b-progress-bar>
+            <b-progress-bar v-if="propertyType === 'attached'" :value="2" :max="8" :label="'2 of 8'" show-progress
+                            animated></b-progress-bar>
+            <b-progress-bar v-else-if="propertyType === 'detached'" :value="2" :max="7" :label="'2 of 7'" show-progress
+                            animated></b-progress-bar>
           </b-progress>
         </b-col>
       </b-row>
       <HeaderSiteMap :site-map="siteMap"></HeaderSiteMap>
-      <b-alert  v-if="showError" :show="true" dismissible variant="danger">
-        <strong><b-icon icon="exclamation-circle-fill" variant="danger"></b-icon> Error: We couldn't get the data for that property</strong>
-        <br>
-        <br>
-        <p>Either we were unable to retrieve the data for that property address or that property address data from Redfin does not match the PDF template fields we were expecting.</p>
-        <p>You can either manually enter the information in the form fields below or press this back button to search again.</p>
-        <br>
-        <b-button @click="backPage" variant="danger"><b-icon icon="arrow-left-circle"></b-icon> Back to Property Search</b-button>
-      </b-alert>
-      <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
-        <b-form-group
+    </b-card>
+    <b-alert v-if="showError" :show="true" dismissible variant="danger">
+      <strong>
+        <b-icon icon="exclamation-circle-fill" variant="danger"></b-icon>
+        Error: We couldn't get the data for that property</strong>
+      <br>
+      <br>
+      <p>Either we were unable to retrieve the data for that property address or that property address data from Redfin
+        does not match the PDF template fields we were expecting.</p>
+      <p>You can either manually enter the information in the form fields below or press this back button to search
+        again.</p>
+      <br>
+      <b-button @click="backPage" variant="danger">
+        <b-icon icon="arrow-left-circle"></b-icon>
+        Back to Property Search
+      </b-button>
+    </b-alert>
+    <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
+      <b-form-group
           label-cols-lg="3"
           label="Property: "
           label-size="lg"
           label-class="font-weight-bold pt-0"
           class="mb-0"
-        >
-          <TextInput :special-field="true" v-model="pdfBody.property_street_address"
-                     title="Property Street Address" text-label=" "></TextInput>
-          <b-form-group v-if="propertyType === 'attached'"
-                        label-cols-sm="3"
-                        label-align-sm="right">
-            <b-input-group size="md">
-              <p class="font-weight-lighter font-weight-italic infoText"><strong><i>Please add your unit number if it is not populated above.</i></strong></p>
-            </b-input-group>
-          </b-form-group>
-          <TextInput :special-field="true" v-model="pdfBody.property_locality" title="Property Locality"
-                     text-label=" "></TextInput>
-          <TextInput :special-field="true" v-model="pdfBody.property_region" title="Property Region"
-                     text-label=" "></TextInput>
-          <TextInput :special-field="true" v-model="pdfBody.property_postal_code"
-                     title="Property Postal Code" text-label=" "></TextInput>
-          <TextInput :special-field="true" v-model="pdfBody.parcel_identification_number"
-                     title="Parcel Identification Number" text-label=" "></TextInput>
+      >
+        <TextInput :special-field="true" v-model="pdfBody.property_street_address"
+                   title="Property Street Address" text-label=" "></TextInput>
+        <b-form-group v-if="propertyType === 'attached'"
+                      label-cols-sm="3"
+                      label-align-sm="right">
+          <b-input-group size="md">
+            <p class="font-weight-lighter font-weight-italic infoText"><strong><i>Please add your unit number if it is
+              not populated above.</i></strong></p>
+          </b-input-group>
         </b-form-group>
-      </b-card>
+        <TextInput :special-field="true" v-model="pdfBody.property_locality" title="Property Locality"
+                   text-label=" "></TextInput>
+        <TextInput :special-field="true" v-model="pdfBody.property_region" title="Property Region"
+                   text-label=" "></TextInput>
+        <TextInput :special-field="true" v-model="pdfBody.property_postal_code"
+                   title="Property Postal Code" text-label=" "></TextInput>
+        <TextInput :special-field="true" v-model="pdfBody.parcel_identification_number"
+                   title="Parcel Identification Number" text-label=" "></TextInput>
+      </b-form-group>
+    </b-card>
 
     <b-card bg-variant="white" class="border-top-0 border-right-0 border-left-0">
       <b-form-group
-        label-cols-lg="3"
-        label="Agent Details: "
-        label-size="lg"
-        label-class="font-weight-bold pt-0"
-        class="mb-0"
+          label-cols-lg="3"
+          label="Agent Details: "
+          label-size="lg"
+          label-class="font-weight-bold pt-0"
+          class="mb-0"
       >
         <TextInput :special-field="true" v-model="pdfBody.agent_details_name" title="Agent Details Name"
-                    text-label=" "></TextInput>
+                   text-label=" "></TextInput>
         <TextInput :special-field="true" v-model="pdfBody.agent_details_company"
-                    title="Agent Details Company" text-label=" "></TextInput>
+                   title="Agent Details Company" text-label=" "></TextInput>
       </b-form-group>
     </b-card>
 
@@ -76,18 +88,19 @@
                               text-label="Special Assessment?"
                               item-one-label="Yes "
                               item-two-label="No "></RadioInputTwoOptions>
-        <TextInput :special-field="true" v-model="pdfBody.deliver_association" title="Business Days to Deliver Documents:" append="Days" text-label=" "></TextInput>
+        <TextInput :special-field="true" v-model="pdfBody.deliver_association"
+                   title="Business Days to Deliver Documents:" append="Days" text-label=" "></TextInput>
 
       </b-form-group>
     </b-card>
 
     <b-card bg-variant="white" class="border-0">
       <b-form-group
-        label-cols-lg="3"
-        label="Tax Information:"
-        label-size="lg"
-        label-class="font-weight-bold pt-0"
-        class="mb-0"
+          label-cols-lg="3"
+          label="Tax Information:"
+          label-size="lg"
+          label-class="font-weight-bold pt-0"
+          class="mb-0"
       >
         <TextInputMoney prepend="$" v-model="pdfBody.tax" title="Tax" text-label=" "></TextInputMoney>
         <TextInput :special-field="true" v-model="pdfBody.tax_year" title="Tax Year" text-label=" "></TextInput>
@@ -110,7 +123,7 @@
             <CheckboxInput v-model="pdfBody.homeowner" text-label="Homeowner's"></CheckboxInput>
           </b-col>
           <b-col>
-            <CheckboxInput  v-model="pdfBody.senior" text-label="Senior"></CheckboxInput>
+            <CheckboxInput v-model="pdfBody.senior" text-label="Senior"></CheckboxInput>
           </b-col>
           <b-col cols="6" sm="3" md="3">
             <CheckboxInput v-model="pdfBody.senior_freeze" text-label="Senior Freeze"></CheckboxInput>
@@ -129,16 +142,19 @@
           label-class="font-weight-bold pt-0"
           class="mb-0"
       >
-        <TextInput :special-field="true" v-model="pdfBody.prorated" title="Prorated Based On" text-label="105% or tbd"></TextInput>
+        <TextInput :special-field="true" v-model="pdfBody.prorated" title="Prorated Based On"
+                   text-label="105% or tbd"></TextInput>
 
         <div v-if="isLoaded">
-        <b-row>
-          <b-col>
-            <b-button v-if="!showError" class="btn float-right mr-auto" variant="primary" @click="nextPage"><b-icon icon="arrow-right-circle"></b-icon>  Next Page
-            </b-button>
-          </b-col>
-        </b-row>
-      </div>
+          <b-row>
+            <b-col>
+              <b-button v-if="!showError" class="btn float-right mr-auto" variant="primary" @click="nextPage">
+                <b-icon icon="arrow-right-circle"></b-icon>
+                Next Page
+              </b-button>
+            </b-col>
+          </b-row>
+        </div>
       </b-form-group>
     </b-card>
   </div>
