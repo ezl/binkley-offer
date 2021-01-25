@@ -63,7 +63,8 @@
         </b-col>
         <b-col cols="6" sm="3" md="3">
           <div>
-            <CheckboxInput v-model="pdfBody.storage_limited_common_element" text-label="Limited common element"></CheckboxInput>
+            <CheckboxInput v-model="pdfBody.storage_limited_common_element"
+                           text-label="Limited common element"></CheckboxInput>
           </div>
         </b-col>
         <b-col cols="6" sm="3" md="3">
