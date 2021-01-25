@@ -148,7 +148,6 @@ export default {
     },
     showFile (blob, fileName) {
       var newBlob = new Blob([blob], {type: 'application/pdf'})
-      console.log(newBlob)
       if (window.navigator && window.navigator.msSaveOrOpenBlob) {
         window.navigator.msSaveOrOpenBlob(newBlob)
         return
@@ -157,7 +156,6 @@ export default {
       var link = document.createElement('a')
       link.href = data
       link.download = fileName
-      console.log(link)
       link.click()
       setTimeout(function () {
         // For Firefox it is necessary to delay revoking the ObjectURL
