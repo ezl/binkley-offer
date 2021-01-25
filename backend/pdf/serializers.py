@@ -252,7 +252,6 @@ class CreatePdfSerializer(serializers.Serializer):
     lender_phone = serializers.CharField(allow_null=True, allow_blank=True, default="")
     lender_fax = serializers.CharField(allow_null=True, allow_blank=True, default="")
     lender_email = serializers.CharField(allow_null=True, allow_blank=True, default="")
-    riders_or_addendums = serializers.CharField(allow_null=True, allow_blank=True, default="")
     offer_deadline = serializers.CharField(allow_null=True, allow_blank=True, default="")
     homeowner_yes = serializers.BooleanField(default=False)
     homeowner_no = serializers.BooleanField(default=False)
@@ -279,6 +278,11 @@ class CreatePdfSerializer(serializers.Serializer):
     items_excluded = serializers.CharField(allow_null=True, allow_blank=True, default="")
     contract_accepted_on_or_before = serializers.CharField(allow_null=True, allow_blank=True, default="")
     attached_riders_and_addendums = serializers.CharField(allow_null=True, allow_blank=True, default="")
+    riders_or_addendums = serializers.CharField(allow_null=True, allow_blank=True, default="")
+    storage_deeded = serializers.BooleanField(default=False, allow_null=True)
+    storage_limited_common_element = serializers.BooleanField(default=False, allow_null=True)
+    storage_assigned = serializers.BooleanField(default=False, allow_null=True)
+    storage_pin = serializers.CharField(allow_null=True, allow_blank=True, default="")
 
     def create(self, validated_data):
         # Turns a dictionary into an object so that keys can be accessed with the . operator
@@ -471,3 +475,7 @@ class UserPreferencesSerializer(serializers.Serializer):
     items_excluded = serializers.CharField(allow_null=True, allow_blank=True, default="")
     contract_accepted_on_or_before = serializers.CharField(allow_null=True, allow_blank=True, default="")
     attached_riders_and_addendums = serializers.CharField(allow_null=True, allow_blank=True, default="")
+    storage_deeded = serializers.BooleanField(default=False, allow_null=True)
+    storage_limited_common_element = serializers.BooleanField(default=False, allow_null=True)
+    storage_assigned = serializers.BooleanField(default=False, allow_null=True)
+    storage_pin = serializers.CharField(allow_null=True, allow_blank=True, default="")
