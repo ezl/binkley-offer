@@ -51,14 +51,14 @@
         </b-col>
       </b-row>
       <br>
-      <b-row class="text-center mt-3">
-        <b-col>
-          <b-button variant="primary" class="btn" @click="createAccount()">Create an Account</b-button>
-        </b-col>
-        <b-col>
-          <b-button :disabled="isLogged" variant="primary" class="btn" @click="loginAccount()">Login</b-button>
-        </b-col>
-      </b-row>
+<!--      <b-row class="text-center mt-3">-->
+<!--        <b-col>-->
+<!--          <b-button variant="primary" class="btn" @click="createAccount()">Create an Account</b-button>-->
+<!--        </b-col>-->
+<!--        <b-col>-->
+<!--          <b-button :disabled="isLogged" variant="primary" class="btn" @click="loginAccount()">Login</b-button>-->
+<!--        </b-col>-->
+<!--      </b-row>-->
     </section>
   </div>
 </template>
