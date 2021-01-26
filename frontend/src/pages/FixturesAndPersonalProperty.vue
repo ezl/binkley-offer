@@ -302,24 +302,13 @@
         <b-col cols="12" sm="6" md="6">
           <div>
             Seller also transfers
-            <b-form-textarea
-                id="textarea"
-                v-model="pdfBody.seller_also_transfers"
-                placeholder="Enter something..."
-                rows="3"
-                max-rows="6"/>
+            <TextAreaInput v-model="pdfBody.seller_also_transfers"></TextAreaInput>
           </div>
         </b-col>
         <b-col cols="12" sm="6" md="6">
           <div>
             Items excluded
-            <b-form-textarea
-                id="textarea"
-                v-model="pdfBody.items_excluded"
-                placeholder="Enter something..."
-                rows="3"
-                max-rows="6"
-            ></b-form-textarea>
+            <TextAreaInput v-model="pdfBody.items_excluded"></TextAreaInput>
           </div>
         </b-col>
       </b-row>
@@ -347,6 +336,7 @@ import PersistentChoices from '../models/PersistentChoices'
 import PersistentChoicesFixtures from '../models/PersistentChoicesFixtures'
 import HeaderSiteMap from '../components/HeaderSiteMap'
 import * as axios from 'axios'
+import TextAreaInput from '../components/TextAreaInput'
 
 export default {
   name: 'FixturesAndPersonalProperty',
@@ -356,7 +346,7 @@ export default {
       {name: 'viewport', content: 'width=device-width, initial-scale=1'}
     ]
   },
-  components: {HeaderSiteMap, RadioInputTwoOptions, CheckboxInput, TextInput},
+  components: {TextAreaInput, HeaderSiteMap, RadioInputTwoOptions, CheckboxInput, TextInput},
   data () {
     return {
       isLoaded: false,

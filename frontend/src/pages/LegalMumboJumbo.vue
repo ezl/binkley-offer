@@ -66,12 +66,7 @@
               label-cols-sm="3"
               label="Attached Riders and Addendums"
               label-align-sm="right">
-            <b-form-textarea
-                id="textarea"
-                v-model="pdfBody.attached_riders_and_addendums"
-                placeholder="Enter something..."
-                rows="3"
-                max-rows="6"/>
+            <TextAreaInput v-model="pdfBody.attached_riders_and_addendums"></TextAreaInput>
           </b-form-group>
           <TextInputDate v-model="pdfBody.contract_accepted_on_or_before"
                          title="Contract accepted by seller on or before"
@@ -119,12 +114,7 @@
                         label-cols-sm="3"
                         label="Rider/Addendum Details"
                         label-align-sm="right">
-            <b-form-textarea
-                id="textarea"
-                v-model="pdfBody.riders_or_addendums"
-                placeholder="Enter something..."
-                rows="3"
-                max-rows="6"/>
+            <TextAreaInput v-model="pdfBody.riders_or_addendums"></TextAreaInput>
           </b-form-group>
           <RadioInputTwoOptions :special-field="true" :item="offerDeadline"
                                 text-label="Add an offer deadline?"
@@ -157,6 +147,7 @@ import PersistentChoices from '../models/PersistentChoices'
 import PersistentChoicesMumboJumbo from '../models/PersistentChoicesMumboJumbo'
 import HeaderSiteMap from '../components/HeaderSiteMap'
 import * as axios from 'axios'
+import TextAreaInput from '../components/TextAreaInput'
 
 export default {
   name: 'LegalMumboJumbo',
@@ -166,7 +157,7 @@ export default {
       {name: 'viewport', content: 'width=device-width, initial-scale=1'}
     ]
   },
-  components: {HeaderSiteMap, RadioInputTwoOptions, CheckboxInput, TextInput, TextInputDate},
+  components: {TextAreaInput, HeaderSiteMap, RadioInputTwoOptions, CheckboxInput, TextInput, TextInputDate},
   data () {
     return {
       isLoaded: false,
