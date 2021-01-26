@@ -19,11 +19,21 @@
       <b-card :key="forceUpdateBuyerCount" bg-variant="white" class="border-top-0 border-right-0 border-left-0">
         <b-form-group
             label-cols-lg="3"
-            label="Buyer's Broker's Information:"
             label-size="lg"
             label-class="font-weight-bold pt-0"
             class="mb-0"
         >
+          <template v-slot:label>
+            <p>Buyer's Broker's Information:</p>
+            <b-dropdown id="dropdown-grouped" text="Buyer Broker Profiles" class="m-2" variant="primary">
+              <b-dropdown-group v-for="(item, index) in brokerProfiles" :key="index">
+                <b-dropdown-item-button @click="selectProfile(index, 'broker')"> Profile {{ index + 1 }}
+                </b-dropdown-item-button>
+                <b-dropdown-text>Designated Agent: <b>{{ item.designated_agent }}</b></b-dropdown-text>
+                <b-dropdown-divider v-if="index + 1 < brokerProfiles.length"></b-dropdown-divider>
+              </b-dropdown-group>
+            </b-dropdown>
+          </template>
           <TextInput :special-field="true" v-model="pdfBody.designated_agent" title="Designated Agent"
                      text-label=" "></TextInput>
           <TextInput :special-field="true" v-model="pdfBody.agent_mls" title="Agent MLS#" text-label=" "></TextInput>
@@ -43,33 +53,26 @@
                      text-label=" "></TextInput>
           <CheckboxInput v-model="saveForFutureUseBrokerProfile" :special-field="true"
                          text-label="Save this profile for future use"></CheckboxInput>
-          <b-dropdown id="dropdown-grouped" text="Buyer Broker Profiles" class="m-2">
-            <b-dropdown-group v-for="(item, index) in brokerProfiles" :key="index">
-              <b-dropdown-item-button @click="selectProfile(index, 'broker')"> Profile {{ index + 1 }}
-              </b-dropdown-item-button>
-              <b-dropdown-text>Designated Agent: <b>{{ item.designated_agent }}</b></b-dropdown-text>
-              <b-dropdown-text>Agent Mls#: <b>{{ item.agent_mls }}</b></b-dropdown-text>
-              <b-dropdown-text>Agent License#: <b>{{ item.agent_license }}</b></b-dropdown-text>
-              <b-dropdown-text>Brokerage: <b>{{ item.brokerage }}</b></b-dropdown-text>
-              <b-dropdown-text>Brokerage Mls#: <b>{{ item.brokerage_mls }}</b></b-dropdown-text>
-              <b-dropdown-text>Brokerage License: <b>{{ item.brokerage_license }}</b></b-dropdown-text>
-              <b-dropdown-text>Broker Address: <b>{{ item.broker_address }}</b></b-dropdown-text>
-              <b-dropdown-text>Agent Phone: <b>{{ item.agent_phone }}</b></b-dropdown-text>
-              <b-dropdown-text>Agent Fax: <b>{{ item.agent_fax }}</b></b-dropdown-text>
-              <b-dropdown-text>Broker Email: <b>{{ item.broker_email }}</b></b-dropdown-text>
-              <b-dropdown-divider></b-dropdown-divider>
-            </b-dropdown-group>
-          </b-dropdown>
         </b-form-group>
       </b-card>
       <b-card :key="forceUpdateAttorneyCount" bg-variant="white" class="border-top-0 border-right-0 border-left-0">
         <b-form-group
             label-cols-lg="3"
-            label="Buyer's Attorney's Information:"
             label-size="lg"
             label-class="font-weight-bold pt-0"
             class="mb-0"
         >
+          <template v-slot:label>
+            <p>Buyer's Attorney's Information:</p>
+            <b-dropdown id="dropdown-grouped" text="Buyer Attorney Profiles" class="m-2" variant="primary">
+              <b-dropdown-group v-for="(item, index) in attorneyProfiles" :key="index">
+                <b-dropdown-item-button @click="selectProfile(index, 'attorney')"> Profile {{ index + 1 }}
+                </b-dropdown-item-button>
+                <b-dropdown-text>Attorney Name: <b>{{ item.attorney_name }}</b></b-dropdown-text>
+                <b-dropdown-divider v-if="index + 1 < attorneyProfiles.length"></b-dropdown-divider>
+              </b-dropdown-group>
+            </b-dropdown>
+          </template>
           <TextInput :special-field="true" v-model="pdfBody.attorney_name" title="Attorney Name"
                      text-label=" "></TextInput>
           <TextInput :special-field="true" v-model="pdfBody.attorney_address" title="Attorney Address"
@@ -82,28 +85,26 @@
                      text-label=" "></TextInput>
           <CheckboxInput v-model="saveForFutureUseAttorneyProfile" :special-field="true"
                          text-label="Save this profile for future use"></CheckboxInput>
-          <b-dropdown id="dropdown-grouped" text="Buyer Attorney Profiles" class="m-2">
-            <b-dropdown-group v-for="(item, index) in attorneyProfiles" :key="index">
-              <b-dropdown-item-button @click="selectProfile(index, 'attorney')"> Profile {{ index + 1 }}
-              </b-dropdown-item-button>
-              <b-dropdown-text>Attorney Name: <b>{{ item.attorney_name }}</b></b-dropdown-text>
-              <b-dropdown-text>Attorney Address: <b>{{ item.attorney_address }}</b></b-dropdown-text>
-              <b-dropdown-text>Attorney Phone: <b>{{ item.attorney_phone }}</b></b-dropdown-text>
-              <b-dropdown-text>Attorney Fax: <b>{{ item.attorney_fax }}</b></b-dropdown-text>
-              <b-dropdown-text>Attorney Email: <b>{{ item.attorney_email }}</b></b-dropdown-text>
-              <b-dropdown-divider></b-dropdown-divider>
-            </b-dropdown-group>
-          </b-dropdown>
         </b-form-group>
       </b-card>
       <b-card :key="forceUpdateLenderCount" bg-variant="white" class="border-0">
         <b-form-group
             label-cols-lg="3"
-            label="Buyer's Lender's Information:"
             label-size="lg"
             label-class="font-weight-bold pt-0"
             class="mb-0"
         >
+          <template v-slot:label>
+            <p>Buyer's Lender's Information:</p>
+            <b-dropdown id="dropdown-grouped" text="Buyer Lender Profiles" class="m-2" variant="primary">
+              <b-dropdown-group v-for="(item, index) in lenderProfiles" :key="index">
+                <b-dropdown-item-button @click="selectProfile(index, 'lender')"> Profile {{ index + 1 }}
+                </b-dropdown-item-button>
+                <b-dropdown-text>Lender Name: <b>{{ item.lender_name }}</b></b-dropdown-text>
+                <b-dropdown-divider v-if="index + 1 < lenderProfiles.length"></b-dropdown-divider>
+              </b-dropdown-group>
+            </b-dropdown>
+          </template>
           <TextInput :special-field="true" v-model="pdfBody.lender_name" title="Lender Name"
                      text-label=" "></TextInput>
           <TextInput :special-field="true" v-model="pdfBody.lender_company" title="Lender Company"
@@ -117,19 +118,6 @@
                      text-label=" "></TextInput>
           <CheckboxInput v-model="saveForFutureUseLenderProfile" :special-field="true"
                          text-label="Save this profile for future use"></CheckboxInput>
-          <b-dropdown id="dropdown-grouped" text="Buyer Lender Profiles" class="m-2">
-            <b-dropdown-group v-for="(item, index) in lenderProfiles" :key="index">
-              <b-dropdown-item-button @click="selectProfile(index, 'lender')"> Profile {{ index + 1 }}
-              </b-dropdown-item-button>
-              <b-dropdown-text>Lender Name: <b>{{ item.lender_name }}</b></b-dropdown-text>
-              <b-dropdown-text>Lender Company: <b>{{ item.lender_company }}</b></b-dropdown-text>
-              <b-dropdown-text>Lender Address: <b>{{ item.lender_address }}</b></b-dropdown-text>
-              <b-dropdown-text>Lender Phone: <b>{{ item.lender_phone }}</b></b-dropdown-text>
-              <b-dropdown-text>Lender Fax: <b>{{ item.lender_fax }}</b></b-dropdown-text>
-              <b-dropdown-text>Lender Email: <b>{{ item.lender_email }}</b></b-dropdown-text>
-              <b-dropdown-divider></b-dropdown-divider>
-            </b-dropdown-group>
-          </b-dropdown>
         </b-form-group>
         <b-row>
           <b-col>
