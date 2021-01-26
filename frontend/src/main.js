@@ -6,18 +6,18 @@ import router from './router'
 import {BootstrapVue, BootstrapVueIcons, IconsPlugin} from 'bootstrap-vue'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap/dist/css/bootstrap.css'
-import GAuth from 'vue-google-oauth2'
-
-const gauthOption = {
-  clientId: '783671048395-hblgld7toqqnrciqi477gje5snggtjka.apps.googleusercontent.com',
-  scope: 'profile email',
-  prompt: 'select_account'
-}
+// import GAuth from 'vue-google-oauth2'
+//
+// const gauthOption = {
+//   clientId: '783671048395-hblgld7toqqnrciqi477gje5snggtjka.apps.googleusercontent.com',
+//   scope: 'profile email',
+//   prompt: 'select_account'
+// }
 Vue.config.productionTip = false
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
-Vue.use(GAuth, gauthOption)
+// Vue.use(GAuth, gauthOption)
 Vue.use(BootstrapVueIcons)
 Vue.filter('capitalize', function (value) {
   if (!value) return ''
