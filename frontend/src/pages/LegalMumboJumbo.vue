@@ -357,7 +357,6 @@ export default {
       this.isHomeownerAssociation.second = this.pdfBody.homeowner_no
       this.ridersOrAddendums.first = !!this.pdfBody.riders_or_addendums
       this.offerDeadline.first = !!this.pdfBody.offer_deadline
-
     },
     getDate (dateGiven) {
       const toTwoDigits = num => num < 10 ? '0' + num : num
