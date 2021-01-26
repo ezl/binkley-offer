@@ -1,5 +1,5 @@
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg" width="12rem" height="12rem" id="Layer_1" viewBox="0 0 32 32">
+  <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" id="Layer_1" viewBox="0 0 32 32">
     <path fill="#f04c4d"
           d="M25.009 18.883a.5.5 0 0 1-.376-.17 5.503 5.503 0 0 0-4.133-1.872c-1.17 0-2.333.384-3.273 1.081a.499.499 0 1 1-.595-.803 6.548 6.548 0 0 1 3.869-1.277c1.87 0 3.65.806 4.885 2.211a.501.501 0 0 1-.377.83z"/>
     <path fill="#499ed7"
