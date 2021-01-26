@@ -289,6 +289,7 @@ export default {
   mounted () {
     if (localStorage.pdfBody) {
       this.propertyType = localStorage.propertyType
+
       if (this.propertyType !== 'attached') {
         this.siteMap.splice(4, 1)
       }
@@ -350,6 +351,13 @@ export default {
       this.disclosuresCRadioItem.second = this.pdfBody.disclosures_c_no
       this.disclosuresDRadioItem.first = this.pdfBody.disclosures_d_yes
       this.disclosuresDRadioItem.second = this.pdfBody.disclosures_d_no
+      this.dualAgencyRadioItem.first = this.pdfBody.dual_agent_broker_yes
+      this.dualAgencyRadioItem.second = this.pdfBody.dual_agent_broker_no
+      this.isHomeownerAssociation.first = this.pdfBody.homeowner_yes
+      this.isHomeownerAssociation.second = this.pdfBody.homeowner_no
+      this.ridersOrAddendums.first = !!this.pdfBody.riders_or_addendums
+      this.offerDeadline.first = !!this.pdfBody.offer_deadline
+
     },
     getDate (dateGiven) {
       const toTwoDigits = num => num < 10 ? '0' + num : num
