@@ -57,18 +57,19 @@ class PdfViewSet(ViewSet):
             pdf.user_email = user.username
             pdf.save()
 
-        return FileResponse(open(pdf_src, 'rb'))
+        get_pdf_serializer = GetPdfSerializer(Pdf.objects.filter(id=pdf.id, deleted=False).first())
+        return Response(get_pdf_serializer.data)
 
     def list(self, request):
-        url = request.GET.get('url')
-        pdf = Pdf.objects.filter(redfin_src=url, deleted=False).first()
+        pdf_id = request.GET.get('id')
+        pdf = Pdf.objects.filter(id=pdf_id, deleted=False).first()
 
         if not pdf:
             raise NotFound(detail='PDF not found')
 
         serializer = GetPdfSerializer(pdf)
 
-        return Response(serializer.data)
+        return FileResponse(open(serializer.data['pdf_src'], 'rb'))
 
     def destroy(self, request, pk=None):
         pdf = Pdf.objects.filter(pk=pk, deleted=False).first()

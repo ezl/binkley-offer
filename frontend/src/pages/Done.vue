@@ -125,15 +125,15 @@ export default {
         axios({
           url: 'http://50.116.19.93:8000/api/pdf/',
           method: 'POST',
-          data: this.pdfBody,
-          responseType: 'blob'
+          data: this.pdfBody
         }).then(response => {
           axios({
-            url: 'http://50.116.19.93:8000/api/pdf?url=' + this.pdfBody.url,
-            method: 'GET'
+            url: 'http://50.116.19.93:8000/api/pdf?id=' + response.data.id,
+            method: 'GET',
+            responseType: 'blob'
           })
             .then(responseGet => {
-              this.showFile(response.data, responseGet.data.pdf_src.split('/').pop())
+              this.showFile(responseGet.data, response.data.pdf_src.split('/').pop())
               this.loading = false
               this.localStorage = null
             })
