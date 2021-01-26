@@ -25,7 +25,7 @@
         >
           <template v-slot:label>
             <p>Buyer's Broker's Information:</p>
-            <b-dropdown id="dropdown-grouped" text="Buyer Broker Profiles" class="m-2" variant="primary">
+            <b-dropdown v-if="brokerProfiles.length > 0" id="dropdown-grouped" text="Buyer Broker Profiles" class="m-2" variant="primary">
               <b-dropdown-group v-for="(item, index) in brokerProfiles" :key="index">
                 <b-dropdown-item-button @click="selectProfile(index, 'broker')"> Profile {{ index + 1 }}
                 </b-dropdown-item-button>
@@ -64,7 +64,7 @@
         >
           <template v-slot:label>
             <p>Buyer's Attorney's Information:</p>
-            <b-dropdown id="dropdown-grouped" text="Buyer Attorney Profiles" class="m-2" variant="primary">
+            <b-dropdown v-if="attorneyProfiles.length > 0" id="dropdown-grouped" text="Buyer Attorney Profiles" class="m-2" variant="primary">
               <b-dropdown-group v-for="(item, index) in attorneyProfiles" :key="index">
                 <b-dropdown-item-button @click="selectProfile(index, 'attorney')"> Profile {{ index + 1 }}
                 </b-dropdown-item-button>
@@ -96,7 +96,7 @@
         >
           <template v-slot:label>
             <p>Buyer's Lender's Information:</p>
-            <b-dropdown id="dropdown-grouped" text="Buyer Lender Profiles" class="m-2" variant="primary">
+            <b-dropdown v-if="lenderProfiles.length > 0" id="dropdown-grouped" text="Buyer Lender Profiles" class="m-2" variant="primary">
               <b-dropdown-group v-for="(item, index) in lenderProfiles" :key="index">
                 <b-dropdown-item-button @click="selectProfile(index, 'lender')"> Profile {{ index + 1 }}
                 </b-dropdown-item-button>
@@ -275,7 +275,6 @@ export default {
           'agent_fax': this.loggedUserDetails['agent_fax'],
           'broker_email': this.loggedUserDetails['broker_email']
         })
-        console.log(this.brokerProfiles)
       }
       this.isLoaded = true
     }
