@@ -213,8 +213,7 @@ export default {
     this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
     this.specialAssessmentRadioItem.first = this.pdfBody.special_assessment_yes
     this.specialAssessmentRadioItem.second = this.pdfBody.special_assessment_no
-    this.taxExemptions.first = this.pdfBody.homeowner || this.pdfBody.senior
-                            || this.pdfBody.senior_freeze || this.pdfBody.historical
+    this.taxExemptions.first = this.pdfBody.homeowner || this.pdfBody.senior || this.pdfBody.senior_freeze || this.pdfBody.historical
     this.loadScrappedData()
   },
   watch: {
