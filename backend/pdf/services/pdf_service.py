@@ -585,9 +585,9 @@ def create_data_for_pdf(body_request):
         'offer_deadline': body_request.offer_deadline,
         'homeowner_yes': body_request.homeowner_yes,
         'homeowner_no': body_request.homeowner_no,
-        'buyer_name': 'No Buyer Name' if body_request.buyer_name is None else body_request.buyer_name,
+        'buyer_name': body_request.buyer_name,
         'buyer_email': body_request.buyer_email,
-        'seller_name': 'No Seller Name' if body_request.seller_name is None else body_request.seller_name,
+        'seller_name': body_request.seller_name,
         'seller_email': body_request.seller_email,
         'special_assessment_yes': body_request.special_assessment_yes,
         'special_assessment_no': body_request.special_assessment_no,
@@ -633,6 +633,8 @@ def encode_pdf_string(value, type_pdf):
     return ''
 
 
+# 'buyer_name': 'No Buyer Name' if body_request.buyer_name is None else body_request.buyer_name,
+
 def fill_pdf_attached():
     global data_dict, FORM_KEYS_ATTACHED, url_to_scrape
     pdf_template = pdfrw.PdfReader('pdf/services/Contract_Template_Attached_V2.pdf')
@@ -657,6 +659,8 @@ def fill_pdf_attached():
                     annotation.update(pdfrw.PdfDict(Ff=1))
     pdf_template.Root.AcroForm.update(pdfrw.PdfDict(
         NeedAppearances=pdfrw.PdfObject('true')))
+    if data_dict['buyer_name'] is None:
+        data_dict['buyer_name'] = "No Buyer Name" # to edit this based on what Eric decision
     pdf_name = 'files/' + data_dict['property_details'] + '__' + data_dict['buyer_name'] \
                + '__' + date.today().strftime("%m-%d-%y") + '.pdf'
     pdfrw.PdfWriter().write(pdf_name, pdf_template)
