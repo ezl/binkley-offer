@@ -130,7 +130,7 @@
             label-class="font-weight-bold pt-0"
             class="mb-0"
         >
-          <TextInputDate title="Closing Date" v-model="pdfBody.closing_date" text-label="Closing Date"></TextInputDate>
+          <TextInputDate title="Closing Date"  :disable-weekends="true" v-model="pdfBody.closing_date" text-label="Closing Date"></TextInputDate>
         </b-form-group>
         <b-row>
           <b-col>
