@@ -89,7 +89,7 @@
                               item-one-label="Yes "
                               item-two-label="No "></RadioInputTwoOptions>
         <TextInput :special-field="true" v-model="pdfBody.deliver_association"
-                   title="Business Days to Deliver Documents:" append="Days" text-label=" "></TextInput>
+                   title="Business Days to Deliver Condo Documents To Buyer:" append="Days" text-label=" "></TextInput>
 
       </b-form-group>
     </b-card>
