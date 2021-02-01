@@ -45,7 +45,7 @@ export default {
     handleInput (event) {
       this.$emit('input', event)
     },
-    dateDisabled(ymd, date) {
+    dateDisabled (ymd, date) {
       const weekday = date.getDay()
       return weekday === 0 || weekday === 6
     }
