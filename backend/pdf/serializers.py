@@ -21,6 +21,11 @@ class GoogleAuthSerializer(serializers.Serializer):
     redirect_uri = serializers.CharField()
 
 
+class SendEmailSerializer(serializers.Serializer):
+    pdf_id = serializers.CharField()
+    send_to = serializers.EmailField()
+
+
 class GetPdfSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pdf

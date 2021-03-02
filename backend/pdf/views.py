@@ -17,8 +17,10 @@ from rest_framework.response import Response
 from .exceptions.custom_exceptions import RedfinScrapperException, UnhandledException, InvalidPropertyType, \
     InvalidPassword
 from .serializers import CreatePdfSerializer, GetPdfSerializer, SearchSerializer, RedfinScrapperSerializer, \
-    GoogleAuthSerializer, CreateUserSerializer, ResponseUserSerializer, LoginUserSerializer, UserPreferencesSerializer
+    GoogleAuthSerializer, CreateUserSerializer, ResponseUserSerializer, LoginUserSerializer, UserPreferencesSerializer, \
+    SendEmailSerializer
 from .models import Pdf
+from .services.email_service import send_email
 
 from .services.search_service import search_redfin_autocomplete_api
 from .services.pdf_service import scraper_redfin
@@ -83,6 +85,20 @@ class PdfViewSet(ViewSet):
         serializer = GetPdfSerializer(pdf)
 
         return Response(serializer.data)
+
+
+class EmailView(APIView):
+    serializer_class = SendEmailSerializer
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        serializer = SendEmailSerializer(data=request.data)
+
+        if not serializer.is_valid():
+            raise ParseError(detail=serializer.errors)
+
+        send_email(serializer.validated_data['send_to'], "Dummy Title", serializer.validated_data['pdf_id'])
+        return Response("Sent")
 
 
 class SearchView(APIView):
@@ -237,7 +253,6 @@ class UserPreferences(ViewSet):
         user_preferences = PersistentUserChoice.objects.filter(user=User.objects.get(
             id=Token.objects.get(key=request.auth.key).user_id)).first()
 
-        
         if not user_preferences:
             raise NotFound(detail='User Preferences not found')
 
