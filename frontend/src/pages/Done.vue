@@ -15,6 +15,17 @@
         <b-button v-if="!loading" variant="primary" class="btn" @click="convertPdf"> Download PDF
         </b-button>
         <b-spinner v-if="loading" variant="primary" label="Spinning"></b-spinner>
+        <br>
+        <br>
+        <div v-if="!downloaded">
+          <TextInput :value="send_to" text-label="Send email to" class="siz"></TextInput>
+          <br>
+          <b-button variant="primary" class="btn" @click="sendEmail"> Send to email
+          </b-button>
+          <br><br>
+          <p v-if="email_sent" class="text-success">Email sent successfully</p>
+          <br>
+        </div>
       </template>
 
       <hr class="my-4">
@@ -48,10 +59,11 @@ import * as axios from 'axios'
 import HeaderSiteMap from '../components/HeaderSiteMap'
 import ConfettiIcon from '../components/icons/ConfettiIcon'
 import LoggedUserDetails from '../models/LoggedUserDetails'
+import TextInput from '../components/TextInput'
 
 export default {
   name: 'Done',
-  components: {ConfettiIcon, HeaderSiteMap},
+  components: {TextInput, ConfettiIcon, HeaderSiteMap},
   metaInfo: {
     meta: [
       {charset: 'utf-8'},
@@ -65,6 +77,10 @@ export default {
       pdfBody: new PdfBody(),
       propertyType: '',
       futureUserDetails: new LoggedUserDetails(),
+      downloaded: false,
+      send_to: '',
+      email_sent: false,
+      generated_pdf_id: '',
       siteMap: [
         {
           displayName: 'Address',
@@ -127,6 +143,7 @@ export default {
           method: 'POST',
           data: this.pdfBody
         }).then(response => {
+          this.generated_pdf_id = response.data.id
           axios({
             url: 'http://50.116.19.93:8000/api/pdf?id=' + response.data.id,
             method: 'GET',
@@ -136,6 +153,7 @@ export default {
               this.showFile(responseGet.data, response.data.pdf_src.split('/').pop())
               this.loading = false
               this.localStorage = null
+              this.downloaded = true
             })
             .catch(err => {
               console.log(err)
@@ -161,6 +179,23 @@ export default {
         // For Firefox it is necessary to delay revoking the ObjectURL
         window.URL.revokeObjectURL(data)
       }, 100)
+    },
+    sendEmail () {
+      this.email_sent = false
+      axios({
+        url: 'http://50.116.19.93:8000/api/email/',
+        method: 'POST',
+        data: {
+          "send_to": this.send_to,
+          "pdf_id": this.generated_pdf_id
+        }
+      }).then(response => {
+        if (response.status === 200) {
+          this.email_sent = true
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     },
     createAccount () {
       this.$router.push({name: 'Register'})
