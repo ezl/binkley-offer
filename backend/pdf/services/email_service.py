@@ -10,11 +10,6 @@ from rest_framework.exceptions import NotFound
 from pdf.models import Pdf
 from pdf.serializers import GetPdfSerializer
 
-POSTMARK_SENDER_SIGNATURE = os.getenv("POSTMARK_SENDER_SIGNATURE")
-POSTMARK_SMTP_SERVER_HOST = os.getenv("POSTMARK_SMTP_SERVER_HOST")
-POSTMARK_SMTP_SERVER_PORT = int(os.getenv("POSTMARK_SMTP_SERVER_PORT"))
-POSTMARK_API_KEY = os.getenv("POSTMARK_API_KEY")
-
 
 def send_email(send_to, subject, pdf_id):
     pdf = Pdf.objects.filter(id=pdf_id, deleted=False).first()
@@ -22,6 +17,10 @@ def send_email(send_to, subject, pdf_id):
         raise NotFound(detail='PDF not found')
     serializer = GetPdfSerializer(pdf)
 
+    POSTMARK_SENDER_SIGNATURE = "eric@rentapplication.net"
+    POSTMARK_SMTP_SERVER_HOST = "smtp.postmarkapp.com"
+    POSTMARK_SMTP_SERVER_PORT = 587
+    POSTMARK_API_KEY = "EDIT_THIS_ONE"
     # Build message
     message = MIMEMultipart()
     message["From"] = POSTMARK_SENDER_SIGNATURE
