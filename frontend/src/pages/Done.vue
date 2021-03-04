@@ -183,7 +183,7 @@ export default {
     sendEmail () {
       this.email_sent = false
       axios({
-        url: 'http://localhost:8000/api/email/',
+        url: 'http://50.116.19.93:8000/api/email/',
         method: 'POST',
         data: {
           'send_to': this.send_to,
