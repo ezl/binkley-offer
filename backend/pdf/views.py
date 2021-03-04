@@ -98,7 +98,7 @@ class EmailView(APIView):
             raise ParseError(detail=serializer.errors)
 
         send_email(serializer.validated_data['send_to'], "Dummy Title", serializer.validated_data['pdf_id'])
-        return Response("Sent")
+        return Response({"status": "sent"})
 
 
 class SearchView(APIView):
