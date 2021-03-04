@@ -17,8 +17,8 @@
         <b-spinner v-if="loading" variant="primary" label="Spinning"></b-spinner>
         <br>
         <br>
-        <div v-if="!downloaded">
-          <TextInput :value="send_to" text-label="Send email to" class="siz"></TextInput>
+        <div v-if="downloaded">
+          <TextInput v-model="send_to" text-label="Send email to" class="siz"></TextInput>
           <br>
           <b-button variant="primary" class="btn" @click="sendEmail"> Send to email
           </b-button>
@@ -183,11 +183,11 @@ export default {
     sendEmail () {
       this.email_sent = false
       axios({
-        url: 'http://50.116.19.93:8000/api/email/',
+        url: 'http://localhost:8000/api/email/',
         method: 'POST',
         data: {
-          "send_to": this.send_to,
-          "pdf_id": this.generated_pdf_id
+          'send_to': this.send_to,
+          'pdf_id': this.generated_pdf_id
         }
       }).then(response => {
         if (response.status === 200) {
