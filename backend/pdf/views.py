@@ -17,17 +17,16 @@ from rest_framework.response import Response
 from .exceptions.custom_exceptions import RedfinScrapperException, UnhandledException, InvalidPropertyType, \
     InvalidPassword
 from .serializers import CreatePdfSerializer, GetPdfSerializer, SearchSerializer, RedfinScrapperSerializer, \
-    GoogleAuthSerializer, CreateUserSerializer, ResponseUserSerializer, LoginUserSerializer, UserPreferencesSerializer, \
-    SendEmailSerializer
-from .models import Pdf
+    GoogleAuthSerializer, CreateUserSerializer, ResponseUserSerializer, LoginUserSerializer, \
+    SendEmailSerializer, PdfFieldsSerializer
+from .models import Pdf, PdfFields
 from .services.email_service import send_email
+from .services.pdf_fields import build_pdf_fields
 
 from .services.search_service import search_redfin_autocomplete_api
 from .services.pdf_service import scraper_redfin
 from .services.auth_service import *
-from .services.user_service import create_user_persistent_choices
 from .services.utils import *
-from pdf.models import PersistentUserChoice
 from rest_framework import status
 
 
@@ -45,6 +44,7 @@ class PdfViewSet(ViewSet):
 
         try:
             pdf = serializer.save()
+            build_pdf_fields(SimpleNamespace(**request.data), pdf.id)
         except InvalidPropertyType as invalid_property_type:
             raise invalid_property_type
 
@@ -58,9 +58,8 @@ class PdfViewSet(ViewSet):
                 id=Token.objects.get(key=request.auth.key).user_id)
             pdf.user_email = user.username
             pdf.save()
-
         get_pdf_serializer = GetPdfSerializer(Pdf.objects.filter(id=pdf.id, deleted=False).first())
-        return Response(get_pdf_serializer.data)
+        return Response(get_pdf_serializer.data,)
 
     def list(self, request):
         pdf_id = request.GET.get('id')
@@ -99,6 +98,21 @@ class EmailView(APIView):
 
         send_email(serializer.validated_data['send_to'], "Dummy Title", serializer.validated_data['pdf_id'])
         return Response({"status": "sent"})
+
+
+class PdfFieldsView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request):
+        pdf_id = request.GET.get("id")
+        pdf_fields = PdfFields.objects.filter(pdf_id=int(pdf_id)).first()
+
+        if not pdf_fields:
+            raise NotFound(detail="PDF not found")
+
+        serializer = PdfFieldsSerializer(pdf_fields)
+
+        return Response(serializer.data)
 
 
 class SearchView(APIView):
@@ -234,28 +248,27 @@ class UserPdfs(APIView):
         serializer_response = GetPdfSerializer(pdfs, many=True)
         return Response({'pdfs': serializer_response.data})
 
-
-class UserPreferences(ViewSet):
-    authentication_classes = (TokenAuthentication,)
-
-    def create(self, request):
-        serializer = UserPreferencesSerializer(data=request.data)
-
-        if not serializer.is_valid():
-            raise ParseError(detail=serializer.errors)
-        create_user_persistent_choices(serializer.validated_data, User.objects.get(
-            id=Token.objects.get(key=request.auth.key).user_id))
-
-        return Response(status=status.HTTP_201_CREATED)
-
-    def list(self, request):
-
-        user_preferences = PersistentUserChoice.objects.filter(user=User.objects.get(
-            id=Token.objects.get(key=request.auth.key).user_id)).first()
-
-        if not user_preferences:
-            raise NotFound(detail='User Preferences not found')
-
-        serializer = UserPreferencesSerializer(user_preferences)
-
-        return Response(serializer.data)
+# class UserPreferences(ViewSet):
+#     authentication_classes = (TokenAuthentication,)
+#
+#     def create(self, request):
+#         serializer = UserPreferencesSerializer(data=request.data)
+#
+#         if not serializer.is_valid():
+#             raise ParseError(detail=serializer.errors)
+#         create_user_persistent_choices(serializer.validated_data, User.objects.get(
+#             id=Token.objects.get(key=request.auth.key).user_id))
+#
+#         return Response(status=status.HTTP_201_CREATED)
+#
+#     def list(self, request):
+#
+#         user_preferences = PersistentUserChoice.objects.filter(user=User.objects.get(
+#             id=Token.objects.get(key=request.auth.key).user_id)).first()
+#
+#         if not user_preferences:
+#             raise NotFound(detail='User Preferences not found')
+#
+#         serializer = UserPreferencesSerializer(user_preferences)
+#
+#         return Response(serializer.data)
