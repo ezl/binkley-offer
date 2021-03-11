@@ -35,6 +35,19 @@
             </b-list-group-item>
           </b-list-group>
         </b-col>
+        <b-col sm="6">
+          <p class="mt-0 pt-0 text-muted font-weight-lighter font-weight-italic" v-if="pdfCacheLoaded">A previous
+            version of pdf was loaded</p>
+          <b-dropdown v-if="pdfIds.length > 0" id="dropdown-grouped" text="Previous PDFs"
+                      class="m-2" variant="primary">
+            <b-dropdown-group v-for="(item, indexPdf) in pdfIds" :key="indexPdf">
+              <b-dropdown-item-button @click="selectPdf(indexPdf)">
+                <b>{{ indexPdf + 1 }}</b>
+              </b-dropdown-item-button>
+              <b-dropdown-divider v-if="indexPdf + 1 < pdfIds.length"></b-dropdown-divider>
+            </b-dropdown-group>
+          </b-dropdown>
+        </b-col>
       </b-row>
     </b-card>
   </div>
@@ -69,13 +82,19 @@ export default {
       redfinUrl: '',
       pdfName: '',
       queryUrl: null,
-      propertiesList: []
+      propertiesList: [],
+      pdfCacheLoaded: false,
+      pdfIds: []
     }
   },
   mounted () {
     this.searchRedfinUrl()
+    localStorage.pdfCacheLoaded = JSON.stringify(false)
     this.propertyType = localStorage.propertyType
     localStorage.pdfBody = new PdfBody()
+    if (localStorage.pdfIds) {
+      this.pdfIds = Object.assign([], JSON.parse(localStorage.pdfIds))
+    }
   },
   watch: {
     queryUrl: _.debounce(function () {
@@ -106,6 +125,24 @@ export default {
     saveUrl (index) {
       this.pdfBody.url = 'https://www.redfin.com' + this.propertiesList[index].url
       this.selected = index
+    },
+    selectPdf (index) {
+      axios({
+        url: 'http://50.116.19.93:8000/api/fields?id=' + this.pdfIds[index],
+        method: 'GET'
+      })
+        .then(response => {
+          let pdfBodyTemp = new PdfBody()
+          for (let key in this.pdfBody) {
+            pdfBodyTemp[key] = response.data[key]
+          }
+          this.pdfBody = pdfBodyTemp
+          this.pdfCacheLoaded = true
+          localStorage.pdfCacheLoaded = JSON.stringify(true)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     nextPage () {
       this.pdfBody.property_type = localStorage.propertyType

@@ -81,6 +81,7 @@ export default {
       send_to: '',
       email_sent: false,
       generated_pdf_id: '',
+      pdfIds: [],
       siteMap: [
         {
           displayName: 'Address',
@@ -124,6 +125,10 @@ export default {
   mounted () {
     if (localStorage.pdfBody) {
       this.propertyType = localStorage.propertyType
+      if (localStorage.pdfIds) {
+        this.pdfIds = Object.assign([], JSON.parse(localStorage.pdfIds))
+      }
+
       this.pdfBody = Object.assign(new PdfBody(), JSON.parse(localStorage.pdfBody))
       Object.keys(new LoggedUserDetails()).forEach(key => {
         if (key in new PdfBody()) {
@@ -144,6 +149,8 @@ export default {
           data: this.pdfBody
         }).then(response => {
           this.generated_pdf_id = response.data.id
+          this.pdfIds.push(response.data.id)
+          localStorage.pdfIds = JSON.stringify(this.pdfIds)
           axios({
             url: 'http://50.116.19.93:8000/api/pdf?id=' + response.data.id,
             method: 'GET',
@@ -183,7 +190,7 @@ export default {
     sendEmail () {
       this.email_sent = false
       axios({
-        url: 'http://50.116.19.93:8000/api/email/',
+        url: 'http://localhost:8000/api/email/',
         method: 'POST',
         data: {
           'send_to': this.send_to,

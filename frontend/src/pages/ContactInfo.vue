@@ -252,7 +252,7 @@ export default {
       if (localStorage.lenderProfiles) {
         this.lenderProfiles = Object.assign([], JSON.parse(localStorage.lenderProfiles))
       }
-      if (localStorage.persistentChoices && !localStorage.token) {
+      if (localStorage.pdfCacheLoaded && localStorage.persistentChoices && !localStorage.token) {
         this.persistentChoices = Object.assign(new PersistentChoices(), JSON.parse(localStorage.persistentChoices))
         this.fillPersistentData(this.pdfBody, this.persistentChoices)
       }
