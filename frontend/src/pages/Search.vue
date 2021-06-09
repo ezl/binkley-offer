@@ -109,7 +109,8 @@ export default {
       this.propertiesList = []
       if (this.queryUrl) {
         axios({
-          url: 'http://50.116.19.93:8000/api/search/',
+          // url: 'http://50.116.19.93:8000/api/search/',
+          url: '/api/search/',
           method: 'POST',
           data: {url: 'https://www.redfin.com/stingray/do/location-autocomplete?location=' + this.queryUrl + '&count=10&v=2'}
         }).then(response => {
@@ -128,7 +129,8 @@ export default {
     },
     selectPdf (index) {
       axios({
-        url: 'http://50.116.19.93:8000/api/fields?id=' + this.pdfIds[index],
+        // url: 'http://50.116.19.93:8000/api/fields?id=' + this.pdfIds[index],
+        url: '/api/fields?id=' + this.pdfIds[index],
         method: 'GET'
       })
         .then(response => {

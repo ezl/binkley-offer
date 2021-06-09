@@ -43,7 +43,8 @@ export default {
       // localStorage.authCode = authCode
       this.authCodeFromLocalStorage = authCode
       axios({
-        url: 'http://50.116.19.93:8000/api/auth-google/',
+        // url: 'http://50.116.19.93:8000/api/auth-google/',
+        url: '/api/auth-google/',
         method: 'POST',
         data: {
           code: authCode,

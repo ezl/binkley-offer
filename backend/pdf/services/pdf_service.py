@@ -4,6 +4,7 @@ import pdfrw
 import re
 import os
 from datetime import date
+import usaddress
 
 from pdf.exceptions.custom_exceptions import InvalidPropertyType
 
@@ -354,23 +355,19 @@ def parse_bs4():
     tax_year = None
     parcel_identification_number = None
     soup = BeautifulSoup(page.content, 'html.parser')
-    street_address_span = soup.find(class_='street-address')
-    city_state_zip_span_locality = soup.find(
-        class_='citystatezip').find(class_='locality')
-    city_state_zip_span_region = soup.find(
-        class_='citystatezip').find(class_='region')
-    city_state_zip_span_postal_code = soup.find(
-        class_='citystatezip').find(class_='postal-code')
-    agent_details = soup.find(
-        class_='agent-basic-details font-color-gray-dark')
-    divs_details = soup.findAll(
-        class_='keyDetail font-weight-roman font-size-base')
+
+    full_address = soup.find(class_='homeAddress-variant')
+    parsed_address = dict(usaddress.tag(full_address.get_text())[0])
+
+    agent_details = soup.find(class_='agent-basic-details font-color-gray-dark')
+    divs_details = soup.findAll(class_='keyDetail font-weight-roman font-size-base')
+
     for div in divs_details:
         if 'HOA Dues' in div.get_text():
             hoa_dues = div.find(class_='content text-right')
 
-    divs_details = soup.findAll(
-        class_='amenity-group')
+    divs_details = soup.findAll(class_='amenity-group')
+
     for div in divs_details:
         if 'Financial Information' in div.get_text():
             temp = div.find(
@@ -388,10 +385,15 @@ def parse_bs4():
 
     details_dict = dict()
     details_dict.update({
-        'property_street_address': street_address_span.get_text().strip(),
-        'property_locality': city_state_zip_span_locality.get_text().strip()[:-1],
-        'property_region': city_state_zip_span_region.get_text().strip(),
-        'property_postal_code': city_state_zip_span_postal_code.get_text().strip(),
+        'property_street_address': "{} {} {} {}".format(
+            parsed_address.get('AddressNumber', ''), 
+            parsed_address.get('StreetName', ''),
+            parsed_address.get('StreetNamePostType', ''),
+            parsed_address.get('OccupancyIdentifier', '')
+        ).strip(),
+        'property_locality': parsed_address.get('PlaceName'),
+        'property_region': parsed_address.get('StateName'),
+        'property_postal_code': parsed_address.get('ZipCode'),
         'agent_details_name': agent_details.get_text().split(sep='•')[0][10:].strip(),
         'agent_details_company': agent_details.get_text().split(sep='•')[1].strip()
     })
