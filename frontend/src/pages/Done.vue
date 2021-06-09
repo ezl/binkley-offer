@@ -144,7 +144,8 @@ export default {
       if (this.redfinUrl !== null) {
         this.loading = true
         axios({
-          url: 'http://50.116.19.93:8000/api/pdf/',
+          // url: 'http://50.116.19.93:8000/api/pdf/',
+          url: '/api/pdf/',
           method: 'POST',
           data: this.pdfBody
         }).then(response => {
@@ -152,7 +153,8 @@ export default {
           this.pdfIds.push(response.data.id)
           localStorage.pdfIds = JSON.stringify(this.pdfIds)
           axios({
-            url: 'http://50.116.19.93:8000/api/pdf?id=' + response.data.id,
+            // url: 'http://50.116.19.93:8000/api/pdf?id=' + response.data.id,
+            url: '/api/pdf?id=' + response.data.id,
             method: 'GET',
             responseType: 'blob'
           })

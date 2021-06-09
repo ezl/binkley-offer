@@ -6,6 +6,7 @@ import router from './router'
 import {BootstrapVue, BootstrapVueIcons, IconsPlugin} from 'bootstrap-vue'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap/dist/css/bootstrap.css'
+import axios from 'axios'
 // import GAuth from 'vue-google-oauth2'
 //
 // const gauthOption = {
@@ -13,6 +14,9 @@ import 'bootstrap/dist/css/bootstrap.css'
 //   scope: 'profile email',
 //   prompt: 'select_account'
 // }
+
+axios.defaults.baseURL = process.env.VUE_APP_BACKEND_HOST
+
 Vue.config.productionTip = false
 
 Vue.use(BootstrapVue)

@@ -163,7 +163,8 @@ export default {
       this.passwordError = ''
       if (this.registerAccountBody.password === this.passwordConfirmation) {
         axios({
-          url: 'http://50.116.19.93:8000/api/user-auth/',
+          // url: 'http://50.116.19.93:8000/api/user-auth/',
+          url: '/api/user-auth/',
           data: this.registerAccountBody,
           method: 'POST'
         }).then(response => {
